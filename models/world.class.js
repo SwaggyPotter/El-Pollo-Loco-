@@ -5,13 +5,12 @@ class World {
     ctx;
     keyboard;
     camera_x = -100;
-    
+
 
     setWorld() {
         this.character.world = this;
     }
 
-   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -19,8 +18,22 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkForcollision()
     }
 
+
+    //check for collison width chicken
+    checkForcollision(enemies) {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log('Collision', enemy)
+                    this.character.hit()
+                    console.log('Energy', this.character.energy)
+                }
+            })
+        }, 500);
+    }
 
 
     draw() {
@@ -55,15 +68,30 @@ class World {
 
     drawImgOnMap(DM) {
         if (DM.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(DM.width, 0);
-            this.ctx.scale(-1, 1);
-            DM.x = DM.x * -1;
+            this.flipImage(DM)
         }
+
         this.ctx.drawImage(DM.img, DM.x, DM.y, DM.width, DM.height)
+
         if (DM.otherDirection) {
-            DM.x = DM.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(DM)
         }
+
+
+        DM.drawFrame(this.ctx)
+    }
+
+
+    flipImage(DM) {
+        this.ctx.save();
+        this.ctx.translate(DM.width, 0);
+        this.ctx.scale(-1, 1);
+        DM.x = DM.x * -1;
+    }
+
+
+    flipImageBack(DM) {
+        DM.x = DM.x * -1;
+        this.ctx.restore();
     }
 }
