@@ -5,7 +5,8 @@ class World {
     ctx;
     keyboard;
     camera_x = -100;
-    statusbar = new StatusBar
+    statusbar = new StatusBar;
+    bottle = new throawbleObject();
 
     setWorld() {
         this.character.world = this;
@@ -18,7 +19,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkForcollision()
+        this.run();
     }
 
 
@@ -36,13 +37,28 @@ class World {
     }
 
 
+    run() {
+        setInterval(() => {
+            this.checkForcollision()
+            this.checkTrowObjects()
+        }, 200)
+    }
+
+
+    checkTrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new throawbleObject(this.character.x, this.character.y)
+            
+        }
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.ctx.translate(this.camera_x, 0)
         // draw the background
         this.theForEach(this.level.backgrounds)
-        
+
         // draw the chickens
         this.theForEach(this.level.enemies)
 
@@ -57,6 +73,9 @@ class World {
         this.drawImgOnMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0)// forward
 
+        // draw the bottle 
+        this.drawImgOnMap(this.bottle)
+
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
         let self = this;
@@ -64,7 +83,7 @@ class World {
             self.draw()
         })
 
-        
+
     }
 
     theForEach(object) {

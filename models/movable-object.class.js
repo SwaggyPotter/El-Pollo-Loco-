@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
     speed = 0.15
     speedY = 0;
     acceleration = 1;
@@ -14,28 +14,28 @@ class MovableObject extends DrawableObject{
     }
 
 
-    hit(){
-        
-        if(this.energy <= 0){
+    hit() {
+
+        if (this.energy <= 0) {
             this.energy = 0;
         }
-        else{
+        else {
             this.lastHit = new Date().getTime();
             this.energy -= 5;
         }
     }
 
-    isHurt(){
+    isHurt() {
         let timespassed = new Date().getTime() - this.lastHit;
         timespassed = timespassed / 1000;
         return timespassed < 1;
     }
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
 
-    
+
 
 
     moveRight() {
@@ -59,7 +59,13 @@ class MovableObject extends DrawableObject{
 
 
     isAboveGround() {
-        return this.y < 97;
+        if (this instanceof throawbleObject) {
+            return true
+        }
+        else {
+            return this.y < 97;
+        }
+
     }
 
 
@@ -77,5 +83,5 @@ class MovableObject extends DrawableObject{
 
 
 
-   
+
 }
