@@ -6,7 +6,7 @@ class World {
     keyboard;
     camera_x = -100;
     statusbar = new StatusBar;
-    bottle = new throawbleObject();
+    bottle = new throawbleObject(); 
 
     setWorld() {
         this.character.world = this;
@@ -30,7 +30,6 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.statusbar.setPercentage(this.character.energy)
                     this.character.hit()
-                    console.log(this.character.energy)
                 }
             })
         }, 500);
@@ -47,8 +46,7 @@ class World {
 
     checkTrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new throawbleObject(this.character.x, this.character.y)
-            
+            this.bottle = new throawbleObject(this.character.x, this.character.y)
         }
     }
 
@@ -68,13 +66,15 @@ class World {
         // draw the character
         this.drawImgOnMap(this.character)
 
+        // draw the bottle 
+
+        this.drawImgOnMap(this.bottle)
+
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0)// forward
 
-        // draw the bottle 
-        this.drawImgOnMap(this.bottle)
 
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
