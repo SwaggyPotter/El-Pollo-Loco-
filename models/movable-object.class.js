@@ -1,6 +1,5 @@
 class MovableObject extends DrawableObject{
     speed = 0.15
-    otherDirection = false;
     speedY = 0;
     acceleration = 1;
     energy = 100;
@@ -17,7 +16,7 @@ class MovableObject extends DrawableObject{
 
     hit(){
         
-        if(this.energy < 0){
+        if(this.energy <= 0){
             this.energy = 0;
         }
         else{
@@ -77,16 +76,6 @@ class MovableObject extends DrawableObject{
     }
 
 
-    
 
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof chicken || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = "5";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
+   
 }

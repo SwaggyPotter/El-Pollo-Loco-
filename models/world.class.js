@@ -5,7 +5,7 @@ class World {
     ctx;
     keyboard;
     camera_x = -100;
-
+    statusbar = new StatusBar
 
     setWorld() {
         this.character.world = this;
@@ -13,6 +13,7 @@ class World {
 
 
     constructor(canvas, keyboard) {
+
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -27,9 +28,9 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    console.log('Collision', enemy)
+                    this.statusbar.setPercentage(this.character.energy)
                     this.character.hit()
-                    console.log('Energy', this.character.energy)
+                    
                 }
             })
         }, 500);
@@ -42,7 +43,7 @@ class World {
         this.ctx.translate(this.camera_x, 0)
         // draw the background
         this.theForEach(this.level.backgrounds)
-
+        
         // draw the chickens
         this.theForEach(this.level.enemies)
 
@@ -52,12 +53,19 @@ class World {
         // draw the character
         this.drawImgOnMap(this.character)
 
+        //draw the statusbar
+        this.ctx.translate(-this.camera_x, 0) // back
+        this.drawImgOnMap(this.statusbar)
+        this.ctx.translate(this.camera_x, 0)// forward
+
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(() => {
             self.draw()
         })
+
+        
     }
 
     theForEach(object) {
