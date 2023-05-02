@@ -17,17 +17,17 @@ class StatusBar extends DrawableObject {
         this.y = 0;
         this.width = 200;
         this.height = 50;
-        this.setPercentage(20);
+        this.setPercentage(100);
     }
 
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIdex()];
+        let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-    resolveImageIdex() {
+    resolveImageIndex() {
         if (this.percentage == 100) {
             return 5
         }
@@ -43,8 +43,8 @@ class StatusBar extends DrawableObject {
         else if (this.percentage < 40 && this.percentage >= 20) {
             return 1
         }
-        else if (this.percentage < 20 && this.percentage <= 0) {
-            return 0
+        else if (this.percentage < 10) {
+            return 1 // return null führt zum absturz
         }
     }
 }

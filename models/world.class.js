@@ -13,7 +13,6 @@ class World {
 
 
     constructor(canvas, keyboard) {
-
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -30,7 +29,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.statusbar.setPercentage(this.character.energy)
                     this.character.hit()
-                    
+                    console.log(this.character.energy)
                 }
             })
         }, 500);
