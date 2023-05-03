@@ -69,6 +69,9 @@ class World {
         // draw the coins
         this.theForEach(this.level.coins)
 
+        // draw the salsa bottels
+        this.theForEach(this.level.salsabottles)
+
         // draw the character
         this.drawImgOnMap(this.character)
 
