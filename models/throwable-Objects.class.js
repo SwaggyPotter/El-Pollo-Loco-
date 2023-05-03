@@ -1,7 +1,8 @@
 class throawbleObject extends MovableObject {
-    constructor() {
+
+    constructor(x,y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png')
-        this.trow(250,200)
+        this.trow(this.x,this.y)
     }
 
     trow(x, y) {
