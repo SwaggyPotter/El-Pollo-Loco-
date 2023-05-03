@@ -26,8 +26,9 @@ class World {
     }
 
 
-    //check for collison width chicken
+
     checkForcollision() {
+        //check for collison width chicken
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
@@ -36,22 +37,38 @@ class World {
                 }
             })
         }, 1500);
+
+        // fill the coinbar if you collide with a coin
         setInterval(() => {
             this.level.coins.forEach((coin) => {
                 if (this.character.isColliding(coin)) {
                     this.coinbar.percentage += 20;
                     this.coinbar.setPercentage(this.coinbar.percentage);
+                    this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
                 }
             })
         }, 1500);
+
+        // fill the bottlebar if you collide with the salsabottle
         setInterval(() => {
             this.level.salsabottles.forEach((bottles) => {
                 if (this.character.isColliding(bottles)) {
                     this.bottleBar.percentage += 20;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
+                    this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
                 }
             })
         }, 1500);
+    }
+
+
+    deleteObjectByXCoordinate(arr, xCoord) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].x === xCoord) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
     }
 
 
