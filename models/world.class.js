@@ -6,7 +6,7 @@ class World {
     keyboard;
     camera_x = -100;
     statusbar = new StatusBar;
-    bottle = new throawbleObject(); 
+    bottle = new throawbleObject();
 
     setWorld() {
         this.character.world = this;
