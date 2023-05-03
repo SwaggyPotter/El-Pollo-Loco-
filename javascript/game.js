@@ -2,13 +2,23 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let musicOn = 0;
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
+function loadMusic() {
+    if (musicOn == 0) {
+        new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3').play()
+        musicOn = 1
+
+    }
+}
+
 window.addEventListener("keydown", (e) => {
+    loadMusic();
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = true;
     }

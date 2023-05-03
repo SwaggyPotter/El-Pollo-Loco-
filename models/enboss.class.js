@@ -18,9 +18,10 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 400;
+        this.x = 2500;
         this.animate()
     }
+
 
     loadImages(img) {
         img.forEach((path) => {
@@ -30,6 +31,7 @@ class Endboss extends MovableObject {
         });
     }
 
+    
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING)

@@ -10,6 +10,7 @@ class World {
     bottle = new throawbleObject();
     bottleBar = new BottleBar();
 
+
     setWorld() {
         this.character.world = this;
     }
@@ -64,6 +65,9 @@ class World {
 
         // draw the clouds
         this.theForEach(this.level.clouds)
+
+        // draw the coins
+        this.theForEach(this.level.coins)
 
         // draw the character
         this.drawImgOnMap(this.character)
