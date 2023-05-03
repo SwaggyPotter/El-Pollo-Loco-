@@ -19,7 +19,6 @@ class Coinbar extends DrawableObject {
         this.width = 200;
         this.height = 50;
         this.setPercentage(0)
-
     }
 
 
@@ -31,7 +30,7 @@ class Coinbar extends DrawableObject {
 
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage == 100 || this.percentage > 100) {
             return 5
         }
         else if (this.percentage < 100 && this.percentage >= 80) {

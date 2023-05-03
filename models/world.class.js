@@ -27,7 +27,7 @@ class World {
 
 
     //check for collison width chicken
-    checkForcollision(enemies) {
+    checkForcollision() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
@@ -35,7 +35,23 @@ class World {
                     this.character.hit()
                 }
             })
-        }, 500);
+        }, 1500);
+        setInterval(() => {
+            this.level.coins.forEach((coin) => {
+                if (this.character.isColliding(coin)) {
+                    this.coinbar.percentage += 20;
+                    this.coinbar.setPercentage(this.coinbar.percentage);
+                }
+            })
+        }, 1500);
+        setInterval(() => {
+            this.level.salsabottles.forEach((bottles) => {
+                if (this.character.isColliding(bottles)) {
+                    this.bottleBar.percentage += 20;
+                    this.bottleBar.setPercentage(this.bottleBar.percentage);
+                }
+            })
+        }, 1500);
     }
 
 

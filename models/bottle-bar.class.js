@@ -30,7 +30,7 @@ class BottleBar extends DrawableObject {
 
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage == 100 || this.percentage > 100) {
             return 5
         }
         else if (this.percentage < 100 && this.percentage >= 80) {
