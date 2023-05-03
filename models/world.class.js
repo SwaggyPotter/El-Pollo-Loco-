@@ -6,7 +6,9 @@ class World {
     keyboard;
     camera_x = -100;
     statusbar = new StatusBar;
+    coinbar = new Coinbar;
     bottle = new throawbleObject();
+    bottleBar = new BottleBar();
 
     setWorld() {
         this.character.world = this;
@@ -73,6 +75,16 @@ class World {
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
+        this.ctx.translate(this.camera_x, 0)// forward
+
+        // draw the coinbar 
+        this.ctx.translate(-this.camera_x, 0) // back
+        this.drawImgOnMap(this.coinbar)
+        this.ctx.translate(this.camera_x, 0)// forward
+
+        //draw the bottle bar 
+        this.ctx.translate(-this.camera_x, 0) // back
+        this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
 
 
