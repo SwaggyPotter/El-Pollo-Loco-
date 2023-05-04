@@ -9,6 +9,7 @@ class World {
     coinbar = new Coinbar;
     bottle = new throawbleObject();
     bottleBar = new BottleBar();
+    bottleInAir = 0;
 
 
     setWorld() {
@@ -26,7 +27,7 @@ class World {
     }
 
 
-
+    // Comment for dev: Put every set intervall function into a seperate function for better reading
     checkForcollision() {
         //check for collison width chicken
         setInterval(() => {
@@ -59,6 +60,15 @@ class World {
                 }
             })
         }, 1500);
+
+        // check for colision between bottle and enemy
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.bottle.isColliding(enemy)) {
+                    console.log(enemy)
+                }
+            })
+        }, 200);
     }
 
 
@@ -82,13 +92,22 @@ class World {
     // only trow bottles if you have some and reduct it after trow
     checkTrowObjects() {
         if (this.keyboard.D) {
-            if (this.bottleBar.percentage > 0) {
-                this.bottleBar.percentage -= 20;
-                this.bottleBar.setPercentage(this.bottleBar.percentage);
-                this.bottle = new throawbleObject(this.character.x, this.character.y)
+            if (this.bottleInAir == 0) {
+                if (this.bottleBar.percentage > 0) {
+                    this.bottleBar.percentage -= 20;
+                    this.bottleBar.setPercentage(this.bottleBar.percentage);
+                    this.bottle = new throawbleObject(this.character.x, this.character.y)
+                    this.bottleInAir = 1;
+                    setTimeout(() => {
+                        this.bottleInAir = 0;
+                    }, 1500)
+                }
+                else {
+                    console.log('keine flaschen')
+                }
             }
-            else{
-                console.log('keine flaschen')
+            else {
+                console.log('nicht so schnell')
             }
         }
     }
