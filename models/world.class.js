@@ -10,6 +10,7 @@ class World {
     bottle = new throawbleObject();
     bottleBar = new BottleBar();
     bottleInAir = 0;
+    deadChicken = new deadCicken();
 
 
     setWorld() {
@@ -32,9 +33,15 @@ class World {
         //check for collison width chicken
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
+                if (this.character.isColliding(enemy) && this.character.y > 58) {
                     this.statusbar.setPercentage(this.character.energy)
                     this.character.hit()
+                }
+                // kill the chicken with jumping on it
+                if (this.character.isColliding(enemy) && this.character.y <= 58) {
+                    this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+                    this.deadChicken = new deadCicken(enemy.y, enemy.x);
+                    console.log(this.character.y, enemy.y)
                 }
             })
         }, 1500);
@@ -59,7 +66,7 @@ class World {
                     this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
                 }
             })
-        }, 1500); 
+        }, 1500);
 
         // check for colision between bottle and enemy
         setInterval(() => {
@@ -74,18 +81,19 @@ class World {
                         this.takeDamage(enemy);
                     }
                 }
+
             })
         }, 200);
     }
 
     damageCounter = 0;
-    takeDamage(enemy){
-        if(this.damageCounter == 0){
+    takeDamage(enemy) {
+        if (this.damageCounter == 0) {
             this.damageCounter = 1;
             enemy.energy -= 20;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.damageCounter = 0;
-            },1500)
+            }, 1500)
         }
     }
 
@@ -102,20 +110,12 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkForcollision()
-            this.checkTrowObjects()
-            this.checkForChickenLife()
-
+            this.checkForcollision();
+            this.checkTrowObjects();
         }, 200)
     }
 
 
-    // check the hp from the enemie chicken 
-    checkForChickenLife() {
-        this.level.enemies.forEach((enemy) => {
-
-        })
-    }
 
     // only trow bottles if you have some and reduct it after trow
     checkTrowObjects() {
@@ -162,9 +162,11 @@ class World {
         // draw the character
         this.drawImgOnMap(this.character)
 
-        // draw the bottle 
-
+        // draw the bottle
         this.drawImgOnMap(this.bottle)
+
+        //draw dead chicken
+        this.drawImgOnMap(this.deadChicken)
 
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
