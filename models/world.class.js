@@ -49,7 +49,7 @@ class World {
             })
         }, 1500);
 
-        // fill the bottlebar if you collide with the salsabottle
+        // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
         setInterval(() => {
             this.level.salsabottles.forEach((bottles) => {
                 if (this.character.isColliding(bottles)) {
@@ -63,7 +63,7 @@ class World {
 
 
     deleteObjectByXCoordinate(arr, xCoord) {
-        for (var i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) {
             if (arr[i].x === xCoord) {
                 arr.splice(i, 1);
                 break;
@@ -79,14 +79,16 @@ class World {
         }, 200)
     }
 
-
+    // only trow bottles if you have some and reduct it after trow
     checkTrowObjects() {
         if (this.keyboard.D) {
-            if (this.level.salsabottles.length >= 1) {
+            if (this.bottleBar.percentage > 0) {
+                this.bottleBar.percentage -= 20;
+                this.bottleBar.setPercentage(this.bottleBar.percentage);
                 this.bottle = new throawbleObject(this.character.x, this.character.y)
             }
-            else if(this.level.salsabottles.length == 0){
-                
+            else{
+                console.log('keine flaschen')
             }
         }
     }
