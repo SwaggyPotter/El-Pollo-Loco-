@@ -59,7 +59,7 @@ class World {
                     this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
                 }
             })
-        }, 1500);
+        }, 1500); 
 
         // check for colision between bottle and enemy
         setInterval(() => {
@@ -70,12 +70,23 @@ class World {
                         console.log('Killed Enemy at Position', enemy['x'])
                     }
                     else if (enemy.energy > 20) {
-                        enemy.energy -= 20;
                         console.log(enemy.energy)
+                        this.takeDamage(enemy);
                     }
                 }
             })
         }, 200);
+    }
+
+    damageCounter = 0;
+    takeDamage(enemy){
+        if(this.damageCounter == 0){
+            this.damageCounter = 1;
+            enemy.energy -= 20;
+            setTimeout(()=>{
+                this.damageCounter = 0;
+            },1500)
+        }
     }
 
 
