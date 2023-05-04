@@ -65,7 +65,14 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
-                    console.log(enemy)
+                    if (enemy.energy == 20) {
+                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+                        console.log('Killed Enemy at Position', enemy['x'])
+                    }
+                    else if (enemy.energy > 20) {
+                        enemy.energy -= 20;
+                        console.log(enemy.energy)
+                    }
                 }
             })
         }, 200);
@@ -86,7 +93,17 @@ class World {
         setInterval(() => {
             this.checkForcollision()
             this.checkTrowObjects()
+            this.checkForChickenLife()
+
         }, 200)
+    }
+
+
+    // check the hp from the enemie chicken 
+    checkForChickenLife() {
+        this.level.enemies.forEach((enemy) => {
+
+        })
     }
 
     // only trow bottles if you have some and reduct it after trow
