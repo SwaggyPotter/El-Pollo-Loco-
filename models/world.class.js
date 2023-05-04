@@ -82,7 +82,12 @@ class World {
 
     checkTrowObjects() {
         if (this.keyboard.D) {
-            this.bottle = new throawbleObject(this.character.x, this.character.y)
+            if (this.level.salsabottles.length >= 1) {
+                this.bottle = new throawbleObject(this.character.x, this.character.y)
+            }
+            else if(this.level.salsabottles.length == 0){
+                
+            }
         }
     }
 
