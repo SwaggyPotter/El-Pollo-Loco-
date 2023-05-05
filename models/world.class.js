@@ -124,7 +124,7 @@ class World {
                 if (this.bottleBar.percentage > 0) {
                     this.bottleBar.percentage -= 20;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
-                    this.bottle = new throawbleObject(this.character.x, this.character.y)
+                    this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection)
                     this.bottleInAir = 1;
                     setTimeout(() => {
                         this.bottleInAir = 0;
@@ -164,6 +164,7 @@ class World {
 
         // draw the bottle
         this.drawImgOnMap(this.bottle)
+        //update the bottle direction
 
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)

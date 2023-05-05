@@ -4,6 +4,7 @@
     y = 96
     speed = 5;
     walkingSound = new Audio('audio/walking.mp3')
+    
 
 
     IMAGES_WALKING = [
