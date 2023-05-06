@@ -79,13 +79,17 @@ class World {
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
                         console.log('Killed Enemy at Position', enemy)
-                        console.log(this.bottle)
                         setTimeout(() => {
                             this.broke = false;
-                        }, 1000)
+                        }, 50)
                     }
                     else if (enemy.energy > 20) {
                         this.takeDamage(enemy);
+                        this.broke = true;
+                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        setTimeout(() => {
+                            this.broke = false;
+                        }, 50)
                     }
                 }
             })
