@@ -23,11 +23,9 @@ class SalsaBottle extends MovableObject {
         let rdmNumer = Math.floor(Math.random() * 10)
         if (rdmNumer <= 5) {
             return 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png';
-            console.log(this.rdmNumer)
         }
         else if (rdmNumer > 5) {
             return 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png';
-            console.log(this.rdmNumer)
         }
     }
 }

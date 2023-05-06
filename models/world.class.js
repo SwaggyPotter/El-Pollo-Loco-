@@ -7,10 +7,12 @@ class World {
     camera_x = -100;
     statusbar = new StatusBar;
     coinbar = new Coinbar;
+    broke = false;
     bottle = new throawbleObject();
     bottleBar = new BottleBar();
     bottleInAir = 0;
     deadChicken = new deadCicken();
+
 
 
     setWorld() {
@@ -74,17 +76,22 @@ class World {
                 if (this.bottle.isColliding(enemy)) {
                     if (enemy.energy == 20) {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        console.log('Killed Enemy at Position', enemy['x'])
+                        this.broke = true;
+                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        console.log('Killed Enemy at Position', enemy)
+                        console.log(this.bottle)
+                        setTimeout(() => {
+                            this.broke = false;
+                        }, 1000)
                     }
                     else if (enemy.energy > 20) {
-                        console.log(enemy.energy)
                         this.takeDamage(enemy);
                     }
                 }
-
             })
         }, 200);
     }
+
 
     damageCounter = 0;
     takeDamage(enemy) {
@@ -124,21 +131,16 @@ class World {
                 if (this.bottleBar.percentage > 0) {
                     this.bottleBar.percentage -= 20;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
-                    this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection)
+                    this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
                     this.bottleInAir = 1;
                     setTimeout(() => {
                         this.bottleInAir = 0;
                     }, 1500)
                 }
-                else {
-                    console.log('keine flaschen')
-                }
-            }
-            else {
-                console.log('nicht so schnell')
             }
         }
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -164,7 +166,6 @@ class World {
 
         // draw the bottle
         this.drawImgOnMap(this.bottle)
-        //update the bottle direction
 
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)

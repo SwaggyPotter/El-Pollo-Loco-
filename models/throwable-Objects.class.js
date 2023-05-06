@@ -1,14 +1,39 @@
 class throawbleObject extends MovableObject {
-    constructor(x, y, direction) {
-        super().loadImage('img/6_salsa_bottle/salsa_bottle.png')
-        console.log(direction)
+    height = 80;
+    width = 70;
+    y;
+    broke = false;
+    animationCounter = 0;
+
+    BOTTLE_SPIN = [
+        'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
+        'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
+        'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
+        'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
+    ];
+
+    BOTTLE_BROKE = [
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+    ]
+
+
+    constructor(x, y, direction, broke) {
+        super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
+        this.loadImages(this.BOTTLE_SPIN);
+        this.loadImages(this.BOTTLE_BROKE);
         this.direction = direction;
         this.x = x + 120;
         this.y = y + 90;
-        this.height = 80;
-        this.width = 50;
+        this.broke = broke;
         this.trow()
+        this.animate();
     }
+
 
 
     trow() {
@@ -25,6 +50,32 @@ class throawbleObject extends MovableObject {
             setInterval(() => {
                 this.x += -10;
             }, 50)
+        }
+    }
+
+    animate() {
+        if (this.broke == undefined) {
+            setInterval(() => {
+                this.playAnimation(this.BOTTLE_SPIN)
+            }, 50)
+        }
+        else if (this.broke == false) {
+            setInterval(() => {
+                this.playAnimation(this.BOTTLE_SPIN)
+            }, 50)
+        }
+        else if (this.broke == true) {
+            if (this.animationCounter == 0) {
+                this.animationCounter++
+                this.speedY = 0;
+                this.applyGravity();
+                setInterval(() => {
+                    this.playAnimation(this.BOTTLE_BROKE)
+                }, 150)
+                setTimeout(() => {
+                    this.animationCounter = 0;
+                }, 1000)
+            }
         }
     }
 }
