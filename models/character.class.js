@@ -6,6 +6,7 @@ class Character extends MovableObject {
     walkingSound = new Audio('audio/walking.mp3')
     animationCounter = 0;
     deadHurtIntervall;
+    jumpImgcounter = 0;;
 
 
     IMAGES_WALKING = [
@@ -27,7 +28,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png',
-        'img/2_character_pepe/3_jump/J-39.png',
+        'img/2_character_pepe/3_jump/J-39.png'
     ]
 
 
@@ -37,15 +38,13 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-53.png',
         'img/2_character_pepe/5_dead/D-54.png',
         'img/2_character_pepe/5_dead/D-55.png',
-        'img/2_character_pepe/5_dead/D-56.png',
-        'img/2_character_pepe/5_dead/D-57.png',
-
+        'img/2_character_pepe/5_dead/D-56.png'
     ]
 
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
-        'img/2_character_pepe/4_hurt/H-43.png',
+        'img/2_character_pepe/4_hurt/H-43.png'
     ]
 
     world;
@@ -92,12 +91,16 @@ class Character extends MovableObject {
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD)
-                clearInterval(this.deadHurtIntervall)
+                setTimeout(() => {
+                    this.loadImage('img/2_character_pepe/5_dead/D-56.png')
+                    clearInterval(this.deadHurtIntervall)
+                }, 200)
+
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
             }
-            else if (this.world.keyboard.RIGHT) {
+            else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
                 //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
             }
@@ -117,15 +120,28 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
                 this.walkingSound.pause();
                 //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
             }
-
-            if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING)
-            }
         }, 50)
+
+        this.jumpIntervall = setInterval(() => {
+            if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
+                this.animationCounter++
+                this.playAnimation(this.IMAGES_JUMPING)
+                console.log(this.animationCounter)
+                setTimeout(() => {
+                    this.loadImage('img/2_character_pepe/3_jump/J-37.png')
+                    setTimeout(()=>{
+                        this.animationCounter = 0;
+                    },800)
+                }, 20)
+            }
+            else if (!this.isAboveGround() && !this.isDead()) {
+                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
+            }
+        }, 550)
     }
 }

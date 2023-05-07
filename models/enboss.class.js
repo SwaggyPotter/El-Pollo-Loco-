@@ -49,7 +49,7 @@ class Endboss extends MovableObject {
 
 
     constructor() {
-        super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
+        super().loadImage('img/4_enemie_boss_chicken/5_dead/G26.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ANGRY);
         this.loadImages(this.IMAGES_ATTACK);
@@ -75,8 +75,8 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD)
                 setTimeout(() => {
                     clearInterval(this.theIntervall)
-                }, 200)
-
+                    this.loadImage('img/4_enemie_boss_chicken/5_dead/G26.png')
+                }, 230)
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
@@ -85,7 +85,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_ANGRY)
             }
 
-        }, 200)
+        }, 230)
     }
 
 }
