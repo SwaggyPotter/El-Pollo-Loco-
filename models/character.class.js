@@ -136,7 +136,7 @@ class Character extends MovableObject {
                     this.loadImage('img/2_character_pepe/3_jump/J-37.png')
                     setTimeout(()=>{
                         this.animationCounter = 0;
-                    },800)
+                    },850)
                 }, 20)
             }
             else if (!this.isAboveGround() && !this.isDead()) {
