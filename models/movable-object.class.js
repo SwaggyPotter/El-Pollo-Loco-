@@ -25,17 +25,17 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    
     isHurt() {
         let timespassed = new Date().getTime() - this.lastHit;
         timespassed = timespassed / 1000;
         return timespassed < 1;
     }
 
+
     isDead() {
         return this.energy == 0;
     }
-
-
 
 
     moveRight() {

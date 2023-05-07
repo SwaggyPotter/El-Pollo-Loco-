@@ -40,7 +40,7 @@ class World {
                     this.character.hit()
                 }
                 // kill the chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58) {
+                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x);
                     console.log(this.character.y, enemy.y)
@@ -74,22 +74,37 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
-                    if (enemy.energy == 20) {
+                    // kill normal chicken
+                    if (enemy.energy == 20 && enemy instanceof chicken) {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
                         console.log('Killed Enemy at Position', enemy)
-                        setTimeout(() => {
-                            this.broke = false;
-                        }, 50)
+                        this.broke = false;
                     }
+                    else if (enemy.energy > 20 && enemy instanceof Endboss) {
+                        this.broke = true;
+                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        enemy.hit();
+                        enemy.energy -= 15; 
+                        console.log('Damage Endboss', enemy.energy)
+                        this.broke = false;
+                    }
+                    // endboss kill and hit function
+                    else if (enemy.energy == 20 && enemy instanceof Endboss) {
+                        this.broke = true;
+                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        enemy.energy = 0;
+                        console.log('Killed Enemy at Position (not deletet)', enemy.energy)
+                        this.broke = false;
+                    }
+
+                    // give the enemy endboss damage
                     else if (enemy.energy > 20) {
                         this.takeDamage(enemy);
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
-                        setTimeout(() => {
-                            this.broke = false;
-                        }, 50)
+                        this.broke = false;
                     }
                 }
             })

@@ -1,10 +1,11 @@
- class Character extends MovableObject {
+class Character extends MovableObject {
     height = 340
     width = 150
     y = 96
     speed = 5;
     walkingSound = new Audio('audio/walking.mp3')
-    
+    animationCounter = 0;
+    deadHurtIntervall;
 
 
     IMAGES_WALKING = [
@@ -88,11 +89,12 @@
         }, 1000 / 60)
 
 
-        setInterval(() => {
+        this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD)
+                clearInterval(this.deadHurtIntervall)
             }
-            else if(this.isHurt()){
+            else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
             }
             else if (this.world.keyboard.RIGHT) {
