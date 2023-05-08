@@ -92,12 +92,14 @@ class World {
                         enemy.hit();
                         enemy.energy -= 15;
                         console.log('Damage Endboss', enemy.energy)
+                        this.bossStatusBar.width -= 64;
                         this.broke = false;
                     }
                     // endboss kill and hit function
                     else if (enemy.energy == 20 && enemy instanceof Endboss) {
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        this.bossStatusBar.width -= 64;
                         enemy.energy = 0;
                         console.log('Killed Enemy at Position (not deletet)', enemy.energy)
                         this.broke = false;
@@ -119,8 +121,7 @@ class World {
     checkForBossFight() {
         setInterval(() => {
             this.bossChicken = this.level.enemies.length - 1
-            if (this.character.x == this.level.enemies[this.bossChicken].x - 500) {
-
+            if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
                 this.bossInNear = 1;
             }
         }, 10)
@@ -206,7 +207,6 @@ class World {
             this.drawImgOnMap(this.bossChickenEmbleme)
             this.ctx.translate(this.camera_x, 0)// forward
         }
-
 
         // draw the bottle
         this.drawImgOnMap(this.bottle)

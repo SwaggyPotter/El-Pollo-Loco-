@@ -17,12 +17,6 @@ class bossStatusbar extends DrawableObject {
 
     //width bei schaden um 64 einheiten reduzieren. Gegner ist dann nach 5 treffern tod
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES_BOTTLE_BAR[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
-    }
-
 
     resolveImageIndex() {
         if (this.percentage == 100 || this.percentage > 100) {
