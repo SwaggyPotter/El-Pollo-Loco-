@@ -13,6 +13,10 @@ class World {
     bottleInAir = 0;
     deadChicken = new deadCicken();
     bossChicken = this.level.enemies.length - 1
+    bossStatusBar = new bossStatusbar();
+    emtyBossBar = new emtyBossBar();
+    bossChickenEmbleme = new bossBarChickenEmbleme();
+    bossInNear = 0;
 
     setWorld() {
         this.character.world = this;
@@ -27,9 +31,6 @@ class World {
         this.setWorld();
         this.run();
         this.checkForBossFight()
-        console.log(this.character['x'])
-        console.log(this.bossChicken)
-
     }
 
 
@@ -119,7 +120,8 @@ class World {
         setInterval(() => {
             this.bossChicken = this.level.enemies.length - 1
             if (this.character.x == this.level.enemies[this.bossChicken].x - 500) {
-                console.log('Der Boss kommt')
+
+                this.bossInNear = 1;
             }
         }, 10)
     }
@@ -195,6 +197,16 @@ class World {
 
         // draw the character
         this.drawImgOnMap(this.character)
+
+        //draw the bos statusbar
+        if (this.bossInNear == 1) {
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.emtyBossBar)
+            this.drawImgOnMap(this.bossStatusBar)
+            this.drawImgOnMap(this.bossChickenEmbleme)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+
 
         // draw the bottle
         this.drawImgOnMap(this.bottle)
