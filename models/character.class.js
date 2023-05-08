@@ -127,17 +127,18 @@ class Character extends MovableObject {
             }
         }, 50)
 
+
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
                 this.animationCounter++
                 this.playAnimation(this.IMAGES_JUMPING)
-                console.log(this.animationCounter)
+                // mit interval die zahl nach bodenlandung auf 0 setzen????
                 setTimeout(() => {
                     this.loadImage('img/2_character_pepe/3_jump/J-37.png')
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.animationCounter = 0;
-                    },850)
-                }, 20)
+                    }, 1000)
+                }, 10)
             }
             else if (!this.isAboveGround() && !this.isDead()) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')

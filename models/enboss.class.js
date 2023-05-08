@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     currentImage = 0;
     y = 90
     theIntervall;
+    speed = 0;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -86,6 +87,9 @@ class Endboss extends MovableObject {
             }
 
         }, 230)
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60)
     }
 
 }

@@ -12,8 +12,7 @@ class World {
     bottleBar = new BottleBar();
     bottleInAir = 0;
     deadChicken = new deadCicken();
-
-
+    bossChicken = this.level.enemies.length - 1
 
     setWorld() {
         this.character.world = this;
@@ -27,6 +26,10 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.checkForBossFight()
+        console.log(this.character['x'])
+        console.log(this.bossChicken)
+
     }
 
 
@@ -86,7 +89,7 @@ class World {
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
                         enemy.hit();
-                        enemy.energy -= 15; 
+                        enemy.energy -= 15;
                         console.log('Damage Endboss', enemy.energy)
                         this.broke = false;
                     }
@@ -109,6 +112,16 @@ class World {
                 }
             })
         }, 200);
+    }
+
+
+    checkForBossFight() {
+        setInterval(() => {
+            this.bossChicken = this.level.enemies.length - 1
+            if (this.character.x == this.level.enemies[this.bossChicken].x - 500) {
+                console.log('Der Boss kommt')
+            }
+        }, 10)
     }
 
 
@@ -138,7 +151,7 @@ class World {
         setInterval(() => {
             this.checkForcollision();
             this.checkTrowObjects();
-        }, 200)
+        }, 50)
     }
 
 
@@ -211,9 +224,8 @@ class World {
         requestAnimationFrame(() => {
             self.draw()
         })
-
-
     }
+
 
     theForEach(object) {
         object.forEach(o => {
@@ -221,18 +233,15 @@ class World {
         })
     }
 
+
     drawImgOnMap(DM) {
         if (DM.otherDirection) {
             this.flipImage(DM)
         }
-
         this.ctx.drawImage(DM.img, DM.x, DM.y, DM.width, DM.height)
-
         if (DM.otherDirection) {
             this.flipImageBack(DM)
         }
-
-
         DM.drawFrame(this.ctx)
     }
 
