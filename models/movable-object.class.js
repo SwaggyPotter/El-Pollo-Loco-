@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     otherDirection = false;
+    awake = false;
 
 
     isColliding(DM) {
@@ -45,6 +46,12 @@ class MovableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    endbossAttack(){
+        setInterval(()=>{
+            this.moveLeft()
+        })
     }
 
 

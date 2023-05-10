@@ -123,6 +123,11 @@ class World {
             this.bossChicken = this.level.enemies.length - 1
             if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
                 this.bossInNear = 1;
+                this.level.enemies.forEach((enemy=>{
+                    if(enemy instanceof Endboss){
+                        enemy.attackCombination()
+                    }
+                }))
             }
         }, 10)
     }

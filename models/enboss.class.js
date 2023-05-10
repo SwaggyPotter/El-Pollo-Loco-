@@ -5,7 +5,8 @@ class Endboss extends MovableObject {
     currentImage = 0;
     y = 90
     theIntervall;
-    speed = 0;
+    speed = 2;
+    awake = false;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -70,26 +71,51 @@ class Endboss extends MovableObject {
     }
 
 
+    attackCombination() {
+        this.awake = true;
+    }
+
+    attackCounter = 0;
     animate() {
         this.theIntervall = setInterval(() => {
-            if (this.isDead()) {
+            // only walk if the boss is awake not dead and not hurt
+            if (this.awake == true && !this.isDead() && !this.isHurt()) {
+                if (this.attackCounter == 0) {
+                    this.speed = 3;
+                    this.moveLeft()
+                    this.playAnimation(this.IMAGES_WALKING)
+                    setTimeout(() => {
+                        this.attackCounter = 1;
+                    }, 2000)
+                }
+                else if (this.attackCounter == 1) {
+                    this.playAnimation(this.IMAGES_ANGRY)
+                    setTimeout(() => {
+                        this.attackCounter = 2
+                    }, 2000)
+                }
+                else if (this.attackCounter == 2) {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    this.moveLeft()
+                    this.speed = 10;
+                    setTimeout(() => {
+                        this.attackCounter = 0
+                    }, 2000)
+                }
+            }
+            // kill the boss if he was awake and killed
+            else if (this.isDead() && this.awake == true) {
                 this.playAnimation(this.IMAGES_DEAD)
                 setTimeout(() => {
                     clearInterval(this.theIntervall)
                     this.loadImage('img/4_enemie_boss_chicken/5_dead/G26.png')
                 }, 230)
             }
-            else if (this.isHurt()) {
+            // hurt the boss if he is awake
+            else if (this.isHurt() && this.awake == true) {
                 this.playAnimation(this.IMAGES_HURT)
             }
-            else {
-                this.playAnimation(this.IMAGES_ANGRY)
-            }
-
         }, 230)
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60)
     }
 
 }
