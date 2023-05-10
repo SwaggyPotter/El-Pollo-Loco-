@@ -259,7 +259,7 @@ class World {
         if (DM.otherDirection) {
             this.flipImageBack(DM)
         }
-        DM.drawFrame(this.ctx)
+        //DM.drawFrame(this.ctx)
     }
 
 

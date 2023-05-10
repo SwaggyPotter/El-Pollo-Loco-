@@ -97,12 +97,13 @@ class Endboss extends MovableObject {
                 else if (this.attackCounter == 2) {
                     this.playAnimation(this.IMAGES_ATTACK);
                     this.moveLeft()
-                    this.speed = 10;
+                    this.speed = 20;
                     setTimeout(() => {
                         this.attackCounter = 0
                     }, 2000)
                 }
             }
+
             // kill the boss if he was awake and killed
             else if (this.isDead() && this.awake == true) {
                 this.playAnimation(this.IMAGES_DEAD)
