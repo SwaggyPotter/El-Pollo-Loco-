@@ -31,8 +31,17 @@ class World {
         this.setWorld();
         this.run();
         this.checkForBossFight()
+        this.checkForCharDead()
     }
 
+    checkForCharDead() {
+        setInterval(() => {
+            if (this.character.energy == 0 || this.character.energy < 0) {
+                document.getElementById('startPic').style.display = 'flex';
+                document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/game over.png';
+            }
+        }, 50)
+    }
 
     // Comment for dev: Put every set intervall function into a seperate function for better reading
     checkForcollision() {
@@ -123,8 +132,8 @@ class World {
             this.bossChicken = this.level.enemies.length - 1
             if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
                 this.bossInNear = 1;
-                this.level.enemies.forEach((enemy=>{
-                    if(enemy instanceof Endboss){
+                this.level.enemies.forEach((enemy => {
+                    if (enemy instanceof Endboss) {
                         enemy.attackCombination()
                     }
                 }))

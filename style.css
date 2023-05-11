@@ -4,6 +4,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('img/backgrounds/cacti-7162265.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+}
+
+#centerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 #canvas {
