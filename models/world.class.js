@@ -39,6 +39,10 @@ class World {
             if (this.character.energy == 0 || this.character.energy < 0) {
                 document.getElementById('startPic').style.display = 'flex';
                 document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
+                setTimeout(() => {
+                    location.reload();
+                }, 5000)
+
             }
         }, 50)
     }
@@ -113,6 +117,10 @@ class World {
                         // endscreen animation
                         document.getElementById('startPic').style.display = 'flex';
                         document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/game over.png';
+                        setTimeout(() => {
+                            location.reload();
+                        }, 5000)
+
                     }
 
                     // give the enemy endboss damage
