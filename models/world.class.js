@@ -38,7 +38,7 @@ class World {
         setInterval(() => {
             if (this.character.energy == 0 || this.character.energy < 0) {
                 document.getElementById('startPic').style.display = 'flex';
-                document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/game over.png';
+                document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
             }
         }, 50)
     }
@@ -100,7 +100,6 @@ class World {
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
                         enemy.hit();
                         enemy.energy -= 15;
-                        console.log('Damage Endboss', enemy.energy)
                         this.bossStatusBar.width -= 64;
                         this.broke = false;
                     }
@@ -110,8 +109,10 @@ class World {
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
                         this.bossStatusBar.width -= 64;
                         enemy.energy = 0;
-                        console.log('Killed Enemy at Position (not deletet)', enemy.energy)
                         this.broke = false;
+                        // endscreen animation
+                        document.getElementById('startPic').style.display = 'flex';
+                        document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/game over.png';
                     }
 
                     // give the enemy endboss damage
