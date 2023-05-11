@@ -9,3 +9,29 @@ body {
 #canvas {
     background-color: black;
 }
+
+#startPic{
+    width: 720px;
+    height: 480px;
+    position: absolute;
+}
+
+#startBTN{
+    position: absolute;
+    bottom: 165px;
+    width: 70px;
+}
+
+#startBTN:hover{
+    position: absolute;
+    bottom: 165px;
+    width: 70px;
+    cursor: pointer;
+}
+
+.startContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}

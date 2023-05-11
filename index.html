@@ -31,17 +31,19 @@
     <script src="javascript/game.js"></script>
 </head>
 
-<body onload="init()">
+<body>
 
     <h1>El Pollo Loco</h1>
+    <div id="startContainer" class="startContainer">
+        <img id="startPic" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="play button">
 
+        <img onclick="init()" onmouseover="changePlayBTN()" onmouseleave="changePlayBTN2()" id="startBTN" src="img/playBTN/playBTN.png"
+            alt="start picture">
 
-    <canvas id="canvas" width="720" height="480">
+        <canvas id="canvas" width="720" height="480">
 
-
-    </canvas>
+        </canvas>
+    </div>
 
 </body>
-
-
 </html>

@@ -7,6 +7,16 @@ let musicOn = 0;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    document.getElementById('startPic').style.display = 'none';
+    document.getElementById('startBTN').style.display = 'none';
+}
+
+function changePlayBTN(){
+    document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
+}
+
+function changePlayBTN2(){
+    document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
 
 function loadMusic() {
