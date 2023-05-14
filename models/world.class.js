@@ -19,6 +19,7 @@ class World {
     bossInNear = 0;
     throwChecker;
     damageCounter = 0;
+    hurtCounter = 0;
 
     setWorld() {
         this.character.world = this;
@@ -52,20 +53,23 @@ class World {
     // Comment for dev: Put every set intervall function into a seperate function for better reading
     checkForcollision() {
         //check for collison width chicken
-        setInterval(() => {
+        this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy) && this.character.y > 58) {
+                if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
                     this.statusbar.setPercentage(this.character.energy)
                     this.character.hit()
+                    this.hurtCounter++
+                    setTimeout(() => {
+                        this.hurtCounter = 0;
+                    }, 1000)
                 }
                 // kill the chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x);
-                    console.log(this.character.y, enemy.y)
                 }
             })
-        }, 1500);
+        }, 50);
 
         // fill the coinbar if you collide with a coin
         setInterval(() => {

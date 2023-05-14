@@ -11,6 +11,7 @@ class Character extends MovableObject {
     walkingRight;
     jumping;
     throw;
+    hurtCounter = 0;
 
 
     IMAGES_WALKING = [
@@ -63,7 +64,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate()
-        this.moveRight
     }
 
 
@@ -106,6 +106,10 @@ class Character extends MovableObject {
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
+                this.hurtCounter++
+                setTimeout(() => {
+                    this.hurtCounter = 0
+                }, 1000)
             }
             else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
                 //walk animation
@@ -147,8 +151,9 @@ class Character extends MovableObject {
                     }, 1000)
                 }, 10)
             }
-            else if (!this.isAboveGround() && !this.isDead()) {
+            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
+                console.log('idle')
             }
         }, 550)
     }

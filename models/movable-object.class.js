@@ -22,7 +22,7 @@ class MovableObject extends DrawableObject {
         }
         else {
             this.lastHit = new Date().getTime();
-            this.energy -= 5;
+            this.energy -= 10;
         }
     }
 
