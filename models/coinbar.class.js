@@ -1,4 +1,7 @@
 class Coinbar extends DrawableObject {
+    percentage = 0;
+
+
     IMAGES_COIN_BAR = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/0.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png',
@@ -7,9 +10,6 @@ class Coinbar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png'
     ]
-
-    
-    percentage = 0;
 
 
     constructor() {

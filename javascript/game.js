@@ -4,6 +4,7 @@ let world;
 let keyboard = new Keyboard();
 let musicOn = 0;
 
+
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -12,21 +13,24 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
 }
 
-function changePlayBTN(){
+
+function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
 }
 
-function changePlayBTN2(){
+
+function changePlayBTN2() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
+
 
 function loadMusic() {
     if (musicOn == 0) {
         new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3').play()
         musicOn = 1
-
     }
 }
+
 
 window.addEventListener("keydown", (e) => {
     loadMusic();

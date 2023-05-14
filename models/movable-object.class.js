@@ -26,7 +26,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    
+
     isHurt() {
         let timespassed = new Date().getTime() - this.lastHit;
         timespassed = timespassed / 1000;
@@ -48,8 +48,9 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    endbossAttack(){
-        setInterval(()=>{
+
+    endbossAttack() {
+        setInterval(() => {
             this.moveLeft()
         })
     }
@@ -61,7 +62,6 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY
                 this.speedY -= this.acceleration
             }
-
         }, 1000 / 25)
     }
 
@@ -73,7 +73,6 @@ class MovableObject extends DrawableObject {
         else {
             return this.y < 97;
         }
-
     }
 
 
@@ -88,8 +87,4 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 20;
     }
-
-
-
-
 }

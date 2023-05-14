@@ -6,12 +6,14 @@ class throawbleObject extends MovableObject {
     animationCounter = 0;
     splashAnimation;
 
+
     BOTTLE_SPIN = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
     ];
+
 
     BOTTLE_BROKE = [
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
@@ -34,7 +36,6 @@ class throawbleObject extends MovableObject {
         this.trow()
         this.animate();
     }
-
 
 
     trow() {

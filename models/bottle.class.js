@@ -4,13 +4,11 @@ class SalsaBottle extends MovableObject {
     y = 350
 
 
+    IMAGES_SALSABOTTLE = [
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+    ]
 
-    IMAGES_SALSABOTTLE =
-        [
-            'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
-            'img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
-        ]
-        
 
     constructor() {
         super().loadImage(this.rdmBottlePos())

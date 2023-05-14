@@ -12,6 +12,8 @@ class Character extends MovableObject {
     jumping;
     throw;
     hurtCounter = 0;
+    world;
+    currentImage = 0;
 
 
     IMAGES_WALKING = [
@@ -46,14 +48,12 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-56.png'
     ]
 
+
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
-
-    world;
-    currentImage = 0;
 
 
     constructor() {
@@ -65,7 +65,6 @@ class Character extends MovableObject {
         this.applyGravity();
         this.animate()
     }
-
 
 
     animate() {
@@ -81,6 +80,7 @@ class Character extends MovableObject {
             }
             this.world.camera_x = 0 - this.x + 200
         }, 1000 / 60)
+
 
         this.jumping = setInterval(() => {
             /*################*/
@@ -102,8 +102,8 @@ class Character extends MovableObject {
                     clearInterval(this.walkingRight)
                     clearInterval(this.walkingLeft)
                 }, 200)
-
             }
+
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
                 this.hurtCounter++
@@ -111,6 +111,7 @@ class Character extends MovableObject {
                     this.hurtCounter = 0
                 }, 1000)
             }
+
             else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
                 //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
@@ -133,7 +134,6 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
                 this.walkingSound.pause();
-                //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
             }
         }, 50)
@@ -143,7 +143,6 @@ class Character extends MovableObject {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
                 this.animationCounter++
                 this.playAnimation(this.IMAGES_JUMPING)
-                // mit interval die zahl nach bodenlandung auf 0 setzen????
                 setTimeout(() => {
                     this.loadImage('img/2_character_pepe/3_jump/J-37.png')
                     setTimeout(() => {
@@ -153,7 +152,6 @@ class Character extends MovableObject {
             }
             else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
-                console.log('idle')
             }
         }, 550)
     }

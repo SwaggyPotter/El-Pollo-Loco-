@@ -21,6 +21,7 @@ class World {
     damageCounter = 0;
     hurtCounter = 0;
 
+
     setWorld() {
         this.character.world = this;
     }
@@ -37,6 +38,7 @@ class World {
         this.checkForCharDead()
     }
 
+
     checkForCharDead() {
         setInterval(() => {
             if (this.character.energy == 0 || this.character.energy < 0) {
@@ -45,10 +47,10 @@ class World {
                 setTimeout(() => {
                     location.reload();
                 }, 5000)
-
             }
         }, 50)
     }
+
 
     // Comment for dev: Put every set intervall function into a seperate function for better reading
     checkForcollision() {
@@ -102,18 +104,18 @@ class World {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
-                        console.log('Killed Enemy at Position', enemy['y'], 'Bottle' + this.bottle['y'])
                         this.broke = false;
                     }
+
                     else if (enemy.energy > 20 && enemy instanceof Endboss) {
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
                         enemy.hit();
-                        console.log('Enemy', enemy['x'], 'Bottle', this.bottle['x'])
                         enemy.energy -= 15;
                         this.bossStatusBar.width -= 64;
                         this.broke = false;
                     }
+
                     // endboss kill and hit function
                     else if (enemy.energy == 20 && enemy instanceof Endboss) {
                         this.broke = true;
@@ -127,7 +129,6 @@ class World {
                         setTimeout(() => {
                             location.reload();
                         }, 5000)
-
                     }
 
                     // give the enemy endboss damage
@@ -156,7 +157,6 @@ class World {
             }
         }, 10)
     }
-
 
 
     takeDamage(enemy) {
@@ -287,7 +287,6 @@ class World {
         if (DM.otherDirection) {
             this.flipImageBack(DM)
         }
-        //DM.drawFrame(this.ctx)
     }
 
 
