@@ -6,7 +6,11 @@ class Character extends MovableObject {
     walkingSound = new Audio('audio/walking.mp3')
     animationCounter = 0;
     deadHurtIntervall;
-    jumpImgcounter = 0;;
+    jumpImgcounter = 0;
+    walkingLeft;
+    walkingRight;
+    jumping;
+    throw;
 
 
     IMAGES_WALKING = [
@@ -59,6 +63,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate()
+        this.moveRight
     }
 
 
@@ -67,24 +72,23 @@ class Character extends MovableObject {
         /*############*/
         //Moving Right//
         /*############*/
-        setInterval(() => {
+        this.walkingRight = setInterval(() => {
             this.walkingSound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x * 4) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.walkingSound.play()
-
             }
             this.world.camera_x = 0 - this.x + 200
+        }, 1000 / 60)
 
-
+        this.jumping = setInterval(() => {
             /*################*/
             //Jumping function//
             /*###############*/
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
             }
-
         }, 1000 / 60)
 
 
@@ -94,6 +98,9 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     this.loadImage('img/2_character_pepe/5_dead/D-56.png')
                     clearInterval(this.deadHurtIntervall)
+                    clearInterval(this.jumping)
+                    clearInterval(this.walkingRight)
+                    clearInterval(this.walkingLeft)
                 }, 200)
 
             }
@@ -110,7 +117,7 @@ class Character extends MovableObject {
         /*############*/
         //Moving Left//
         /*############*/
-        setInterval(() => {
+        this.walkingLeft = setInterval(() => {
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;

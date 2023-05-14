@@ -17,6 +17,8 @@ class World {
     emtyBossBar = new emtyBossBar();
     bossChickenEmbleme = new bossBarChickenEmbleme();
     bossInNear = 0;
+    throwChecker;
+    damageCounter = 0;
 
     setWorld() {
         this.character.world = this;
@@ -96,13 +98,14 @@ class World {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
-                        console.log('Killed Enemy at Position', enemy)
+                        console.log('Killed Enemy at Position', enemy['y'], 'Bottle' + this.bottle['y'])
                         this.broke = false;
                     }
                     else if (enemy.energy > 20 && enemy instanceof Endboss) {
                         this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
                         enemy.hit();
+                        console.log('Enemy', enemy['x'], 'Bottle', this.bottle['x'])
                         enemy.energy -= 15;
                         this.bossStatusBar.width -= 64;
                         this.broke = false;
@@ -110,7 +113,7 @@ class World {
                     // endboss kill and hit function
                     else if (enemy.energy == 20 && enemy instanceof Endboss) {
                         this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        this.bottle = new throawbleObject(this.bottle['x'], this.bottle['y'], this.character.otherDirection, this.broke)
                         this.bossStatusBar.width -= 64;
                         enemy.energy = 0;
                         this.broke = false;
@@ -127,7 +130,7 @@ class World {
                     else if (enemy.energy > 20) {
                         this.takeDamage(enemy);
                         this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        this.bottle = new throawbleObject(this.bottle['x'], this.bottle['y'], this.character.otherDirection, this.broke)
                         this.broke = false;
                     }
                 }
@@ -151,7 +154,7 @@ class World {
     }
 
 
-    damageCounter = 0;
+
     takeDamage(enemy) {
         if (this.damageCounter == 0) {
             this.damageCounter = 1;
@@ -176,10 +179,13 @@ class World {
     run() {
         setInterval(() => {
             this.checkForcollision();
-            this.checkTrowObjects();
+        }, 50)
+        this.throwChecker = setInterval(() => {
+            if (this.character.energy > 0) {
+                this.checkTrowObjects();
+            }
         }, 50)
     }
-
 
 
     // only trow bottles if you have some and reduct it after trow

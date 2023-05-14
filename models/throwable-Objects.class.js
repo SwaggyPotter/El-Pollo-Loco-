@@ -4,6 +4,7 @@ class throawbleObject extends MovableObject {
     y;
     broke = false;
     animationCounter = 0;
+    splashAnimation;
 
     BOTTLE_SPIN = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -37,21 +38,29 @@ class throawbleObject extends MovableObject {
 
 
     trow() {
-        if (this.direction == false) {
+        if (this.direction == false && this.broke == false) {
             this.speedY = 10;
             this.applyGravity();
             setInterval(() => {
                 this.x += 10;
             }, 50)
         }
-        else if (this.direction == true) {
+        else if (this.direction == true && this.broke == false) {
             this.speedY = 10;
             this.applyGravity();
             setInterval(() => {
                 this.x += -10;
             }, 50)
         }
+        else{
+            this.speedY = 0;
+            this.applyGravity();
+            setInterval(() => {
+                this.x += 0;
+            }, 50)
+        }
     }
+
 
     animate() {
         if (this.broke == undefined) {
@@ -68,13 +77,16 @@ class throawbleObject extends MovableObject {
             if (this.animationCounter == 0) {
                 this.animationCounter++
                 this.speedY = 0;
-                this.applyGravity();
-                setInterval(() => {
+                this.splashAnimation = setInterval(() => {
                     this.playAnimation(this.BOTTLE_BROKE)
-                }, 150)
+                }, 50)
                 setTimeout(() => {
                     this.animationCounter = 0;
                 }, 1000)
+                setTimeout(() => {
+                    clearInterval(this.splashAnimation);
+                    this.loadImage('img/emptyPNG.png');
+                }, 350)
             }
         }
     }

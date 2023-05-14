@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 let musicOn = 0;
 
 function init() {
+    initLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     document.getElementById('startPic').style.display = 'none';
