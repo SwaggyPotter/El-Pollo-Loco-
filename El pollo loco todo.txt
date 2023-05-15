@@ -5,3 +5,4 @@ Erneutes springen bei sprung auf Hänchen
 sounds hinzufügen: Endboss Musik, Flaschen zerbrechen.
 Mehr Hünchen + größere Spawn radius
 Musik auf Lautstärke prüfen
+Boss stribt zu früh fix!
