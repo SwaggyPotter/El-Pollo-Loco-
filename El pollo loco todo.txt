@@ -1,8 +1,12 @@
-Überarbeitung Jump Animation
-to long idle animation
+
+to long idle animation hinzufügen
 code optimieren
 Erneutes springen bei sprung auf Hänchen
 sounds hinzufügen: Endboss Musik, Flaschen zerbrechen.
 Mehr Hünchen + größere Spawn radius
 Musik auf Lautstärke prüfen
+
+Fixes:
 Boss stribt zu früh fix!
+Hänchen spawnen in Char, fix!
+Überarbeitung Jump Animation (nicht clean)
