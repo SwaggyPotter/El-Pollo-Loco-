@@ -111,7 +111,7 @@ class World {
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
                         enemy.hit();
-                        enemy.energy -= 15;
+                        enemy.energy -= 10;
                         this.bossStatusBar.width -= 64;
                         this.broke = false;
                     }

@@ -7,7 +7,7 @@ class Endboss extends MovableObject {
     theIntervall;
     speed = 2;
     awake = false;
-
+    attackCounter = 0;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -81,7 +81,7 @@ class Endboss extends MovableObject {
     }
 
 
-    attackCounter = 0;
+
     animate() {
         this.theIntervall = setInterval(() => {
             // only walk if the boss is awake not dead and not hurt

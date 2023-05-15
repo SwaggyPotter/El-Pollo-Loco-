@@ -7,6 +7,4 @@ Mehr Hünchen + größere Spawn radius
 Musik auf Lautstärke prüfen
 
 Fixes:
-Boss stribt zu früh fix!
-Hänchen spawnen in Char, fix!
 Überarbeitung Jump Animation (nicht clean)
