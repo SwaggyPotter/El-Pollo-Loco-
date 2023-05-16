@@ -1,6 +1,8 @@
 code optimieren
 Erneutes springen bei sprung auf Hänchen
-sounds hinzufügen: Endboss Musik, Flaschen zerbrechen.
 Musik auf Lautstärke prüfen
+
 Fixes:
-Überarbeitung Jump Animation (nicht clean)
+Überarbeitung Jump Animation (nicht clean inkl. sound)
+bottle werf sound anpassen (kürzen)
+endboss attack sound

@@ -3,6 +3,8 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let musicOn = 0;
+let audio;
+let endBossMusic;
 
 
 function init() {
@@ -26,8 +28,15 @@ function changePlayBTN2() {
 
 function loadMusic() {
     if (musicOn == 0) {
-        new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3').play()
+        audio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
+        audio.play();
         musicOn = 1
+    }
+    else if (musicOn == 2) {
+        endBossMusic = new Audio('audio/enboss-music.mp3') // add new boss music
+        audio.pause()
+        endBossMusic.play()
+        musicOn++;
     }
 }
 

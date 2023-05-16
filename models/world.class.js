@@ -20,7 +20,7 @@ class World {
     throwChecker;
     damageCounter = 0;
     hurtCounter = 0;
-
+    hurtSoundcounter = 0;
 
 
     setWorld() {
@@ -37,6 +37,18 @@ class World {
         this.run();
         this.checkForBossFight()
         this.checkForCharDead()
+    }
+
+
+    hurtSoundPlay() {
+        if (this.hurtSoundcounter == 0) {
+            this.hurtSoundcounter++
+            let audio = new Audio('audio/player-hurt.mp3');
+            audio.play();
+            setTimeout(() => {
+                this.hurtSoundcounter = 0;
+            }, 1000)
+        }
     }
 
 
@@ -59,9 +71,10 @@ class World {
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
-                    this.statusbar.setPercentage(this.character.energy)
-                    this.character.hit()
-                    this.hurtCounter++
+                    this.statusbar.setPercentage(this.character.energy);
+                    this.character.hit();
+                    this.hurtCounter++;
+                    this.hurtSoundPlay();
                     setTimeout(() => {
                         this.hurtCounter = 0;
                     }, 1000)
@@ -70,12 +83,16 @@ class World {
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 1);
+                    let audio = new Audio('audio/chicken-dead-sweet.mp3');
+                    audio.play();
                 }
 
                 // kill little chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 2);
+                    let audio = new Audio('audio/chicken-dead-sweet.mp3');
+                    audio.play();
                 }
             })
         }, 50);
@@ -87,6 +104,8 @@ class World {
                     this.coinbar.percentage += 20;
                     this.coinbar.setPercentage(this.coinbar.percentage);
                     this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
+                    let audio = new Audio('audio/coin-catch.mp3');
+                    audio.play();
                 }
             })
         }, 1500);
@@ -98,6 +117,8 @@ class World {
                     this.bottleBar.percentage += 20;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
+                    let audio = new Audio('audio/coin-catch.mp3');
+                    audio.play();
                 }
             })
         }, 1500);
@@ -106,8 +127,17 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
+                    let audio = new Audio('audio/glas-break.mp3');
+                    audio.play();
                     // kill normal chicken
                     if (enemy.energy == 20 && enemy instanceof chicken) {
+                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+                        this.broke = true;
+                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+                        this.broke = false;
+                    }
+
+                    if (enemy.energy == 20 && enemy instanceof littleChicken) {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                         this.broke = true;
                         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
@@ -159,6 +189,7 @@ class World {
                 this.level.enemies.forEach((enemy => {
                     if (enemy instanceof Endboss) {
                         enemy.attackCombination()
+                        musicOn = 2;
                     }
                 }))
             }
@@ -208,6 +239,8 @@ class World {
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
                     this.bottleInAir = 1;
+                    let audio = new Audio('audio/bottle-swosh.mp3');
+                    audio.play();
                     setTimeout(() => {
                         this.bottleInAir = 0;
                     }, 1500)

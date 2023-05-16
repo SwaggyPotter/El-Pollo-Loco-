@@ -163,6 +163,8 @@ class Character extends MovableObject {
                 this.animationCounter++
                 this.playAnimation(this.IMAGES_JUMPING)
                 this.toLongInIdleCounter = 0;
+                let audio = new Audio('audio/cartoon-jump-6462.mp3');
+                audio.play();
                 setTimeout(() => {
                     this.loadImage('img/2_character_pepe/3_jump/J-37.png')
                     setTimeout(() => {
@@ -170,10 +172,10 @@ class Character extends MovableObject {
                     }, 1000)
                 }, 10)
             }
-            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0) {
+            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
-        }, 550)
+        }, 720)
 
     }
 

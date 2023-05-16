@@ -98,6 +98,8 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_ANGRY)
                     setTimeout(() => {
                         this.attackCounter = 2
+                        let audio = new Audio('audio/boss-attack.mp3');
+                        audio.play();
                     }, 2000)
                 }
                 else if (this.attackCounter == 2) {
