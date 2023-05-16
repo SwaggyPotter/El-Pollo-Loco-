@@ -12,7 +12,7 @@ class SalsaBottle extends MovableObject {
 
     constructor() {
         super().loadImage(this.rdmBottlePos())
-        this.x = 200 + Math.random() * 1500; // Zahl zwischen 200 und 700
+        this.x = 200 + Math.random() * 1500;
         this.loadImages(this.IMAGES_SALSABOTTLE);
     }
 

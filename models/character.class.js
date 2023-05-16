@@ -56,6 +56,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
 
+
     TO_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -98,16 +99,19 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
 
+        /*################*/
+        //Jumping function//
+        /*###############*/
         this.jumping = setInterval(() => {
-            /*################*/
-            //Jumping function//
-            /*###############*/
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
             }
         }, 1000 / 60)
 
 
+        /*/////////////////////////////////
+        //check if you dead or getting hurt
+        /////////////////////////////////*/
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD)
@@ -130,11 +134,11 @@ class Character extends MovableObject {
             }
 
             else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
-                //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
                 this.toLongInIdleCounter = 0;
             }
         }, 50)
+
 
 
         /*############*/
@@ -158,6 +162,9 @@ class Character extends MovableObject {
         }, 50)
 
 
+        /*/////////////////////////////////////////
+        handle the jump animation and the intervall
+        /////////////////////////////////////////*/
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
                 this.animationCounter++
@@ -176,10 +183,12 @@ class Character extends MovableObject {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
         }, 720)
-
     }
 
 
+    /*//////////////////////////////////////
+    start the idle animation after 5 seconds
+    //////////////////////////////////////*/
     toLongInIdleChecker() {
         setInterval(() => {
             if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {

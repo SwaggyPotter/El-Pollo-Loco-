@@ -20,7 +20,7 @@ function initLevel() {
 
         [
             /*#####################*/
-            /*###Left background####*/
+            /*###Left background###*/
             /*#####################*/
             new Background('img/5_background/layers/air.png', -719, 0),
             new Background('img/5_background/layers/3_third_layer/2.png', -719, 0),
@@ -31,17 +31,18 @@ function initLevel() {
             new Background('img/5_background/layers/3_third_layer/1.png', -719 * 2, 0),
             new Background('img/5_background/layers/2_second_layer/1.png', -719 * 2, 0),
             new Background('img/5_background/layers/1_first_layer/1.png', -719 * 2, 0),
-            /*#####################*/
-            /*###Mid background####*/
-            /*#####################*/
+
+            /*####################*/
+            /*###Mid background###*/
+            /*####################*/
             new Background('img/5_background/layers/air.png', 0, 0),
             new Background('img/5_background/layers/3_third_layer/1.png', 0, 0),
             new Background('img/5_background/layers/2_second_layer/1.png', 0, 0),
             new Background('img/5_background/layers/1_first_layer/1.png', 0, 0),
 
-            /*#####################*/
-            /*###Right background####*/
-            /*#####################*/
+            /*######################*/
+            /*###Right background###*/
+            /*######################*/
             new Background('img/5_background/layers/air.png', 719, 0),
             new Background('img/5_background/layers/3_third_layer/2.png', 719, 0),
             new Background('img/5_background/layers/2_second_layer/2.png', 719, 0),
@@ -65,6 +66,10 @@ function initLevel() {
 
         ],
 
+        /*######################*/
+        /*###coins in the map###*/
+        /*######################*/
+
         [
             new Coins(),
             new Coins(),
@@ -72,6 +77,10 @@ function initLevel() {
             new Coins(),
             new Coins()
         ],
+
+        /*##############################*/
+        /*###salsa bottles in the map###*/
+        /*##############################*/
 
         [
             new SalsaBottle(),

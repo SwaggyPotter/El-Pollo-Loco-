@@ -16,6 +16,11 @@ function init() {
 }
 
 
+
+/*/////////////////////////
+play button + hover effect
+/////////////////////////*/
+
 function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
 }
@@ -40,6 +45,10 @@ function loadMusic() {
     }
 }
 
+
+/*//////////////////////////////////
+key listener for holding and release
+//////////////////////////////////*/
 
 window.addEventListener("keydown", (e) => {
     loadMusic();
