@@ -1,4 +1,4 @@
-class World {
+class World extends MovableObject {
     character = new Character();
     level = level1;
     canvas;
@@ -22,13 +22,14 @@ class World {
     hurtCounter = 0;
 
 
+
     setWorld() {
         this.character.world = this;
     }
 
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        super().ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -69,6 +70,12 @@ class World {
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x);
+                    // test
+                    this.jumptONEnemy = true;
+                    setTimeout(() => {
+                        this.jumptONEnemy = false;
+                        console.log(this.jumptONEnemy)
+                    }, 1000)
                 }
             })
         }, 50);
