@@ -14,6 +14,7 @@ class Character extends MovableObject {
     hurtCounter = 0;
     world;
     currentImage = 0;
+    toLongInIdleCounter = 0;
 
 
     IMAGES_WALKING = [
@@ -55,6 +56,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
 
+    TO_LONG_IDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ]
+
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png')
@@ -62,8 +76,10 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.TO_LONG_IDLE);
         this.applyGravity();
         this.animate()
+        this.toLongInIdleChecker()
     }
 
 
@@ -107,6 +123,7 @@ class Character extends MovableObject {
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
                 this.hurtCounter++
+                this.toLongInIdleCounter = 0;
                 setTimeout(() => {
                     this.hurtCounter = 0
                 }, 1000)
@@ -115,6 +132,7 @@ class Character extends MovableObject {
             else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
                 //walk animation
                 this.playAnimation(this.IMAGES_WALKING)
+                this.toLongInIdleCounter = 0;
             }
         }, 50)
 
@@ -135,6 +153,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
                 this.walkingSound.pause();
                 this.playAnimation(this.IMAGES_WALKING)
+                this.toLongInIdleCounter = 0;
             }
         }, 50)
 
@@ -143,6 +162,7 @@ class Character extends MovableObject {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
                 this.animationCounter++
                 this.playAnimation(this.IMAGES_JUMPING)
+                this.toLongInIdleCounter = 0;
                 setTimeout(() => {
                     this.loadImage('img/2_character_pepe/3_jump/J-37.png')
                     setTimeout(() => {
@@ -154,5 +174,18 @@ class Character extends MovableObject {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
         }, 550)
+
+    }
+
+
+    toLongInIdleChecker() {
+        setInterval(() => {
+            if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
+                this.toLongInIdleCounter++
+            }
+            else if (this.toLongInIdleCounter > 10) {
+                this.playAnimation(this.TO_LONG_IDLE)
+            }
+        }, 500)
     }
 }

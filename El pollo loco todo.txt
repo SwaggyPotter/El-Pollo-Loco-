@@ -1,9 +1,6 @@
-to long idle animation hinzufügen
 code optimieren
 Erneutes springen bei sprung auf Hänchen
 sounds hinzufügen: Endboss Musik, Flaschen zerbrechen.
-Mehr Hünchen
 Musik auf Lautstärke prüfen
-
 Fixes:
 Überarbeitung Jump Animation (nicht clean)

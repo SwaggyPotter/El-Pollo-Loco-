@@ -6,7 +6,6 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     otherDirection = false;
     awake = false;
-    jumptONEnemy = false;
 
 
     isColliding(DM) {
@@ -59,14 +58,11 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0 && this.jumptONEnemy == false) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY
                 this.speedY -= this.acceleration
             }
-            else if (this.jumptONEnemy == true) {
-                this.y += 150
-                
-            }
+           
         }, 1000 / 25)
     }
 
