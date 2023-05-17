@@ -6,3 +6,4 @@ Fixes:
 Überarbeitung Jump Animation (nicht clean inkl. sound)
 bottle werf sound anpassen (kürzen)
 endboss attack sound
+boss sound spielt mehrmals ab

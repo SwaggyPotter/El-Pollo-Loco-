@@ -15,6 +15,7 @@ class Character extends MovableObject {
     world;
     currentImage = 0;
     toLongInIdleCounter = 0;
+    jumpSoundCounter = 0;
 
 
     IMAGES_WALKING = [
@@ -33,8 +34,16 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-33.png',
         'img/2_character_pepe/3_jump/J-34.png',
         'img/2_character_pepe/3_jump/J-35.png',
+    ]
+
+
+    IMAGES_FALLING = [
         'img/2_character_pepe/3_jump/J-36.png',
-        'img/2_character_pepe/3_jump/J-37.png',
+        'img/2_character_pepe/3_jump/J-37.png'
+    ]
+
+
+    IMAGES_LANDING = [
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
     ]
@@ -77,10 +86,22 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_FALLING);
+        this.loadImages(this.IMAGES_LANDING);
         this.loadImages(this.TO_LONG_IDLE);
         this.applyGravity();
         this.animate()
         this.toLongInIdleChecker()
+    }
+
+
+    playJumpSound() {
+        this.jumpSoundCounter++
+        let audio = new Audio('audio/cartoon-jump-6462.mp3');
+        audio.play();
+        setTimeout(() => {
+            this.jumpSoundCounter = 0;
+        }, 1000)
     }
 
 
@@ -105,6 +126,9 @@ class Character extends MovableObject {
         this.jumping = setInterval(() => {
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
+                if (this.jumpSoundCounter == 0) {
+                    this.playJumpSound()
+                }
             }
         }, 1000 / 60)
 
@@ -168,23 +192,38 @@ class Character extends MovableObject {
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
                 this.animationCounter++
-                this.playAnimation(this.IMAGES_JUMPING)
+                this.jumptAnimationIntervall()
                 this.toLongInIdleCounter = 0;
-                let audio = new Audio('audio/cartoon-jump-6462.mp3');
-                audio.play();
                 setTimeout(() => {
-                    this.loadImage('img/2_character_pepe/3_jump/J-37.png')
-                    setTimeout(() => {
-                        this.animationCounter = 0;
-                    }, 1000)
-                }, 10)
+                    this.animationCounter = 0;
+                }, 1600)
             }
-            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10) {
+            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
-        }, 720)
+        }, 50)
     }
 
+
+    jumptAnimationIntervall() {
+        console.log('Jump Animation')
+        let counter = 0;
+        let jumpingAnimation = setInterval(() => {
+            this.playAnimation(this.IMAGES_JUMPING)
+            counter++
+            if (counter == 5) {
+                clearInterval(jumpingAnimation)
+                this.loadImage('img/2_character_pepe/3_jump/J-35.png')
+                setInterval(() => {
+                    if (counter == 15) {
+                        counter++
+                        clearInterval(jumpingAnimation)
+                        this.playAnimation(this.IMAGES_FALLING)
+                    }
+                }, 80)
+            }
+        }, 80)
+    }
 
     /*//////////////////////////////////////
     start the idle animation after 5 seconds
