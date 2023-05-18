@@ -1,9 +1,8 @@
 code optimieren
 Erneutes springen bei sprung auf Hänchen
-Musik auf Lautstärke prüfen
+Musik einstellbar machen
+Vollbild button
+tasten steuerung hinzufügen (Tutorial)
 
 Fixes:
-Überarbeitung Jump Animation (nicht clean inkl. sound)
-bottle werf sound anpassen (kürzen)
-endboss attack sound
-boss sound spielt mehrmals ab
+Überarbeitung Jump Animation

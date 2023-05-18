@@ -21,6 +21,7 @@ class World {
     damageCounter = 0;
     hurtCounter = 0;
     hurtSoundcounter = 0;
+    bossTrigger = 0;
 
 
     setWorld() {
@@ -127,7 +128,7 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
-                    let audio = new Audio('audio/glas-break.mp3');
+                    let audio = new Audio('audio/shortGlassBreak.mp3');
                     audio.play();
                     // kill normal chicken
                     if (enemy.energy == 20 && enemy instanceof chicken) {
@@ -183,15 +184,18 @@ class World {
 
     checkForBossFight() {
         setInterval(() => {
-            this.bossChicken = this.level.enemies.length - 1
-            if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
-                this.bossInNear = 1;
-                this.level.enemies.forEach((enemy => {
-                    if (enemy instanceof Endboss) {
-                        enemy.attackCombination()
-                        musicOn = 2;
-                    }
-                }))
+            if (this.bossTrigger == 0) {
+                this.bossChicken = this.level.enemies.length - 1
+                if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
+                    this.bossTrigger++
+                    this.bossInNear = 1;
+                    this.level.enemies.forEach((enemy => {
+                        if (enemy instanceof Endboss) {
+                            enemy.attackCombination()
+                            musicOn = 2;
+                        }
+                    }))
+                }
             }
         }, 10)
     }

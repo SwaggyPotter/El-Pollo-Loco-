@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     speed = 2;
     awake = false;
     attackCounter = 0;
+    attackSoundcounter = 0;
 
 
     IMAGES_WALKING = [
@@ -88,6 +89,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING)
         setTimeout(() => {
             this.attackCounter = 1;
+            this.attackSoundcounter = 0;
         }, 2000)
     }
 
@@ -96,8 +98,11 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_ANGRY)
         setTimeout(() => {
             this.attackCounter = 2
-            let audio = new Audio('audio/boss-attack.mp3');
-            audio.play();
+            if (this.attackSoundcounter == 0) {
+                let audio = new Audio('audio/boss-attack.mp3');
+                audio.play();
+                this.attackSoundcounter++
+            }
         }, 2000)
     }
 
