@@ -3,8 +3,11 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let musicOn = 0;
-let audio;
+let backgroundAudio;
 let endBossMusic;
+let fullscreenBTN = document.getElementById('fullscreenBTN')
+let valueSound;
+let slider = document.getElementById("slider");
 
 
 function init() {
@@ -13,10 +16,17 @@ function init() {
     world = new World(canvas, keyboard);
     document.getElementById('startPic').style.display = 'none';
     document.getElementById('startBTN').style.display = 'none';
+    valueSound = slider.value
+    fullscreenListener();
+    loadMusic();
 }
 
-function fullscreen() {
-    toggleFullscreen(canvas)
+
+function fullscreenListener() {
+    fullscreenBTN.style.display = 'flex';
+    fullscreenBTN.addEventListener('click', () => {
+        toggleFullscreen(canvas)
+    })
 }
 
 
@@ -45,7 +55,6 @@ function toggleFullscreen(canvas) {
 }
 
 
-
 /*/////////////////////////
 play button + hover effect
 /////////////////////////*/
@@ -62,17 +71,41 @@ function changePlayBTN2() {
 
 function loadMusic() {
     if (musicOn == 0) {
-        audio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
-        audio.play();
+        backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
+        backgroundAudio.play();
+        backgroundAudio.volume = (valueSound / 100)
         musicOn = 1
     }
     else if (musicOn == 2) {
         endBossMusic = new Audio('audio/enboss-music.mp3') // add new boss music
-        audio.pause()
+        backgroundAudio.pause()
+        endBossMusic.volume = (valueSound / 100)
         endBossMusic.play()
         musicOn++;
     }
 }
+
+
+function updateSounds() {
+    setInterval(() => {
+        if (backgroundAudio) {
+            valueSound = slider.value;
+            backgroundAudio.volume = (valueSound / 100)
+        }
+        if (endBossMusic) {
+            valueSound = slider.value;
+            endBossMusic.volume = (valueSound / 100)
+        }
+    }, 10)
+}
+
+
+
+
+slider.addEventListener("input", () => {
+    valueSound = slider.value;
+    updateSounds()
+});
 
 
 /*//////////////////////////////////
@@ -80,7 +113,6 @@ key listener for holding and release
 //////////////////////////////////*/
 
 window.addEventListener("keydown", (e) => {
-    loadMusic();
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = true;
     }

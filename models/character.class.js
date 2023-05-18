@@ -98,6 +98,7 @@ class Character extends MovableObject {
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
+        audio.volume = (valueSound / 100)
         audio.play();
         setTimeout(() => {
             this.jumpSoundCounter = 0;
@@ -114,6 +115,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x * 4) {
                 this.moveRight();
                 this.otherDirection = false;
+                this.walkingSound.volume = (valueSound / 100)
                 this.walkingSound.play()
             }
             this.world.camera_x = 0 - this.x + 200

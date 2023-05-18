@@ -1,8 +1,7 @@
 code optimieren
 Erneutes springen bei sprung auf Hänchen
-Musik einstellbar machen
-Vollbild button
-tasten steuerung hinzufügen (Tutorial)
-
-Fixes:
-Überarbeitung Jump Animation
+Hünchen nur beim drauf springen töten nicht von unten nah oben!
+Lautstärke embleme hinzufügen
+endscreen vollbild bei vollbild
+mehr flaschen spawnen
+mehr schaden an spieler (nur durch boss)

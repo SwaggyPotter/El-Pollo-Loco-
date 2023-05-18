@@ -29,7 +29,7 @@
     <script src="models/throwable-Objects.class.js"></script>
     <script src="models/enboss.class.js"></script>
     <script src="models/levels/level1.js"></script>
-    <script src="javascript/game.js"></script>
+
 </head>
 
 <body>
@@ -43,18 +43,22 @@
             <canvas id="canvas" width="720" height="480">
             </canvas>
 
-        </div>
-        <div id="tutorialContainer">
-            <h3>CONTROLS</h3>
-            <div>
-                <span>LEFT: <img class="icon" src="img/fullscreen_and_icons_tut/left.png" alt="" srcset=""></span>
-                <span>RIGHT: <img class="icon" src="img/fullscreen_and_icons_tut/right.png" alt="" srcset=""></span>
-                <span>UP: <img class="icon" src="img/fullscreen_and_icons_tut/up.png" alt=""></span>
-                <span>THROW: D</span>
+            <img id="fullscreenBTN" src="img/fullscreen_and_icons_tut/fulscreen-black.png" alt="">
+
+            <input type="range" id="slider" min="0" max="100" value="5" step="1">
+
+            <div id="tutorialContainer">
+                <h5>CONTROLS</h5>
+                <div>
+                    <span>LEFT: <img class="icon" src="img/fullscreen_and_icons_tut/left.png" alt="" srcset=""></span>
+                    <span>RIGHT: <img class="icon" src="img/fullscreen_and_icons_tut/right.png" alt="" srcset=""></span>
+                    <span>UP: <img class="icon" src="img/fullscreen_and_icons_tut/up.png" alt=""></span>
+                    <span>THROW: D</span>
+                </div>
             </div>
         </div>
-    </div>
 
 </body>
+<script src="javascript/game.js"></script>
 
 </html>

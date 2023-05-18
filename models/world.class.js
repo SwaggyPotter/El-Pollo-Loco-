@@ -22,6 +22,10 @@ class World {
     hurtCounter = 0;
     hurtSoundcounter = 0;
     bossTrigger = 0;
+    hitCounter = 0;
+    hitIntervall;
+    swooshBottle;
+
 
 
     setWorld() {
@@ -45,6 +49,7 @@ class World {
         if (this.hurtSoundcounter == 0) {
             this.hurtSoundcounter++
             let audio = new Audio('audio/player-hurt.mp3');
+            audio.volume = (valueSound / 100)
             audio.play();
             setTimeout(() => {
                 this.hurtSoundcounter = 0;
@@ -66,7 +71,17 @@ class World {
     }
 
 
-    // Comment for dev: Put every set intervall function into a seperate function for better reading
+    increaseValue() {
+        if (this.hitCounter < 10) {
+            this.hitCounter++;
+            this.character.x += -150
+        } else {
+            clearInterval(this.hitIntervall);
+            this.hitCounter = 0;
+        }
+    }
+
+
     checkForcollision() {
         //check for collison width chicken
         this.hurtIntervall = setInterval(() => {
@@ -80,11 +95,17 @@ class World {
                         this.hurtCounter = 0;
                     }, 1000)
                 }
+
+                if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                    this.hitIntervall = setInterval(this.increaseValue(), 100)
+                }
+
                 // kill the chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 1);
                     let audio = new Audio('audio/chicken-dead-sweet.mp3');
+                    audio.volume = (valueSound / 100)
                     audio.play();
                 }
 
@@ -93,6 +114,7 @@ class World {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 2);
                     let audio = new Audio('audio/chicken-dead-sweet.mp3');
+                    audio.volume = (valueSound / 100)
                     audio.play();
                 }
             })
@@ -106,6 +128,7 @@ class World {
                     this.coinbar.setPercentage(this.coinbar.percentage);
                     this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
                     let audio = new Audio('audio/coin-catch.mp3');
+                    audio.volume = (valueSound / 100)
                     audio.play();
                 }
             })
@@ -119,6 +142,7 @@ class World {
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
                     let audio = new Audio('audio/coin-catch.mp3');
+                    audio.volume = (valueSound / 100)
                     audio.play();
                 }
             })
@@ -129,6 +153,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
                     let audio = new Audio('audio/shortGlassBreak.mp3');
+                    audio.volume = (valueSound / 100)
                     audio.play();
                     // kill normal chicken
                     if (enemy.energy == 20 && enemy instanceof chicken) {
@@ -193,6 +218,7 @@ class World {
                         if (enemy instanceof Endboss) {
                             enemy.attackCombination()
                             musicOn = 2;
+                            loadMusic();
                         }
                     }))
                 }
@@ -243,8 +269,9 @@ class World {
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
                     this.bottleInAir = 1;
-                    let audio = new Audio('audio/bottle-swosh.mp3');
-                    audio.play();
+                    this.swooshBottle = new Audio('audio/bottle-swosh.mp3');
+                    this.swooshBottle.play();
+                    this.swooshBottle.volume = (valueSound / 100)
                     setTimeout(() => {
                         this.bottleInAir = 0;
                     }, 1500)

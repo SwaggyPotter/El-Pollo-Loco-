@@ -7,10 +7,10 @@ body {
     background-image: url('img/backgrounds/cacti-7162265.svg');
     background-repeat: no-repeat;
     background-size: 100%;
-    
+
 }
 
-#centerContainer{
+#centerContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,22 +21,22 @@ body {
     background-color: black;
 }
 
-#startPic{
+#startPic {
     width: 720px;
     height: 480px;
     position: absolute;
 }
 
-#startBTN{
+#startBTN {
     position: absolute;
     bottom: 165px;
     width: 70px;
 }
 
-#tutorialContainer{
+#tutorialContainer {
     position: absolute;
     bottom: 0;
-    background-color: rgba(0, 136, 255, 0.596);
+    background-color: rgba(0, 136, 255, 0);
     z-index: 2;
     width: 100%;
     display: flex;
@@ -46,19 +46,40 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.icon{
-    width: 20px;
-    height: 20px;
+#slider{
+    position: absolute;
+    left: 10px;
+    top: 20px;
 }
 
-#startBTN:hover{
+#tutorialContainer span {
+    margin: 20px;
+}
+
+#fullscreenBTN {
+    width: 50px;
+    z-index: 2;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+}
+
+#startBTN:hover {
     position: absolute;
     bottom: 165px;
     width: 70px;
     cursor: pointer;
 }
 
-.startContainer{
+.startContainer {
     display: flex;
     justify-content: center;
     align-items: center;

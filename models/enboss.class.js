@@ -101,6 +101,7 @@ class Endboss extends MovableObject {
             if (this.attackSoundcounter == 0) {
                 let audio = new Audio('audio/boss-attack.mp3');
                 audio.play();
+                audio.volume = (valueSound / 100)
                 this.attackSoundcounter++
             }
         }, 2000)
