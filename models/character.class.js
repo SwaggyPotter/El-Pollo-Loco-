@@ -128,6 +128,12 @@ class Character extends MovableObject {
         this.jumping = setInterval(() => {
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
+                setTimeout(() => {
+                    fromeAbove = 1;
+                    setTimeout(() => {
+                        fromeAbove = 0;
+                    }, 800)
+                }, 800)
                 if (this.jumpSoundCounter == 0) {
                     this.playJumpSound()
                 }
@@ -208,7 +214,6 @@ class Character extends MovableObject {
 
 
     jumptAnimationIntervall() {
-        console.log('Jump Animation')
         let counter = 0;
         let jumpingAnimation = setInterval(() => {
             this.playAnimation(this.IMAGES_JUMPING)

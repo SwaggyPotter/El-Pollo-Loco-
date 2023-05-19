@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     otherDirection = false;
     awake = false;
+    fromAbove = 0;
 
 
     isColliding(DM) {

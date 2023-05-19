@@ -98,10 +98,12 @@ class World {
 
                 if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.hitIntervall = setInterval(this.increaseValue(), 100)
+                    this.character.energy -= 10
+                    this.statusbar.setPercentage(this.character.energy);
                 }
 
                 // kill the chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken) {
+                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 1);
                     let audio = new Audio('audio/chicken-dead-sweet.mp3');
@@ -110,7 +112,7 @@ class World {
                 }
 
                 // kill little chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken) {
+                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
                     this.deadChicken = new deadCicken(enemy.y, enemy.x, 2);
                     let audio = new Audio('audio/chicken-dead-sweet.mp3');
@@ -138,7 +140,7 @@ class World {
         setInterval(() => {
             this.level.salsabottles.forEach((bottles) => {
                 if (this.character.isColliding(bottles)) {
-                    this.bottleBar.percentage += 20;
+                    this.bottleBar.percentage += 10;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
                     let audio = new Audio('audio/coin-catch.mp3');
@@ -265,7 +267,7 @@ class World {
         if (this.keyboard.D) {
             if (this.bottleInAir == 0) {
                 if (this.bottleBar.percentage > 0) {
-                    this.bottleBar.percentage -= 20;
+                    this.bottleBar.percentage -= 10;
                     this.bottleBar.setPercentage(this.bottleBar.percentage);
                     this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
                     this.bottleInAir = 1;

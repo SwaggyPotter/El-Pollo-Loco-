@@ -8,6 +8,7 @@ let endBossMusic;
 let fullscreenBTN = document.getElementById('fullscreenBTN')
 let valueSound;
 let slider = document.getElementById("slider");
+let fromeAbove = 0;
 
 
 function init() {
@@ -16,7 +17,7 @@ function init() {
     world = new World(canvas, keyboard);
     document.getElementById('startPic').style.display = 'none';
     document.getElementById('startBTN').style.display = 'none';
-    valueSound = slider.value
+    valueSound = slider.value;
     fullscreenListener();
     loadMusic();
 }
@@ -100,8 +101,6 @@ function updateSounds() {
 }
 
 
-
-
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds()
@@ -132,7 +131,7 @@ window.addEventListener("keydown", (e) => {
         keyboard.D = true;
     }
 })
-
+  
 
 window.addEventListener("keyup", (e) => {
     if (e['keyCode'] == 39) {

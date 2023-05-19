@@ -1,8 +1,4 @@
 code optimieren
 Erneutes springen bei sprung auf Hänchen
-Hünchen nur beim drauf springen töten nicht von unten nah oben!
-Lautstärke embleme hinzufügen und regler mittig platzieren
 endscreen vollbild bei vollbild
-mehr flaschen spawnen
-mehr schaden an spieler (nur durch boss)
-controls anpassen
+Für alle Endgeräte anpassen

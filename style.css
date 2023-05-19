@@ -46,14 +46,42 @@ body {
     color: rgb(255, 255, 255);
 }
 
-#slider{
+
+#musicContainer {
+    right: 10px;
+    top: 50px;
     position: absolute;
-    left: 10px;
-    top: 20px;
+    display: flex;
+}
+
+#volIMG {
+    width: 30px;
+    margin-right: 20px;
 }
 
 #tutorialContainer span {
     margin: 20px;
+}
+
+#tutorialContainer h5 {
+    margin-bottom: -10px;
+}
+
+#controlEmblemes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#controlEmblemes span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#controlEmblemes img {
+    margin-left: 10px;
 }
 
 #fullscreenBTN {
