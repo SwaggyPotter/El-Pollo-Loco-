@@ -13,10 +13,10 @@ class endscreen extends DrawableObject {
 
     chosseEndscreen(z) {
         if (z == 0) {
-            this.loadImage('img/9_intro_outro_screens/game_over/game over!.png')
+            this.loadImage('img/9_intro_outro_screens/game_over/oh no you lost!.png')
         }
         else if (z == 1) {
-            this.loadImage('img/9_intro_outro_screens/game_over/oh no you lost!.png')
+            this.loadImage('img/9_intro_outro_screens/game_over/game over!.png')
         }
     }
 }

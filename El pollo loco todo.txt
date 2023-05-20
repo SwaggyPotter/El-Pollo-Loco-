@@ -1,2 +1,4 @@
-code optimieren
-Für alle Endgeräte anpassen
+code optimieren / clean code
+handy steuerung einbauen
+end screen ist falsch bei win (Game Over)
+größen änderung bei handy auf css umstellen

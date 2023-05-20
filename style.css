@@ -7,7 +7,7 @@ body {
     background-image: url('img/backgrounds/cacti-7162265.svg');
     background-repeat: no-repeat;
     background-size: 100%;
-
+    background-attachment: fixed;
 }
 
 #centerContainer {
@@ -112,4 +112,52 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+}
+
+@media screen and (max-width: 1010px) {
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('img/backgrounds/cacti-7162265.svg');
+        background-repeat: no-repeat;
+        background-size: 180%;
+        background-attachment: fixed;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('img/backgrounds/cacti-7162265.svg');
+        background-repeat: no-repeat;
+        background-size: 300%;
+        background-attachment: fixed;
+    }
+
+    #tutorialContainer {
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(0, 136, 255, 0);
+        z-index: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tutorialContainer span {
+        margin: 10px;
+    }
+
+    #tutorialContainer h5 {
+        margin-bottom: -10px;
+    }
 }
