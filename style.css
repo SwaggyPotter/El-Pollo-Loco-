@@ -126,6 +126,19 @@ body {
         background-size: 180%;
         background-attachment: fixed;
     }
+
+    #canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    #startPic {
+        width: 100%;
+        height: 480px;
+        position: absolute;
+    }
+
 }
 
 @media screen and (max-width: 600px) {
@@ -139,6 +152,17 @@ body {
         background-repeat: no-repeat;
         background-size: 300%;
         background-attachment: fixed;
+    }
+
+    #canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    #startPic {
+        width: 100%;
+        height: 100%;
+        position: absolute;
     }
 
     #tutorialContainer {

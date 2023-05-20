@@ -13,7 +13,7 @@ let bossDead = 0;
 let screenIntervall;
 
 
-function screenListener() {
+/*function screenListener() {
     setInterval(() => {
         if (window.innerWidth <= 1010) {
             document.getElementById('startPic').style.width = `${window.innerWidth}px`
@@ -28,7 +28,7 @@ function screenListener() {
             document.getElementById('canvas').style.height = `480px`
         }
     }, 10)
-}
+}*/
 
 
 function init() {
