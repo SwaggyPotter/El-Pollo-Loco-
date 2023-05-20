@@ -1,4 +1,2 @@
 code optimieren
-Erneutes springen bei sprung auf Hänchen
-endscreen vollbild bei vollbild
 Für alle Endgeräte anpassen

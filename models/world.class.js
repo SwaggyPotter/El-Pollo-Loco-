@@ -16,6 +16,7 @@ class World {
     bossStatusBar = new bossStatusbar();
     emtyBossBar = new emtyBossBar();
     bossChickenEmbleme = new bossBarChickenEmbleme();
+    endscreen = new endscreen(bossDead);
     bossInNear = 0;
     throwChecker;
     damageCounter = 0;
@@ -61,8 +62,6 @@ class World {
     checkForCharDead() {
         setInterval(() => {
             if (this.character.energy == 0 || this.character.energy < 0) {
-                document.getElementById('startPic').style.display = 'flex';
-                document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
                 setTimeout(() => {
                     location.reload();
                 }, 5000)
@@ -95,6 +94,7 @@ class World {
                         this.hurtCounter = 0;
                     }, 1000)
                 }
+
 
                 if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.hitIntervall = setInterval(this.increaseValue(), 100)
@@ -188,9 +188,7 @@ class World {
                         this.bossStatusBar.width -= 64;
                         enemy.energy = 0;
                         this.broke = false;
-                        // endscreen animation
-                        document.getElementById('startPic').style.display = 'flex';
-                        document.getElementById('startPic').src = 'img/9_intro_outro_screens/game_over/game over.png';
+                        bossDead = 1;
                         setTimeout(() => {
                             location.reload();
                         }, 5000)
@@ -335,6 +333,19 @@ class World {
         this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
 
+        if (bossDead == 1) {
+            this.endscreen = new endscreen(bossDead);
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.endscreen)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+
+        if (this.character.energy <= 0) {
+            this.endscreen = new endscreen(bossDead);
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.endscreen)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
 
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen

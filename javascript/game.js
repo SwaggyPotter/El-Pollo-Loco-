@@ -9,6 +9,7 @@ let fullscreenBTN = document.getElementById('fullscreenBTN')
 let valueSound;
 let slider = document.getElementById("slider");
 let fromeAbove = 0;
+let bossDead = 0;
 
 
 function init() {

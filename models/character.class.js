@@ -90,8 +90,9 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LANDING);
         this.loadImages(this.TO_LONG_IDLE);
         this.applyGravity();
-        this.animate()
-        this.toLongInIdleChecker()
+        this.animate();
+        this.toLongInIdleChecker();
+        this.bossDeadChecker();
     }
 
 
@@ -105,6 +106,18 @@ class Character extends MovableObject {
         }, 1000)
     }
 
+
+    bossDeadChecker() {
+        setInterval(() => {
+            if (bossDead == 1) {
+                clearInterval(this.deadHurtIntervall)
+                clearInterval(this.jumping)
+                clearInterval(this.walkingRight)
+                clearInterval(this.walkingLeft)
+                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
+            }
+        }, 10)
+    }
 
     animate() {
         /*############*/
@@ -139,6 +152,7 @@ class Character extends MovableObject {
                 }
             }
         }, 1000 / 60)
+
 
 
         /*/////////////////////////////////
