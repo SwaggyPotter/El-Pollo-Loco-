@@ -10,6 +10,25 @@ let valueSound;
 let slider = document.getElementById("slider");
 let fromeAbove = 0;
 let bossDead = 0;
+let screenIntervall;
+
+
+function screenListener() {
+    setInterval(() => {
+        if (window.innerWidth <= 1010) {
+            document.getElementById('startPic').style.width = `${window.innerWidth}px`
+            document.getElementById('startPic').style.height = `${window.innerHeight}px`
+            document.getElementById('canvas').style.width = `${window.innerWidth}px`
+            document.getElementById('canvas').style.height = `${window.height}px`
+        }
+        else if (window.innerWidth > 1011) {
+            document.getElementById('startPic').style.width = `720px`
+            document.getElementById('startPic').style.height = `480px`
+            document.getElementById('canvas').style.width = `720px`
+            document.getElementById('canvas').style.height = `480px`
+        }
+    }, 10)
+}
 
 
 function init() {
@@ -132,7 +151,7 @@ window.addEventListener("keydown", (e) => {
         keyboard.D = true;
     }
 })
-  
+
 
 window.addEventListener("keyup", (e) => {
     if (e['keyCode'] == 39) {

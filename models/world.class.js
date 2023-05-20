@@ -43,6 +43,19 @@ class World {
         this.run();
         this.checkForBossFight()
         this.checkForCharDead()
+        this.setTheScreen();
+    }
+
+    setTheScreen() {
+        if (window.innerWidth <= 1010) {
+            this.canvas.width = window.innerWidth
+            let intervall = setInterval(() => {
+                canvas.width = window.innerWidth
+            }, 100)
+        }
+        else if (window.innerWidth >= 1011) {
+            this.canvas.width = 725;
+        }
     }
 
 
