@@ -94,6 +94,19 @@ body {
     display: none;
 }
 
+#handyControls {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.handyControlBTN {
+    width: 50px;
+}
+
 .icon {
     width: 20px;
     height: 20px;
@@ -128,14 +141,14 @@ body {
     }
 
     #canvas {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
 
 
     #startPic {
         width: 100%;
-        height: 480px;
+        height: 100vh;
         position: absolute;
     }
 
@@ -155,8 +168,8 @@ body {
     }
 
     #canvas {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
 
     #startPic {

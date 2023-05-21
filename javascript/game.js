@@ -13,24 +13,6 @@ let bossDead = 0;
 let screenIntervall;
 
 
-/*function screenListener() {
-    setInterval(() => {
-        if (window.innerWidth <= 1010) {
-            document.getElementById('startPic').style.width = `${window.innerWidth}px`
-            document.getElementById('startPic').style.height = `480px`
-            document.getElementById('canvas').style.width = `${window.innerWidth}px`
-            document.getElementById('canvas').style.height = `480px`
-        }
-        else if (window.innerWidth > 1011) {
-            document.getElementById('startPic').style.width = `720px`
-            document.getElementById('startPic').style.height = `480px`
-            document.getElementById('canvas').style.width = `720px`
-            document.getElementById('canvas').style.height = `480px`
-        }
-    }, 10)
-}*/
-
-
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
