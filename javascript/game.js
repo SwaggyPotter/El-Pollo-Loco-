@@ -11,6 +11,41 @@ let slider = document.getElementById("slider");
 let fromeAbove = 0;
 let bossDead = 0;
 let screenIntervall;
+let handyLeft = document.getElementById('move_left_btn')
+let handyRight = document.getElementById('move_right_btn')
+let handyUp = document.getElementById('move_up_btn')
+let bottleThrowHandy = document.getElementById('throw_bottle_btn')
+
+
+
+handyLeft.addEventListener('touchstart', () => {
+    keyboard.LEFT = true;
+})
+handyRight.addEventListener('touchstart', () => {
+    keyboard.RIGHT = true;
+})
+handyUp.addEventListener('touchstart', () => {
+    keyboard.UP = true;
+})
+bottleThrowHandy.addEventListener('touchstart', () => {
+    keyboard.D = true;
+})
+
+
+
+handyLeft.addEventListener('touchend', () => {
+    keyboard.LEFT = false;
+})
+handyRight.addEventListener('touchend', () => {
+    keyboard.RIGHT = false;
+})
+handyUp.addEventListener('touchend', () => {
+    keyboard.UP = false;
+})
+bottleThrowHandy.addEventListener('touchend', () => {
+    keyboard.D = false;
+})
+
 
 
 function init() {
@@ -155,3 +190,4 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 })
+
