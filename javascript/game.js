@@ -17,34 +17,48 @@ let handyUp = document.getElementById('move_up_btn')
 let bottleThrowHandy = document.getElementById('throw_bottle_btn')
 
 
+function handyTouchListener() {
+    handyLeft.addEventListener('touchstart', () => {
+        keyboard.LEFT = true;
+    })
+    handyRight.addEventListener('touchstart', () => {
+        keyboard.RIGHT = true;
+    })
+    handyUp.addEventListener('touchstart', () => {
+        keyboard.UP = true;
+    })
+    bottleThrowHandy.addEventListener('touchstart', () => {
+        keyboard.D = true;
+    })
 
-handyLeft.addEventListener('touchstart', () => {
-    keyboard.LEFT = true;
-})
-handyRight.addEventListener('touchstart', () => {
-    keyboard.RIGHT = true;
-})
-handyUp.addEventListener('touchstart', () => {
-    keyboard.UP = true;
-})
-bottleThrowHandy.addEventListener('touchstart', () => {
-    keyboard.D = true;
-})
+
+
+    handyLeft.addEventListener('touchend', () => {
+        keyboard.LEFT = false;
+    })
+    handyRight.addEventListener('touchend', () => {
+        keyboard.RIGHT = false;
+    })
+    handyUp.addEventListener('touchend', () => {
+        keyboard.UP = false;
+    })
+    bottleThrowHandy.addEventListener('touchend', () => {
+        keyboard.D = false;
+    })
+}
+
+
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    console.log("x: " + x + " y: " + y)
+}
 
 
 
-handyLeft.addEventListener('touchend', () => {
-    keyboard.LEFT = false;
-})
-handyRight.addEventListener('touchend', () => {
-    keyboard.RIGHT = false;
-})
-handyUp.addEventListener('touchend', () => {
-    keyboard.UP = false;
-})
-bottleThrowHandy.addEventListener('touchend', () => {
-    keyboard.D = false;
-})
+
+
 
 
 
@@ -56,8 +70,17 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
+    handyTouchListener()
     loadMusic();
 }
+
+
+function handyTouchListener() {
+    canvas.addEventListener('mousedown', function (e) {
+        getCursorPosition(canvas, e)
+    })
+}
+
 
 
 function fullscreenListener() {

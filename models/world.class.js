@@ -46,6 +46,8 @@ class World {
         this.setTheScreen();
     }
 
+    
+
     setTheScreen() {
         if (window.innerWidth <= 1010) {
             this.canvas.width = window.innerWidth
@@ -292,6 +294,9 @@ class World {
             }
         }
     }
+
+    
+    
 
 
     draw() {
