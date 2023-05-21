@@ -56,12 +56,6 @@ function getCursorPosition(canvas, event) {
 }
 
 
-
-
-
-
-
-
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -80,7 +74,6 @@ function handyTouchListener() {
         getCursorPosition(canvas, e)
     })
 }
-
 
 
 function fullscreenListener() {

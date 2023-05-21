@@ -295,9 +295,6 @@ class World {
         }
     }
 
-    
-    
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -371,6 +368,10 @@ class World {
         requestAnimationFrame(() => {
             self.draw()
         })
+
+        if(window.innerWidth <= 1010){
+            this.drawImgOnMap()
+        }
     }
 
 
