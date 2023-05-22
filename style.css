@@ -147,7 +147,6 @@ body {
         max-height: 480px;
     }
 
-
     #startPic {
         width: 100%;
         height: 100vh;
@@ -191,7 +190,6 @@ body {
         position: absolute;
     }
 
-    
     #tutorialContainer {
         position: absolute;
         bottom: 0;

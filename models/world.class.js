@@ -17,7 +17,8 @@ class World {
     emtyBossBar = new emtyBossBar();
     bossChickenEmbleme = new bossBarChickenEmbleme();
     endscreen = new endscreen(bossDead);
-    handyController = new handyControl()
+    handyController = new handyControl();
+    handyBottleThrowBTN = new bottleThrowHandy();
     bossInNear = 0;
     throwChecker;
     damageCounter = 0;
@@ -366,6 +367,7 @@ class World {
         if (window.innerWidth <= 1010) {
             this.ctx.translate(-this.camera_x, 0) // back
             this.drawImgOnMap(this.handyController)
+            this.drawImgOnMap(this.handyBottleThrowBTN)
             this.ctx.translate(this.camera_x, 0)// forward
         }
 
