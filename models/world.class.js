@@ -333,6 +333,11 @@ class World {
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)
 
+        //draw the phone controls
+        if (window.innerWidth <= 1010) {
+            // fill with a new class for control
+        }
+
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
