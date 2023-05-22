@@ -64,30 +64,25 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
-<<<<<<< Updated upstream
-    handyTouchListener()
-=======
     addCoordinateListener()
->>>>>>> Stashed changes
+    addHandyKeyListener();
     loadMusic();
 }
+
 
 function addCoordinateListener() {
     canvas.addEventListener('click', function (event) {
         let rect = canvas.getBoundingClientRect();
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
-        
         console.log('Geklickte Koordinaten: ' + x + ', ' + y);
     });
 }
 
-
-
-function handyTouchListener() {
-    canvas.addEventListener('mousedown', function (e) {
-        getCursorPosition(canvas, e)
-    })
+function addHandyKeyListener(){
+    setInterval(()=>{
+        
+    },10)
 }
 
 

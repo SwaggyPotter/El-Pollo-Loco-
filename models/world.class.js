@@ -17,6 +17,7 @@ class World {
     emtyBossBar = new emtyBossBar();
     bossChickenEmbleme = new bossBarChickenEmbleme();
     endscreen = new endscreen(bossDead);
+    handyController = new handyControl()
     bossInNear = 0;
     throwChecker;
     damageCounter = 0;
@@ -46,7 +47,7 @@ class World {
         this.setTheScreen();
     }
 
-    
+
 
     setTheScreen() {
         if (window.innerWidth <= 1010) {
@@ -335,7 +336,7 @@ class World {
 
         //draw the phone controls
         if (window.innerWidth <= 1010) {
-            // fill with a new class for control
+            this.drawImgOnMap(this.handyController)
         }
 
         //draw the statusbar
@@ -374,7 +375,7 @@ class World {
             self.draw()
         })
 
-        if(window.innerWidth <= 1010){
+        if (window.innerWidth <= 1010) {
             this.drawImgOnMap()
         }
     }

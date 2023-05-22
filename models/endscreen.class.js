@@ -20,6 +20,3 @@ class endscreen extends DrawableObject {
         }
     }
 }
-
-
-//DM.img, DM.x, DM.y, DM.width, DM.height
