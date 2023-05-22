@@ -1,8 +1,8 @@
-class handyControl extends MovableObject {
-    x = 100;
-    y = 100;
-    width = 200;
-    height = 200;
+class handyControl extends DrawableObject {
+    x = 0;
+    y = 310;
+    width = 180;
+    height = 150;
 
     constructor() {
         super().loadImage('img/Handy_Buttons/handyBTN_new.png')

@@ -334,11 +334,6 @@ class World {
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)
 
-        //draw the phone controls
-        if (window.innerWidth <= 1010) {
-            this.drawImgOnMap(this.handyController)
-        }
-
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
@@ -368,6 +363,12 @@ class World {
             this.ctx.translate(this.camera_x, 0)// forward
         }
 
+        if (window.innerWidth <= 1010) {
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.handyController)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
         let self = this;
@@ -375,9 +376,7 @@ class World {
             self.draw()
         })
 
-        if (window.innerWidth <= 1010) {
-            this.drawImgOnMap()
-        }
+
     }
 
 
