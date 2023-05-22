@@ -1,5 +1,5 @@
 class bottleThrowHandy extends MovableObject {
-    x = canvas.width - 10;
+    x = window.innerWidth - 120;
     y = 350;
     width = 90;
     height = 100;

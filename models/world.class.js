@@ -365,6 +365,7 @@ class World {
         }
 
         if (window.innerWidth <= 1010) {
+            this.handyBottleThrowBTN = new bottleThrowHandy();
             this.ctx.translate(-this.camera_x, 0) // back
             this.drawImgOnMap(this.handyController)
             this.drawImgOnMap(this.handyBottleThrowBTN)
