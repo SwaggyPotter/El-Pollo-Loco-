@@ -11,6 +11,8 @@ let slider = document.getElementById("slider");
 let fromeAbove = 0;
 let bossDead = 0;
 let screenIntervall;
+let screenTouchX;
+let screenTouchY;
 
 
 function init() {
@@ -32,14 +34,52 @@ function addCoordinateListener() {
         let rect = canvas.getBoundingClientRect();
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
+        screenTouchX = x;
+        screenTouchY = y;
         console.log('Geklickte Koordinaten: ' + x + ', ' + y);
     });
 }
 
-function addHandyKeyListener(){
-    setInterval(()=>{
-        
-    },10)
+window.addEventListener('touchstart', () => {
+    addHandyKeyListener();
+})
+
+window.addEventListener('touchend', () => {
+    addHandyKeyListener();
+})
+
+function addHandyKeyListener() {
+    setInterval(() => {
+        // x = left 1 - 65; y = 389 - 438;
+        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= 389 && screenTouchY <= 438) {
+            keyboard.LEFT = true;
+            screenTouchX = null;
+            screenTouchY = null;
+            setTimeout(() => {
+                keyboard.LEFT = false;
+            }, 100)
+        }
+
+        // x = 111 - 176; y = 389 - 438; 
+        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= 389 && screenTouchY <= 438) {
+            keyboard.RIGHT = true;
+            screenTouchX = null;
+            screenTouchY = null;
+            setTimeout(() => {
+                keyboard.RIGHT = false;
+            }, 100)
+        }
+
+        // x = 65 - 118; y = 312 - 376
+        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= 312 && screenTouchY <= 376) {
+            keyboard.UP = true;
+            screenTouchX = null;
+            screenTouchY = null;
+            setTimeout(() => {
+                keyboard.UP = false;
+            }, 100)
+        }
+    }, 10)
 }
 
 
