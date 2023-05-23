@@ -42,10 +42,11 @@ function addCoordinateListener() {
 
 function addHandyKeyListener() {
     window.addEventListener('touchstart', () => {
-        console.log('x = left 1 - 65; y = 389 - 438')
+        console.log('touchstart')
         // x = left 1 - 65; y = 389 - 438;
-        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= 389 && screenTouchY <= 438) {
+        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 110) && screenTouchY <= (canvas.height - 145)) {
             keyboard.LEFT = true;
+            console.log('left')
         }
 
         // x = 111 - 176; y = 389 - 438; 
@@ -54,7 +55,7 @@ function addHandyKeyListener() {
         }
 
         // x = 65 - 118; y = 312 - 376
-        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= 312 && screenTouchY <= 376) {
+        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 120) && screenTouchY <= (canvas.height - 280)) {
             keyboard.UP = true;
         }
     })
