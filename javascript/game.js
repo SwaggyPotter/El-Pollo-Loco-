@@ -40,47 +40,37 @@ function addCoordinateListener() {
     });
 }
 
-window.addEventListener('touchstart', () => {
-    addHandyKeyListener();
-})
-
-window.addEventListener('touchend', () => {
-    addHandyKeyListener();
-})
-
 function addHandyKeyListener() {
-    setInterval(() => {
+    window.addEventListener('touchstart', () => {
+        console.log('x = left 1 - 65; y = 389 - 438')
         // x = left 1 - 65; y = 389 - 438;
         if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= 389 && screenTouchY <= 438) {
             keyboard.LEFT = true;
-            screenTouchX = null;
-            screenTouchY = null;
-            setTimeout(() => {
-                keyboard.LEFT = false;
-            }, 100)
         }
 
         // x = 111 - 176; y = 389 - 438; 
         if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= 389 && screenTouchY <= 438) {
-            keyboard.RIGHT = true;
-            screenTouchX = null;
-            screenTouchY = null;
-            setTimeout(() => {
-                keyboard.RIGHT = false;
-            }, 100)
+            keyboard.RIGHT = true
         }
 
         // x = 65 - 118; y = 312 - 376
         if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= 312 && screenTouchY <= 376) {
             keyboard.UP = true;
-            screenTouchX = null;
-            screenTouchY = null;
-            setTimeout(() => {
-                keyboard.UP = false;
-            }, 100)
         }
-    }, 10)
+    })
+
+    window.addEventListener('touchend', () => {
+        screenTouchX = null;
+        screenTouchY = null;
+        keyboard.UP = false;
+        keyboard.RIGHT = false;
+        keyboard.LEFT = false;
+    })
 }
+
+
+
+
 
 
 function fullscreenListener() {
