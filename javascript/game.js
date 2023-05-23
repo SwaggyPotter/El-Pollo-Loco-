@@ -44,19 +44,22 @@ function addHandyKeyListener() {
     window.addEventListener('touchstart', () => {
         console.log('touchstart')
         // x = left 1 - 65; y = 389 - 438;
-        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 110) && screenTouchY <= (canvas.height - 145)) {
+        if (screenTouchX >= 1 && screenTouchX <= 65 /*&& screenTouchY >= (canvas.height - 110) && screenTouchY <= (canvas.height - 145)*/) {
+
             keyboard.LEFT = true;
             console.log('left')
         }
 
         // x = 111 - 176; y = 389 - 438; 
-        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= 389 && screenTouchY <= 438) {
+        if (screenTouchX >= 111 && screenTouchX <= 176 /*  && screenTouchY >= 389 && screenTouchY <= 438*/) {
             keyboard.RIGHT = true
+            console.log('right')
         }
 
         // x = 65 - 118; y = 312 - 376
-        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 120) && screenTouchY <= (canvas.height - 280)) {
+        if (screenTouchX >= 65 && screenTouchX <= 118 /*&& screenTouchY >= (canvas.height - 120) && screenTouchY <= (canvas.height - 280)*/) {
             keyboard.UP = true;
+            console.log('up')
         }
     })
 
