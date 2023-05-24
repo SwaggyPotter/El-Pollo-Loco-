@@ -95,12 +95,8 @@ class World {
         }
     }
 
-
-
-
-
+    //check for collison width chicken
     checkForcollision() {
-        //check for collison width chicken
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
@@ -111,20 +107,11 @@ class World {
                 }
                 // kill the chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
-                    this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                    this.deadChicken = new deadCicken(enemy.y, enemy.x, 1);
-                    let audio = new Audio('audio/chicken-dead-sweet.mp3');
-                    audio.volume = (valueSound / 100)
-                    audio.play();
+                    this.jumpKillChicken(enemy, 1);
                 }
-
                 // kill little chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
-                    this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                    this.deadChicken = new deadCicken(enemy.y, enemy.x, 2);
-                    let audio = new Audio('audio/chicken-dead-sweet.mp3');
-                    audio.volume = (valueSound / 100)
-                    audio.play();
+                    this.jumpKillChicken(enemy, 2);
                 }
             })
         }, 50);
@@ -137,7 +124,6 @@ class World {
                 }
             })
         }, 1500);
-
 
         // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
         setInterval(() => {
@@ -171,6 +157,15 @@ class World {
                 }
             })
         }, 200);
+    }
+
+
+    jumpKillChicken(enemy, chickenClass) {
+        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+        this.deadChicken = new deadCicken(enemy.y, enemy.x, chickenClass);
+        let audio = new Audio('audio/chicken-dead-sweet.mp3');
+        audio.volume = (valueSound / 100)
+        audio.play();
     }
 
 
@@ -341,14 +336,8 @@ class World {
         // draw the character
         this.drawImgOnMap(this.character)
 
-        //draw the bos statusbar
-        if (this.bossInNear == 1) {
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.emtyBossBar)
-            this.drawImgOnMap(this.bossStatusBar)
-            this.drawImgOnMap(this.bossChickenEmbleme)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
+        //draw the boss statusbar
+        this.drawBossStatusbar()
 
         // draw the bottle
         this.drawImgOnMap(this.bottle)
@@ -371,27 +360,11 @@ class World {
         this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
 
-        if (bossDead == 1) {
-            this.endscreen = new endscreen(bossDead);
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.endscreen)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
+        //draw the handy controlls
+        this.drawHandyControlls()
 
-        if (this.character.energy <= 0) {
-            this.endscreen = new endscreen(bossDead);
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.endscreen)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
-
-        if (window.innerWidth <= 1010) {
-            this.handyBottleThrowBTN = new bottleThrowHandy();
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.handyController)
-            this.drawImgOnMap(this.handyBottleThrowBTN)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
+        //draw the endscreen
+        this.drawEndscreen()
 
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
@@ -399,6 +372,44 @@ class World {
         requestAnimationFrame(() => {
             self.draw()
         })
+    }
+
+    
+    drawBossStatusbar() {
+        if (this.bossInNear == 1) {
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.emtyBossBar)
+            this.drawImgOnMap(this.bossStatusBar)
+            this.drawImgOnMap(this.bossChickenEmbleme)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+    }
+
+
+    drawEndscreen() {
+        if (bossDead == 1) {
+            this.endscreen = new endscreen(bossDead);
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.endscreen)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+        if (this.character.energy <= 0) {
+            this.endscreen = new endscreen(bossDead);
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.endscreen)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
+    }
+
+
+    drawHandyControlls() {
+        if (window.innerWidth <= 1010) {
+            this.handyBottleThrowBTN = new bottleThrowHandy();
+            this.ctx.translate(-this.camera_x, 0) // back
+            this.drawImgOnMap(this.handyController)
+            this.drawImgOnMap(this.handyBottleThrowBTN)
+            this.ctx.translate(this.camera_x, 0)// forward
+        }
     }
 
 
