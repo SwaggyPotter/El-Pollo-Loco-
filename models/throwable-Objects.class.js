@@ -37,32 +37,7 @@ class throawbleObject extends MovableObject {
         this.animate();
     }
 
-
-    trow() {
-        if (this.direction == false && this.broke == false) {
-            this.speedY = 10;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += 10;
-            }, 50)
-        }
-        else if (this.direction == true && this.broke == false) {
-            this.speedY = 10;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += -10;
-            }, 50)
-        }
-        else{
-            this.speedY = 0;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += 0;
-            }, 50)
-        }
-    }
-
-
+    // to long
     animate() {
         if (this.broke == undefined) {
             setInterval(() => {
@@ -89,6 +64,31 @@ class throawbleObject extends MovableObject {
                     this.loadImage('img/emptyPNG.png');
                 }, 350)
             }
+        }
+    }
+
+    // to long
+    trow() {
+        if (this.direction == false && this.broke == false) {
+            this.speedY = 10;
+            this.applyGravity();
+            setInterval(() => {
+                this.x += 10;
+            }, 50)
+        }
+        else if (this.direction == true && this.broke == false) {
+            this.speedY = 10;
+            this.applyGravity();
+            setInterval(() => {
+                this.x += -10;
+            }, 50)
+        }
+        else {
+            this.speedY = 0;
+            this.applyGravity();
+            setInterval(() => {
+                this.x += 0;
+            }, 50)
         }
     }
 }

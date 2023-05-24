@@ -30,12 +30,6 @@ class World {
     swooshBottle;
 
 
-
-    setWorld() {
-        this.character.world = this;
-    }
-
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -49,7 +43,11 @@ class World {
     }
 
 
+    setWorld() {
+        this.character.world = this;
+    }
 
+    
     setTheScreen() {
         if (window.innerWidth <= 1010) {
             this.canvas.width = window.innerWidth
@@ -111,7 +109,6 @@ class World {
                         this.hurtCounter = 0;
                     }, 1000)
                 }
-
 
                 if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
                     this.hitIntervall = setInterval(this.increaseValue(), 100)

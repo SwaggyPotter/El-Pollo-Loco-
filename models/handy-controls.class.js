@@ -7,5 +7,4 @@ class handyControl extends DrawableObject {
     constructor() {
         super().loadImage('img/Handy_Buttons/handyBTN_new.png')
     }
-
 }

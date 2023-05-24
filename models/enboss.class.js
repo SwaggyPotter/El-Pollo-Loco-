@@ -69,6 +69,32 @@ class Endboss extends MovableObject {
     }
 
 
+    animate() {
+        this.theIntervall = setInterval(() => {
+            //attack combination of the boss chicken
+            if (this.awake == true && !this.isDead() && !this.isHurt()) {
+                if (this.attackCounter == 0) {
+                    this.attack1();
+                }
+                else if (this.attackCounter == 1) {
+                    this.attack2();
+                }
+                else if (this.attackCounter == 2) {
+                    this.attack3();
+                }
+            }
+            // kill the boss animation if he was awake and get killed
+            else if (this.isDead() && this.awake == true) {
+                this.killTheBoss();
+            }
+            // hurt the boss if he is awake
+            else if (this.isHurt() && this.awake == true) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+        }, 230)
+    }
+
+
     loadImages(img) {
         img.forEach((path) => {
             let img = new Image();
@@ -123,32 +149,6 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             clearInterval(this.theIntervall)
             this.loadImage('img/4_enemie_boss_chicken/5_dead/G26.png')
-        }, 230)
-    }
-
-
-    animate() {
-        this.theIntervall = setInterval(() => {
-            //attack combination of the boss chicken
-            if (this.awake == true && !this.isDead() && !this.isHurt()) {
-                if (this.attackCounter == 0) {
-                    this.attack1();
-                }
-                else if (this.attackCounter == 1) {
-                    this.attack2();
-                }
-                else if (this.attackCounter == 2) {
-                    this.attack3();
-                }
-            }
-            // kill the boss animation if he was awake and get killed
-            else if (this.isDead() && this.awake == true) {
-                this.killTheBoss();
-            }
-            // hurt the boss if he is awake
-            else if (this.isHurt() && this.awake == true) {
-                this.playAnimation(this.IMAGES_HURT);
-            }
         }, 230)
     }
 }
