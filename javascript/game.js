@@ -93,9 +93,8 @@ function toggleFullscreen(canvas) {
     }
 }
 
-/*/////////////////////////
-play button + hover effect
-/////////////////////////*/
+
+//play button + hover effect
 //checked
 function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
@@ -144,10 +143,8 @@ slider.addEventListener("input", () => {
 });
 
 
-/*//////////////////////////////////
-key listener for holding and release
-//////////////////////////////////*/
 
+//key listener for holding and release
 window.addEventListener("keydown", (e) => {
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = true;

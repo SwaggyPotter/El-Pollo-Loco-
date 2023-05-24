@@ -111,8 +111,6 @@ class Character extends MovableObject {
         }, 50)
     }
 
-
-
     //checked
     playJumpSound() {
         this.jumpSoundCounter++

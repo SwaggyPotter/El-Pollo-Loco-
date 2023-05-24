@@ -47,7 +47,7 @@ class World {
         this.character.world = this;
     }
 
-    
+
     setTheScreen() {
         if (window.innerWidth <= 1010) {
             this.canvas.width = window.innerWidth
@@ -96,26 +96,19 @@ class World {
     }
 
 
+
+
+
     checkForcollision() {
         //check for collison width chicken
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
-                    this.statusbar.setPercentage(this.character.energy);
-                    this.character.hit();
-                    this.hurtCounter++;
-                    this.hurtSoundPlay();
-                    setTimeout(() => {
-                        this.hurtCounter = 0;
-                    }, 1000)
+                    this.hurtThePlayer();
                 }
-
                 if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
-                    this.hitIntervall = setInterval(this.increaseValue(), 100)
-                    this.character.energy -= 10
-                    this.statusbar.setPercentage(this.character.energy);
+                    this.getBossDemage();
                 }
-
                 // kill the chicken with jumping on it
                 if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
                     this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
@@ -140,26 +133,17 @@ class World {
         setInterval(() => {
             this.level.coins.forEach((coin) => {
                 if (this.character.isColliding(coin)) {
-                    this.coinbar.percentage += 20;
-                    this.coinbar.setPercentage(this.coinbar.percentage);
-                    this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
-                    let audio = new Audio('audio/coin-catch.mp3');
-                    audio.volume = (valueSound / 100)
-                    audio.play();
+                    this.catchCoin(coin);
                 }
             })
         }, 1500);
+
 
         // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
         setInterval(() => {
             this.level.salsabottles.forEach((bottles) => {
                 if (this.character.isColliding(bottles)) {
-                    this.bottleBar.percentage += 10;
-                    this.bottleBar.setPercentage(this.bottleBar.percentage);
-                    this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
-                    let audio = new Audio('audio/coin-catch.mp3');
-                    audio.volume = (valueSound / 100)
-                    audio.play();
+                    this.catchBottle(bottles);
                 }
             })
         }, 1500);
@@ -168,56 +152,107 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
-                    let audio = new Audio('audio/shortGlassBreak.mp3');
-                    audio.volume = (valueSound / 100)
-                    audio.play();
-                    // kill normal chicken
+                    this.glasBreakSound()
                     if (enemy.energy == 20 && enemy instanceof chicken) {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
-                        this.broke = false;
+                        this.killEnemy(enemy, this.broke, this.bottle)
                     }
-
                     if (enemy.energy == 20 && enemy instanceof littleChicken) {
                         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
-                        this.broke = false;
+                        this.killEnemy(enemy, this.broke, this.bottle)
                     }
-
                     else if (enemy.energy > 20 && enemy instanceof Endboss) {
-                        this.broke = true;
-                        this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
-                        enemy.hit();
-                        enemy.energy -= 10;
-                        this.bossStatusBar.width -= 64;
-                        this.broke = false;
-                    }
+                        this.hitTheBoss(enemy, this.broke, this.bottle)
 
-                    // endboss kill and hit function
+                    }
                     else if (enemy.energy == 20 && enemy instanceof Endboss) {
-                        this.broke = true;
-                        this.bottle = new throawbleObject(this.bottle['x'], this.bottle['y'], this.character.otherDirection, this.broke)
-                        this.bossStatusBar.width -= 64;
-                        enemy.energy = 0;
-                        this.broke = false;
-                        bossDead = 1;
-                        setTimeout(() => {
-                            location.reload();
-                        }, 5000)
-                    }
-
-                    // give the enemy endboss damage
-                    else if (enemy.energy > 20) {
-                        this.takeDamage(enemy);
-                        this.broke = true;
-                        this.bottle = new throawbleObject(this.bottle['x'], this.bottle['y'], this.character.otherDirection, this.broke)
-                        this.broke = false;
+                        this.killTheBoss(this.bottle, this.broke, enemy)
                     }
                 }
             })
         }, 200);
+    }
+
+
+    glasBreakSound() {
+        let audio = new Audio('audio/shortGlassBreak.mp3');
+        audio.volume = (valueSound / 100)
+        audio.play();
+    }
+
+
+    killTheBoss(bottle, broke, enemy) {
+        this.broke = true;
+        this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
+        this.bossStatusBar.width -= 64;
+        enemy.energy = 0;
+        this.broke = false;
+        bossDead = 1;
+        setTimeout(() => {
+            location.reload();
+        }, 5000)
+    }
+
+
+    hitTheBoss(enemy, broke, bottle) {
+        this.broke = true;
+        this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
+        this.broke = false;
+        enemy.hit();
+        enemy.energy -= 10;
+        this.bossStatusBar.width -= 64;
+        this.broke = false;
+        if (this.damageCounter == 0) {
+            this.damageCounter = 1;
+            setTimeout(() => {
+                this.damageCounter = 0;
+            }, 1500)
+        }
+    }
+
+
+    killEnemy(enemy, bottle, broke) {
+        this.broke = true;
+        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+        this.broke = false;
+    }
+
+
+    catchBottle(bottles) {
+        this.bottleBar.percentage += 10;
+        this.bottleBar.setPercentage(this.bottleBar.percentage);
+        this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
+        let audio = new Audio('audio/coin-catch.mp3');
+        audio.volume = (valueSound / 100)
+        audio.play();
+    }
+
+
+    catchCoin(coin) {
+        this.coinbar.percentage += 20;
+        this.coinbar.setPercentage(this.coinbar.percentage);
+        this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
+        let audio = new Audio('audio/coin-catch.mp3');
+        audio.volume = (valueSound / 100)
+        audio.play();
+    }
+
+
+    getBossDemage() {
+        this.hitIntervall = setInterval(this.increaseValue(), 100)
+        this.character.energy -= 10
+        this.statusbar.setPercentage(this.character.energy);
+    }
+
+
+    hurtThePlayer() {
+        this.statusbar.setPercentage(this.character.energy);
+        this.character.hit();
+        this.hurtCounter++;
+        this.hurtSoundPlay();
+        setTimeout(() => {
+            this.hurtCounter = 0;
+        }, 1000)
     }
 
 
@@ -238,17 +273,6 @@ class World {
                 }
             }
         }, 10)
-    }
-
-
-    takeDamage(enemy) {
-        if (this.damageCounter == 0) {
-            this.damageCounter = 1;
-            enemy.energy -= 20;
-            setTimeout(() => {
-                this.damageCounter = 0;
-            }, 1500)
-        }
     }
 
 
