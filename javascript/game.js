@@ -25,20 +25,21 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
-    addCoordinateListener()
     addHandyKeyListener();
+    addCoordinateListener();
     loadMusic();
 }
 
 
 function addCoordinateListener() {
-    canvas.addEventListener('click', function (event) {
+    canvas.addEventListener('touchstart', function (event) {
         let rect = canvas.getBoundingClientRect();
-        x = event.clientX - rect.left;
-        y = event.clientY - rect.top;
+        let touch = event.touches[0]; // Das erste Touch-Ereignis
+        x = touch.clientX - rect.left;
+        y = touch.clientY - rect.top;
         screenTouchX = x;
         screenTouchY = y;
-        console.log('Geklickte Koordinaten: ' + x + ', ' + y);
+        console.log('Berührte Koordinaten: ' + x + ', ' + y);
     });
 }
 
@@ -49,7 +50,6 @@ function addHandyKeyListener() {
         if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
             console.log('left')
             keyboard.LEFT = true;
-
         }
 
         // x = 111 - 176; y = 389 - 438; 
