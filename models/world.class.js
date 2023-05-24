@@ -95,8 +95,45 @@ class World {
         }
     }
 
-    //check for collison width chicken
+
     checkForcollision() {
+        //check for collison width chicken
+        this.chracterEnemyChollision();
+
+        // fill the coinbar if you collide with a coin
+        this.coinCollision();
+
+        // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
+        this.bottleCollision();
+
+        // check for colision between bottle and enemy
+        this.bottleEnemyCollisionchecker();
+    }
+
+
+    bottleCollision() {
+        setInterval(() => {
+            this.level.salsabottles.forEach((bottles) => {
+                if (this.character.isColliding(bottles)) {
+                    this.catchBottle(bottles);
+                }
+            })
+        }, 1500);
+    }
+
+
+    coinCollision() {
+        setInterval(() => {
+            this.level.coins.forEach((coin) => {
+                if (this.character.isColliding(coin)) {
+                    this.catchCoin(coin);
+                }
+            })
+        }, 1500);
+    }
+
+
+    chracterEnemyChollision() {
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
@@ -115,26 +152,10 @@ class World {
                 }
             })
         }, 50);
+    }
 
-        // fill the coinbar if you collide with a coin
-        setInterval(() => {
-            this.level.coins.forEach((coin) => {
-                if (this.character.isColliding(coin)) {
-                    this.catchCoin(coin);
-                }
-            })
-        }, 1500);
 
-        // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
-        setInterval(() => {
-            this.level.salsabottles.forEach((bottles) => {
-                if (this.character.isColliding(bottles)) {
-                    this.catchBottle(bottles);
-                }
-            })
-        }, 1500);
-
-        // check for colision between bottle and enemy
+    bottleEnemyCollisionchecker() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
@@ -149,7 +170,6 @@ class World {
                     }
                     else if (enemy.energy > 20 && enemy instanceof Endboss) {
                         this.hitTheBoss(enemy, this.broke, this.bottle)
-
                     }
                     else if (enemy.energy == 20 && enemy instanceof Endboss) {
                         this.killTheBoss(this.bottle, this.broke, enemy)
@@ -292,7 +312,6 @@ class World {
         }, 50)
     }
 
-
     // only trow bottles if you have some and reduct it after trow
     checkTrowObjects() {
         if (this.keyboard.D) {
@@ -316,56 +335,41 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
         this.ctx.translate(this.camera_x, 0)
         // draw the background
         this.theForEach(this.level.backgrounds)
-
         // draw the chickens
         this.theForEach(this.level.enemies)
-
         // draw the clouds
         this.theForEach(this.level.clouds)
-
         // draw the coins
         this.theForEach(this.level.coins)
-
         // draw the salsa bottels
         this.theForEach(this.level.salsabottles)
-
         // draw the character
         this.drawImgOnMap(this.character)
-
         //draw the boss statusbar
         this.drawBossStatusbar()
-
         // draw the bottle
         this.drawImgOnMap(this.bottle)
-
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)
-
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
         this.ctx.translate(this.camera_x, 0)// forward
-
         // draw the coinbar 
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.coinbar)
         this.ctx.translate(this.camera_x, 0)// forward
-
         //draw the bottle bar 
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
-
         //draw the handy controlls
         this.drawHandyControlls()
-
         //draw the endscreen
         this.drawEndscreen()
-
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
         let self = this;
@@ -374,7 +378,7 @@ class World {
         })
     }
 
-    
+
     drawBossStatusbar() {
         if (this.bossInNear == 1) {
             this.ctx.translate(-this.camera_x, 0) // back
