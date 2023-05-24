@@ -17,8 +17,6 @@ let x;
 let y;
 
 
-
-
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -113,32 +111,6 @@ function toggleFullscreen(canvas) {
             document.msExitFullscreen();
         }
     }
-
-    // Anpassung des Canvas-Elements an das Seitenverhältnis des Bildschirms
-    function adjustCanvasSize() {
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        const screenAspectRatio = screenWidth / screenHeight;
-
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const canvasAspectRatio = canvasWidth / canvasHeight;
-
-        if (screenAspectRatio < canvasAspectRatio) {
-            canvas.style.width = screenWidth + 'px';
-            canvas.style.height = (screenWidth / canvasAspectRatio) + 'px';
-        } else {
-            canvas.style.width = (screenHeight * canvasAspectRatio) + 'px';
-            canvas.style.height = screenHeight + 'px';
-        }
-    }
-
-
-    console.log('Canvas-Seitenverhältnis: ' + (canvas.width / canvas.height));
-    console.log('Bildschirm-Seitenverhältnis: ' + (window.innerWidth / window.innerHeight));
-    adjustCanvasSize();
-
-    window.addEventListener('resize', adjustCanvasSize);
 }
 
 
