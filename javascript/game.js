@@ -46,22 +46,22 @@ function addHandyKeyListener() {
 
     window.addEventListener('touchstart', () => {
         // x = left 1 - 65; y = 389 - 438;
-        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
+        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
             keyboard.LEFT = true;
         }
 
         // x = 111 - 176; y = 389 - 438; 
-        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
+        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
             keyboard.RIGHT = true
         }
 
         // x = 65 - 118; y = 312 - 376
-        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 180)) {
+        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 220) && screenTouchY <= (canvas.height - 150)) {
             keyboard.UP = true;
         }
 
 
-        if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 150)) {
+        if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 240) && screenTouchY <= (canvas.height - 120)) {
             keyboard.D = true;
         }
     })
