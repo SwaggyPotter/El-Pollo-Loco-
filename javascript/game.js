@@ -13,6 +13,8 @@ let bossDead = 0;
 let screenIntervall;
 let screenTouchX;
 let screenTouchY;
+let x;
+let y;
 
 
 function init() {
@@ -32,8 +34,8 @@ function init() {
 function addCoordinateListener() {
     canvas.addEventListener('click', function (event) {
         let rect = canvas.getBoundingClientRect();
-        let x = event.clientX - rect.left;
-        let y = event.clientY - rect.top;
+        x = event.clientX - rect.left;
+        y = event.clientY - rect.top;
         screenTouchX = x;
         screenTouchY = y;
         console.log('Geklickte Koordinaten: ' + x + ', ' + y);
@@ -41,25 +43,31 @@ function addCoordinateListener() {
 }
 
 function addHandyKeyListener() {
-    window.addEventListener('touchstart', () => {
-        console.log('touchstart')
-        // x = left 1 - 65; y = 389 - 438;
-        if (screenTouchX >= 1 && screenTouchX <= 65 /*&& screenTouchY >= (canvas.height - 110) && screenTouchY <= (canvas.height - 145)*/) {
 
-            keyboard.LEFT = true;
+    window.addEventListener('touchstart', () => {
+        // x = left 1 - 65; y = 389 - 438;
+        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
             console.log('left')
+            keyboard.LEFT = true;
+
         }
 
         // x = 111 - 176; y = 389 - 438; 
-        if (screenTouchX >= 111 && screenTouchX <= 176 /*  && screenTouchY >= 389 && screenTouchY <= 438*/) {
+        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
             keyboard.RIGHT = true
             console.log('right')
         }
 
         // x = 65 - 118; y = 312 - 376
-        if (screenTouchX >= 65 && screenTouchX <= 118 /*&& screenTouchY >= (canvas.height - 120) && screenTouchY <= (canvas.height - 280)*/) {
+        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 180)) {
             keyboard.UP = true;
             console.log('up')
+        }
+
+
+        if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 150)) {
+            keyboard.D = true;
+            console.log('throw')
         }
     })
 
@@ -69,6 +77,7 @@ function addHandyKeyListener() {
         keyboard.UP = false;
         keyboard.RIGHT = false;
         keyboard.LEFT = false;
+        keyboard.D = false;
     })
 }
 
