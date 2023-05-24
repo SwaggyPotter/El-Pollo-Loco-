@@ -16,7 +16,7 @@ let screenTouchY;
 let x;
 let y;
 
-
+//checked
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -25,12 +25,12 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
-    addHandyKeyListener();
+
     addCoordinateListener();
     loadMusic();
 }
 
-
+//checked
 function addCoordinateListener() {
     canvas.addEventListener('touchstart', function (event) {
         let rect = canvas.getBoundingClientRect();
@@ -42,45 +42,35 @@ function addCoordinateListener() {
     });
 }
 
-function addHandyKeyListener() {
 
-    window.addEventListener('touchstart', () => {
-        // x = left 1 - 65; y = 389 - 438;
-        if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
-            keyboard.LEFT = true;
-        }
+//checked
+window.addEventListener('touchstart', () => {
+    if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
+        keyboard.LEFT = true;
+    }
+    if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
+        keyboard.RIGHT = true
+    }
+    if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 220) && screenTouchY <= (canvas.height - 150)) {
+        keyboard.UP = true;
+    }
+    if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 240) && screenTouchY <= (canvas.height - 120)) {
+        keyboard.D = true;
+    }
+})
 
-        // x = 111 - 176; y = 389 - 438; 
-        if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
-            keyboard.RIGHT = true
-        }
-
-        // x = 65 - 118; y = 312 - 376
-        if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 220) && screenTouchY <= (canvas.height - 150)) {
-            keyboard.UP = true;
-        }
-
-
-        if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 240) && screenTouchY <= (canvas.height - 120)) {
-            keyboard.D = true;
-        }
-    })
-
-    window.addEventListener('touchend', () => {
-        screenTouchX = null;
-        screenTouchY = null;
-        keyboard.UP = false;
-        keyboard.RIGHT = false;
-        keyboard.LEFT = false;
-        keyboard.D = false;
-    })
-}
+//checked
+window.addEventListener('touchend', () => {
+    screenTouchX = null;
+    screenTouchY = null;
+    keyboard.UP = false;
+    keyboard.RIGHT = false;
+    keyboard.LEFT = false;
+    keyboard.D = false;
+})
 
 
-
-
-
-
+//checked
 function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
     fullscreenBTN.addEventListener('click', () => {
@@ -88,7 +78,7 @@ function fullscreenListener() {
     })
 }
 
-
+//checked
 function toggleFullscreen(canvas) {
     if (!document.fullscreenElement) {
         if (canvas.requestFullscreen) {
@@ -100,34 +90,23 @@ function toggleFullscreen(canvas) {
         } else if (canvas.msRequestFullscreen) { // IE/Edge
             canvas.msRequestFullscreen();
         }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.mozCancelFullScreen) { // Firefox
-            document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { // IE/Edge
-            document.msExitFullscreen();
-        }
     }
 }
-
 
 /*/////////////////////////
 play button + hover effect
 /////////////////////////*/
-
+//checked
 function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
 }
 
-
+//checked
 function changePlayBTN2() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
 
-
+//checked
 function loadMusic() {
     if (musicOn == 0) {
         backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
@@ -144,7 +123,7 @@ function loadMusic() {
     }
 }
 
-
+//checked
 function updateSounds() {
     setInterval(() => {
         if (backgroundAudio) {
@@ -158,7 +137,7 @@ function updateSounds() {
     }, 10)
 }
 
-
+//checked
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds()

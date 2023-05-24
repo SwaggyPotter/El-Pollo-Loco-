@@ -17,7 +17,7 @@ class Character extends MovableObject {
     toLongInIdleCounter = 0;
     jumpSoundCounter = 0;
 
-
+    //checked
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -27,7 +27,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png'
     ]
 
-
+    //checked
     IMAGES_JUMPING = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
@@ -36,19 +36,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-35.png',
     ]
 
-
+    //checked
     IMAGES_FALLING = [
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png'
     ]
 
-
+    //checked
     IMAGES_LANDING = [
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
     ]
 
-
+    //checked
     IMAGES_DEAD = [
         'img/2_character_pepe/5_dead/D-51.png',
         'img/2_character_pepe/5_dead/D-52.png',
@@ -58,14 +58,14 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-56.png'
     ]
 
-
+    //checked
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
 
-
+    //checked
     TO_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -79,7 +79,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ]
 
-
+    //checked
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png')
         this.loadImages(this.IMAGES_WALKING);
@@ -95,7 +95,25 @@ class Character extends MovableObject {
         this.bossDeadChecker();
     }
 
+    //checked
+    animate() {
+        this.moveRightFunc();
+        this.moveLeftFunc();
+        this.jumpFunc();
+        this.jumpAnimationHandler();
+        this.deadOrHurtChecker();
+        setInterval(() => {
+            if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
+                this.walkingSound.pause();
+                this.playAnimation(this.IMAGES_WALKING)
+                this.toLongInIdleCounter = 0;
+            }
+        }, 50)
+    }
 
+
+
+    //checked
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
@@ -106,7 +124,7 @@ class Character extends MovableObject {
         }, 1000)
     }
 
-
+    //checked
     bossDeadChecker() {
         setInterval(() => {
             if (bossDead == 1) {
@@ -119,10 +137,9 @@ class Character extends MovableObject {
         }, 10)
     }
 
-    animate() {
-        /*############*/
-        //Moving Right//
-        /*############*/
+    //checked
+    // Function for the moving right animation
+    moveRightFunc() {
         this.walkingRight = setInterval(() => {
             this.walkingSound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x * 4) {
@@ -133,11 +150,23 @@ class Character extends MovableObject {
             }
             this.world.camera_x = 0 - this.x + 200
         }, 1000 / 60)
+    }
 
+    //checked
+    // Function for the moving left animation
+    moveLeftFunc() {
+        this.walkingLeft = setInterval(() => {
+            if (this.world.keyboard.LEFT && this.x > 0) {
+                this.moveLeft();
+                this.otherDirection = true;
+                this.walkingSound.play()
+            }
+        }, 1000 / 60)
+    }
 
-        /*################*/
-        //Jumping function//
-        /*###############*/
+    //checked
+    // Function for the jumping animation
+    jumpFunc() {
         this.jumping = setInterval(() => {
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
@@ -152,12 +181,47 @@ class Character extends MovableObject {
                 }
             }
         }, 1000 / 60)
+    }
 
+    //checked
+    jumpAnimationHandler() {
+        this.jumpIntervall = setInterval(() => {
+            if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
+                this.animationCounter++
+                this.jumptAnimationIntervall()
+                this.toLongInIdleCounter = 0;
+                setTimeout(() => {
+                    this.animationCounter = 0;
+                }, 1600)
+            }
+            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
+                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
+            }
+        }, 50)
+    }
 
+    //function length 16
+    jumptAnimationIntervall() {
+        let counter = 0;
+        let jumpingAnimation = setInterval(() => {
+            this.playAnimation(this.IMAGES_JUMPING)
+            counter++
+            if (counter == 5) {
+                clearInterval(jumpingAnimation)
+                this.loadImage('img/2_character_pepe/3_jump/J-35.png')
+                setInterval(() => {
+                    if (counter == 15) {
+                        counter++
+                        clearInterval(jumpingAnimation)
+                        this.playAnimation(this.IMAGES_FALLING)
+                    }
+                }, 80)
+            }
+        }, 80)
+    }
 
-        /*/////////////////////////////////
-        //check if you dead or getting hurt
-        /////////////////////////////////*/
+    // function length 26
+    deadOrHurtChecker() {
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD)
@@ -184,71 +248,10 @@ class Character extends MovableObject {
                 this.toLongInIdleCounter = 0;
             }
         }, 50)
-
-
-
-        /*############*/
-        //Moving Left//
-        /*############*/
-        this.walkingLeft = setInterval(() => {
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.walkingSound.play()
-            }
-        }, 1000 / 60)
-
-
-        setInterval(() => {
-            if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
-                this.walkingSound.pause();
-                this.playAnimation(this.IMAGES_WALKING)
-                this.toLongInIdleCounter = 0;
-            }
-        }, 50)
-
-
-        /*/////////////////////////////////////////
-        handle the jump animation and the intervall
-        /////////////////////////////////////////*/
-        this.jumpIntervall = setInterval(() => {
-            if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
-                this.animationCounter++
-                this.jumptAnimationIntervall()
-                this.toLongInIdleCounter = 0;
-                setTimeout(() => {
-                    this.animationCounter = 0;
-                }, 1600)
-            }
-            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
-                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
-            }
-        }, 50)
     }
 
-
-    jumptAnimationIntervall() {
-        let counter = 0;
-        let jumpingAnimation = setInterval(() => {
-            this.playAnimation(this.IMAGES_JUMPING)
-            counter++
-            if (counter == 5) {
-                clearInterval(jumpingAnimation)
-                this.loadImage('img/2_character_pepe/3_jump/J-35.png')
-                setInterval(() => {
-                    if (counter == 15) {
-                        counter++
-                        clearInterval(jumpingAnimation)
-                        this.playAnimation(this.IMAGES_FALLING)
-                    }
-                }, 80)
-            }
-        }, 80)
-    }
-
-    /*//////////////////////////////////////
-    start the idle animation after 5 seconds
-    //////////////////////////////////////*/
+    //checked
+    //idle after 5 seconds
     toLongInIdleChecker() {
         setInterval(() => {
             if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
