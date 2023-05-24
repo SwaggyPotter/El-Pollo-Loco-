@@ -17,6 +17,8 @@ let x;
 let y;
 
 
+
+
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -34,12 +36,11 @@ function init() {
 function addCoordinateListener() {
     canvas.addEventListener('touchstart', function (event) {
         let rect = canvas.getBoundingClientRect();
-        let touch = event.touches[0]; // Das erste Touch-Ereignis
+        let touch = event.touches[0];
         x = touch.clientX - rect.left;
         y = touch.clientY - rect.top;
         screenTouchX = x;
         screenTouchY = y;
-        console.log('Berührte Koordinaten: ' + x + ', ' + y);
     });
 }
 
@@ -48,26 +49,22 @@ function addHandyKeyListener() {
     window.addEventListener('touchstart', () => {
         // x = left 1 - 65; y = 389 - 438;
         if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
-            console.log('left')
             keyboard.LEFT = true;
         }
 
         // x = 111 - 176; y = 389 - 438; 
         if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 245) && screenTouchY <= (canvas.height - 10)) {
             keyboard.RIGHT = true
-            console.log('right')
         }
 
         // x = 65 - 118; y = 312 - 376
         if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 180)) {
             keyboard.UP = true;
-            console.log('up')
         }
 
 
         if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 150)) {
             keyboard.D = true;
-            console.log('throw')
         }
     })
 
@@ -116,6 +113,32 @@ function toggleFullscreen(canvas) {
             document.msExitFullscreen();
         }
     }
+
+    // Anpassung des Canvas-Elements an das Seitenverhältnis des Bildschirms
+    function adjustCanvasSize() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const screenAspectRatio = screenWidth / screenHeight;
+
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const canvasAspectRatio = canvasWidth / canvasHeight;
+
+        if (screenAspectRatio < canvasAspectRatio) {
+            canvas.style.width = screenWidth + 'px';
+            canvas.style.height = (screenWidth / canvasAspectRatio) + 'px';
+        } else {
+            canvas.style.width = (screenHeight * canvasAspectRatio) + 'px';
+            canvas.style.height = screenHeight + 'px';
+        }
+    }
+
+
+    console.log('Canvas-Seitenverhältnis: ' + (canvas.width / canvas.height));
+    console.log('Bildschirm-Seitenverhältnis: ' + (window.innerWidth / window.innerHeight));
+    adjustCanvasSize();
+
+    window.addEventListener('resize', adjustCanvasSize);
 }
 
 

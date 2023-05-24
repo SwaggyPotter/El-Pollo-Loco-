@@ -378,8 +378,6 @@ class World {
         requestAnimationFrame(() => {
             self.draw()
         })
-
-
     }
 
 
