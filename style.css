@@ -142,6 +142,19 @@ body {
         background-attachment: fixed;
     }
 
+    #startBTN {
+        position: absolute;
+        bottom: 122px;
+        width: 70px;
+    }
+
+    #startBTN:hover {
+        position: absolute;
+        bottom: 122px;
+        width: 70px;
+        cursor: pointer;
+    }
+
     #canvas {
         width: 100vw;
         height: 100vh;
