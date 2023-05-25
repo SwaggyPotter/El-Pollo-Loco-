@@ -16,7 +16,7 @@ let screenTouchY;
 let x;
 let y;
 
-//checked
+
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
@@ -25,12 +25,11 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
-
     addCoordinateListener();
     loadMusic();
 }
 
-//checked
+
 function addCoordinateListener() {
     canvas.addEventListener('touchstart', function (event) {
         let rect = canvas.getBoundingClientRect();
@@ -43,7 +42,6 @@ function addCoordinateListener() {
 }
 
 
-//checked
 window.addEventListener('touchstart', () => {
     if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
         keyboard.LEFT = true;
@@ -59,7 +57,7 @@ window.addEventListener('touchstart', () => {
     }
 })
 
-//checked
+
 window.addEventListener('touchend', () => {
     screenTouchX = null;
     screenTouchY = null;
@@ -70,7 +68,6 @@ window.addEventListener('touchend', () => {
 })
 
 
-//checked
 function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
     fullscreenBTN.addEventListener('click', () => {
@@ -78,7 +75,7 @@ function fullscreenListener() {
     })
 }
 
-//checked
+
 function toggleFullscreen(canvas) {
     if (!document.fullscreenElement) {
         if (canvas.requestFullscreen) {
@@ -95,17 +92,16 @@ function toggleFullscreen(canvas) {
 
 
 //play button + hover effect
-//checked
 function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
 }
 
-//checked
+
 function changePlayBTN2() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
 
-//checked
+
 function loadMusic() {
     if (musicOn == 0) {
         backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
@@ -122,7 +118,7 @@ function loadMusic() {
     }
 }
 
-//checked
+
 function updateSounds() {
     setInterval(() => {
         if (backgroundAudio) {
@@ -136,12 +132,11 @@ function updateSounds() {
     }, 10)
 }
 
-//checked
+
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds()
 });
-
 
 
 //key listener for holding and release
@@ -187,4 +182,3 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 })
-

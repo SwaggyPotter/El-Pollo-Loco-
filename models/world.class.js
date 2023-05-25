@@ -39,25 +39,12 @@ class World {
         this.run();
         this.checkForBossFight()
         this.checkForCharDead()
-        this.setTheScreen();
+
     }
 
 
     setWorld() {
         this.character.world = this;
-    }
-
-
-    setTheScreen() {
-        if (window.innerWidth <= 1010) {
-            this.canvas.width = window.innerWidth
-            let intervall = setInterval(() => {
-                canvas.width = window.innerWidth
-            }, 100)
-        }
-        else if (window.innerWidth >= 1011) {
-            this.canvas.width = 725;
-        }
     }
 
 
@@ -312,6 +299,7 @@ class World {
         }, 50)
     }
 
+
     // only trow bottles if you have some and reduct it after trow
     checkTrowObjects() {
         if (this.keyboard.D) {
@@ -336,6 +324,30 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.translate(this.camera_x, 0)
+        // draw the character
+        this.drawImgOnMap(this.character)
+        //draw the boss statusbar
+        this.drawBossStatusbar()
+        //draw objects in the world background,enemies etc.
+        this.drawWorldObjects()
+        //draw dead chicken
+        this.drawImgOnMap(this.deadChicken)
+        //draw all the bars
+        this.drawAllBars();
+        //draw the handy controlls
+        this.drawHandyControlls()
+        //draw the endscreen
+        this.drawEndscreen()
+        this.ctx.translate(-this.camera_x, 0)
+        //draw wird immer wieder aufgerufen
+        let self = this;
+        requestAnimationFrame(() => {
+            self.draw()
+        })
+    }
+
+
+    drawWorldObjects() {
         // draw the background
         this.theForEach(this.level.backgrounds)
         // draw the chickens
@@ -346,14 +358,12 @@ class World {
         this.theForEach(this.level.coins)
         // draw the salsa bottels
         this.theForEach(this.level.salsabottles)
-        // draw the character
-        this.drawImgOnMap(this.character)
-        //draw the boss statusbar
-        this.drawBossStatusbar()
         // draw the bottle
         this.drawImgOnMap(this.bottle)
-        //draw dead chicken
-        this.drawImgOnMap(this.deadChicken)
+    }
+
+
+    drawAllBars() {
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.statusbar)
@@ -366,16 +376,6 @@ class World {
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
-        //draw the handy controlls
-        this.drawHandyControlls()
-        //draw the endscreen
-        this.drawEndscreen()
-        this.ctx.translate(-this.camera_x, 0)
-        //draw wird immer wieder aufgerufen
-        let self = this;
-        requestAnimationFrame(() => {
-            self.draw()
-        })
     }
 
 

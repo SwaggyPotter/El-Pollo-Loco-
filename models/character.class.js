@@ -95,7 +95,7 @@ class Character extends MovableObject {
         this.bossDeadChecker();
     }
 
-    //checked
+
     animate() {
         this.moveRightFunc();
         this.moveLeftFunc();
@@ -111,7 +111,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    //checked
+    
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
@@ -122,7 +122,7 @@ class Character extends MovableObject {
         }, 1000)
     }
 
-    //checked
+    
     bossDeadChecker() {
         setInterval(() => {
             if (bossDead == 1) {
@@ -135,7 +135,7 @@ class Character extends MovableObject {
         }, 10)
     }
 
-    //checked
+    
     // Function for the moving right animation
     moveRightFunc() {
         this.walkingRight = setInterval(() => {
@@ -150,7 +150,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    //checked
+    
     // Function for the moving left animation
     moveLeftFunc() {
         this.walkingLeft = setInterval(() => {
@@ -162,7 +162,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    //checked
+    
     // Function for the jumping animation
     jumpFunc() {
         this.jumping = setInterval(() => {
@@ -181,7 +181,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    //checked
+    
     jumpAnimationHandler() {
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
@@ -198,7 +198,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    //function length 16
+    
     jumptAnimationIntervall() {
         let counter = 0;
         let jumpingAnimation = setInterval(() => {
@@ -218,7 +218,7 @@ class Character extends MovableObject {
         }, 80)
     }
 
-    // function length 26
+    
     deadOrHurtChecker() {
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
@@ -248,7 +248,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    //checked
+    
     //idle after 5 seconds
     toLongInIdleChecker() {
         setInterval(() => {
