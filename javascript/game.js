@@ -43,13 +43,13 @@ function addCoordinateListener() {
 
 
 window.addEventListener('touchstart', () => {
-    if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
+    if (screenTouchX >= 1 && screenTouchX <= 65 && screenTouchY >= (canvas.height - 180) && screenTouchY <= (canvas.height - 10)) {
         keyboard.LEFT = true;
     }
-    if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 150) && screenTouchY <= (canvas.height - 10)) {
+    if (screenTouchX >= 111 && screenTouchX <= 176 && screenTouchY >= (canvas.height - 180) && screenTouchY <= (canvas.height - 10)) {
         keyboard.RIGHT = true
     }
-    if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 220) && screenTouchY <= (canvas.height - 150)) {
+    if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 250) && screenTouchY <= (canvas.height - 180)) {
         keyboard.UP = true;
     }
     if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 240) && screenTouchY <= (canvas.height - 120)) {
