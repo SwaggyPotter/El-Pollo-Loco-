@@ -324,12 +324,10 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.translate(this.camera_x, 0)
-        // draw the character
-        this.drawImgOnMap(this.character)
-        //draw the boss statusbar
-        this.drawBossStatusbar()
         //draw objects in the world background,enemies etc.
         this.drawWorldObjects()
+        // draw the character
+        this.drawImgOnMap(this.character)
         //draw dead chicken
         this.drawImgOnMap(this.deadChicken)
         //draw all the bars
@@ -376,6 +374,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0) // back
         this.drawImgOnMap(this.bottleBar)
         this.ctx.translate(this.camera_x, 0)// forward
+        //draw the boss statusbar
+        this.drawBossStatusbar()
     }
 
 
