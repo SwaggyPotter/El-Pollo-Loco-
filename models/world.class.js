@@ -18,7 +18,7 @@ class World {
     bossChickenEmbleme = new bossBarChickenEmbleme();
     endscreen = new endscreen(bossDead);
     handyController = new handyControl();
-    handyBottleThrowBTN = new bottleThrowHandy();
+    handyBottleThrowBTN = new bottleThrowHandy((canvas.width - 120));
     bossInNear = 0;
     throwChecker;
     damageCounter = 0;
@@ -39,7 +39,6 @@ class World {
         this.run();
         this.checkForBossFight()
         this.checkForCharDead()
-
     }
 
 
@@ -86,13 +85,10 @@ class World {
     checkForcollision() {
         //check for collison width chicken
         this.chracterEnemyChollision();
-
         // fill the coinbar if you collide with a coin
         this.coinCollision();
-
         // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
         this.bottleCollision();
-
         // check for colision between bottle and enemy
         this.bottleEnemyCollisionchecker();
     }
@@ -408,7 +404,7 @@ class World {
 
     drawHandyControlls() {
         if (window.innerWidth <= 1010) {
-            this.handyBottleThrowBTN = new bottleThrowHandy();
+            this.handyBottleThrowBTN = new bottleThrowHandy((this.canvas.width - 120));
             this.ctx.translate(-this.camera_x, 0) // back
             this.drawImgOnMap(this.handyController)
             this.drawImgOnMap(this.handyBottleThrowBTN)

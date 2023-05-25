@@ -1,10 +1,11 @@
 class bottleThrowHandy extends MovableObject {
-    x = window.innerWidth - 120;
+    x;
     y = 350;
     width = 90;
     height = 100;
 
-    constructor() {
-        super().loadImage('img/Handy_Buttons/bottle_throw_btn.png')
+    constructor(x) {
+        super().loadImage('img/Handy_Buttons/bottle_throw_btn.png');
+        this.x = x;
     }
 }
