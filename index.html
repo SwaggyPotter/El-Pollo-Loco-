@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="75073e07-cdc1-4a00-a1a9-0284dec6a3e8"
-        data-blockingmode="auto" type="text/javascript"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/character.class.js"></script>
@@ -51,7 +49,7 @@
             <img onclick="init()" onmouseover="changePlayBTN()" onmouseleave="changePlayBTN2()" id="startBTN"
                 src="img/playBTN/playBTN.png" alt="start picture">
 
-            <canvas id="canvas" width="720" height="480">
+            <canvas oncontextmenu="return false;" id="canvas" width="720" height="480">
             </canvas>
 
             <img id="fullscreenBTN" src="img/fullscreen_and_icons_tut/fulscreen-black.png" alt="">
