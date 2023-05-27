@@ -17,7 +17,7 @@ class Character extends MovableObject {
     toLongInIdleCounter = 0;
     jumpSoundCounter = 0;
 
-    //checked
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -27,7 +27,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png'
     ]
 
-    //checked
+
     IMAGES_JUMPING = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
@@ -36,19 +36,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-35.png',
     ]
 
-    //checked
+
     IMAGES_FALLING = [
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png'
     ]
 
-    //checked
+
     IMAGES_LANDING = [
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
     ]
 
-    //checked
+
     IMAGES_DEAD = [
         'img/2_character_pepe/5_dead/D-51.png',
         'img/2_character_pepe/5_dead/D-52.png',
@@ -58,7 +58,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-56.png'
     ]
 
-    //checked
+
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
@@ -79,7 +79,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ]
 
-    //checked
+
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png')
         this.loadImages(this.IMAGES_WALKING);
@@ -111,7 +111,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    
+
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
@@ -122,7 +122,7 @@ class Character extends MovableObject {
         }, 1000)
     }
 
-    
+
     bossDeadChecker() {
         setInterval(() => {
             if (bossDead == 1) {
@@ -135,7 +135,7 @@ class Character extends MovableObject {
         }, 10)
     }
 
-    
+
     // Function for the moving right animation
     moveRightFunc() {
         this.walkingRight = setInterval(() => {
@@ -150,7 +150,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    
+
     // Function for the moving left animation
     moveLeftFunc() {
         this.walkingLeft = setInterval(() => {
@@ -162,7 +162,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    
+
     // Function for the jumping animation
     jumpFunc() {
         this.jumping = setInterval(() => {
@@ -181,7 +181,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
-    
+
     jumpAnimationHandler() {
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
@@ -198,7 +198,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    
+
     jumptAnimationIntervall() {
         let counter = 0;
         let jumpingAnimation = setInterval(() => {
@@ -206,19 +206,44 @@ class Character extends MovableObject {
             counter++
             if (counter == 5) {
                 clearInterval(jumpingAnimation)
-                this.loadImage('img/2_character_pepe/3_jump/J-35.png')
-                setInterval(() => {
-                    if (counter == 15) {
+                counter++
+                setTimeout(() => {
+                    this.loadImage('img/2_character_pepe/3_jump/J-35.png')
+                }, 100)
+                setTimeout(() => {
+                    let fallIntervall = setInterval(() => {
+                        this.fallingIntervall()
                         counter++
-                        clearInterval(jumpingAnimation)
-                        this.playAnimation(this.IMAGES_FALLING)
-                    }
-                }, 80)
+                        if (counter == 7) {
+                            clearInterval(fallIntervall)
+                            this.landingIntervall(counter);
+                        }
+                    })
+                }, 650)
             }
         }, 80)
     }
 
-    
+
+    fallingIntervall() {
+        this.playAnimation(this.IMAGES_FALLING)
+        this.loadImage('img/2_character_pepe/3_jump/J-37.png')
+    }
+
+
+    landingIntervall(counter) {
+        setTimeout(() => {
+            let landingIntervall = setInterval(() => {
+                this.playAnimation(this.IMAGES_LANDING)
+                counter++
+                if (counter == 9) {
+                    clearInterval(landingIntervall)
+                }
+            }, 50)
+        }, 450)
+    }
+
+
     deadOrHurtChecker() {
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
@@ -248,7 +273,7 @@ class Character extends MovableObject {
         }, 50)
     }
 
-    
+
     //idle after 5 seconds
     toLongInIdleChecker() {
         setInterval(() => {

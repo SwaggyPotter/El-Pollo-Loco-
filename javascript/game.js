@@ -15,6 +15,7 @@ let screenTouchX;
 let screenTouchY;
 let x;
 let y;
+let gameStartet;
 
 
 function init() {
@@ -33,13 +34,14 @@ function init() {
 function showHandycontrolls() {
     if (window.innerWidth <= 1010) {
         addListenerHandyNormal();
-        document.getElementById('handyControls').style.display = 'inline-block'
+        document.getElementById('handyControls').style.display = 'inline-block';
+        gameStartet = 1;
     }
-
 }
 
+
 window.addEventListener('resize', () => {
-    if (window.innerWidth < 1011) {
+    if (window.innerWidth < 1011 && gameStartet == 1) {
         showHandycontrolls();
         document.getElementById('throwBottleBTN').style.display = 'inline-block'
     }
