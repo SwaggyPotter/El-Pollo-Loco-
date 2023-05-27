@@ -97,15 +97,20 @@ body {
 
 #handyControls {
     position: absolute;
-    left: 0;
+    left: 10px;
     bottom: 0;
     width: 90%;
-    display: flex;
-    justify-content: space-between;
+    z-index: 2;
+    display: none;
+}
+
+.upBtn {
+    margin-bottom: 50px;
 }
 
 .handyControlBTN {
     width: 50px;
+    height: 50px;
 }
 
 .icon {
@@ -140,6 +145,22 @@ body {
         background-repeat: no-repeat;
         background-size: 180%;
         background-attachment: fixed;
+    }
+
+    #handyControls {
+        position: absolute;
+        left: 10px;
+        bottom: 0;
+        width: 90%;
+        z-index: 2;
+        display: none;
+    }
+
+    #throwBottleBTN{
+        position: absolute;
+        right: 0px;
+        height: 80px;
+        width: 70px;
     }
 
     #startBTN {

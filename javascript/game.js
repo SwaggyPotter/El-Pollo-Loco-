@@ -25,8 +25,61 @@ function init() {
     document.getElementById('startBTN').style.display = 'none';
     valueSound = slider.value;
     fullscreenListener();
-    addCoordinateListener();
+    showHandycontrolls()
     loadMusic();
+}
+
+
+function showHandycontrolls() {
+    if (window.innerWidth <= 1010) {
+        addListenerHandyNormal();
+        document.getElementById('handyControls').style.display = 'inline-block'
+    }
+
+}
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth < 1011) {
+        showHandycontrolls();
+        document.getElementById('throwBottleBTN').style.display = 'inline-block'
+    }
+    else if (window.innerWidth >= 1011) {
+        document.getElementById('handyControls').style.display = 'none'
+        document.getElementById('throwBottleBTN').style.display = 'none'
+    }
+})
+
+
+
+function addListenerHandyNormal() {
+    let leftKey = document.getElementById('leftBtn');
+    let rightKey = document.getElementById('rightBtn');
+    let UpKey = document.getElementById('upBtn')
+    let throwKey = document.getElementById('throwBottleBTN')
+    leftKey.addEventListener('touchstart', () => {
+        keyboard.LEFT = true;
+    })
+    rightKey.addEventListener('touchstart', () => {
+        keyboard.RIGHT = true;
+    })
+    UpKey.addEventListener('touchstart', () => {
+        keyboard.UP = true;
+    })
+    throwKey.addEventListener('touchstart', () => {
+        keyboard.D = true;
+    })
+    leftKey.addEventListener('touchend', () => {
+        keyboard.LEFT = false;
+    })
+    rightKey.addEventListener('touchend', () => {
+        keyboard.RIGHT = false;
+    })
+    UpKey.addEventListener('touchend', () => {
+        keyboard.UP = false;
+    })
+    throwKey.addEventListener('touchend', () => {
+        keyboard.D = false;
+    })
 }
 
 
@@ -72,6 +125,7 @@ function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
     fullscreenBTN.addEventListener('click', () => {
         toggleFullscreen(canvas)
+        addCoordinateListener();
     })
 }
 
