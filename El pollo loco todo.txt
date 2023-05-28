@@ -1,2 +1,0 @@
-code optimieren / clean code
-handy steuerung einbauen
