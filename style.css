@@ -156,7 +156,7 @@ body {
         display: none;
     }
 
-    #throwBottleBTN{
+    #throwBottleBTN {
         position: absolute;
         right: 0px;
         height: 80px;
@@ -165,13 +165,13 @@ body {
 
     #startBTN {
         position: absolute;
-        bottom: 122px;
+        bottom: 172px;
         width: 70px;
     }
 
     #startBTN:hover {
         position: absolute;
-        bottom: 122px;
+        bottom: 172px;
         width: 70px;
         cursor: pointer;
     }

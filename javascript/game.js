@@ -19,11 +19,11 @@ let gameStartet;
 
 
 function init() {
-    initLevel();
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
     document.getElementById('startPic').style.display = 'none';
     document.getElementById('startBTN').style.display = 'none';
+    canvas = document.getElementById('canvas');
+    initLevel();
+    world = new World(canvas, keyboard);
     valueSound = slider.value;
     fullscreenListener();
     showHandycontrolls()
@@ -41,16 +41,17 @@ function showHandycontrolls() {
 
 
 window.addEventListener('resize', () => {
-    if (window.innerWidth < 1011 && gameStartet == 1) {
+    if (window.innerWidth < 1011) {
         showHandycontrolls();
-        document.getElementById('throwBottleBTN').style.display = 'inline-block'
+        addListenerHandyNormal();
+        document.getElementById('throwBottleBTN').style.display = 'inline-block';
+        document.getElementById('handyControls').style.display = 'inline-block';
     }
     else if (window.innerWidth >= 1011) {
-        document.getElementById('handyControls').style.display = 'none'
-        document.getElementById('throwBottleBTN').style.display = 'none'
+        document.getElementById('handyControls').style.display = 'none';
+        document.getElementById('throwBottleBTN').style.display = 'none';
     }
 })
-
 
 
 function addListenerHandyNormal() {
@@ -167,9 +168,9 @@ function loadMusic() {
     }
     else if (musicOn == 2) {
         endBossMusic = new Audio('audio/enboss-music.mp3') // add new boss music
+        endBossMusic.play()
         backgroundAudio.pause()
         endBossMusic.volume = (valueSound / 100)
-        endBossMusic.play()
         musicOn++;
     }
 }
@@ -180,6 +181,7 @@ function updateSounds() {
         if (backgroundAudio) {
             valueSound = slider.value;
             backgroundAudio.volume = (valueSound / 100)
+
         }
         if (endBossMusic) {
             valueSound = slider.value;
@@ -192,7 +194,9 @@ function updateSounds() {
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds()
+    console.log('Event')
 });
+
 
 
 //key listener for holding and release

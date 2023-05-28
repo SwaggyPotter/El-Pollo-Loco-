@@ -37,7 +37,7 @@ class throawbleObject extends MovableObject {
         this.animate();
     }
 
-    // to long
+   
     animate() {
         if (this.broke == undefined) {
             setInterval(() => {
@@ -67,7 +67,7 @@ class throawbleObject extends MovableObject {
         }
     }
 
-    // to long
+
     trow() {
         if (this.direction == false && this.broke == false) {
             this.speedY = 10;

@@ -28,6 +28,7 @@ class World {
     hitCounter = 0;
     hitIntervall;
     swooshBottle;
+    bossFightIntervall
 
 
     constructor(canvas, keyboard) {
@@ -63,11 +64,33 @@ class World {
     checkForCharDead() {
         setInterval(() => {
             if (this.character.energy == 0 || this.character.energy < 0) {
+                bossDead = null;
                 setTimeout(() => {
-                    location.reload();
+                    this.stopGame();
                 }, 5000)
             }
         }, 50)
+    }
+
+
+    stopGame() {
+        bossDead = null;
+        gameStartet = 0;
+        if (endBossMusic) {
+            endBossMusic.pause()
+        }
+        if (backgroundAudio) {
+            backgroundAudio.pause()
+        }
+        bossDead = 0;
+        this.character.energy = 100;
+        this.bossInNear = 0
+        this.level.enemies = [];
+        this.bottleBar.percentage
+        musicOn = 0;
+        clearInterval(this.bossFightIntervall)
+        document.getElementById('startPic').style.display = 'flex';
+        document.getElementById('startBTN').style.display = 'flex';
     }
 
 
@@ -187,7 +210,7 @@ class World {
         this.broke = false;
         bossDead = 1;
         setTimeout(() => {
-            location.reload();
+            this.stopGame();
         }, 5000)
     }
 
@@ -255,7 +278,7 @@ class World {
 
 
     checkForBossFight() {
-        setInterval(() => {
+        this.bossFightIntervall = setInterval(() => {
             if (this.bossTrigger == 0) {
                 this.bossChicken = this.level.enemies.length - 1
                 if (this.character.x == this.level.enemies[this.bossChicken].x - 800) {
@@ -328,14 +351,12 @@ class World {
         this.drawImgOnMap(this.deadChicken)
         //draw all the bars
         this.drawAllBars();
-        //draw the handy controlls
-        this.drawHandyControlls()
         //draw the endscreen
         this.drawEndscreen()
         this.ctx.translate(-this.camera_x, 0)
         //draw wird immer wieder aufgerufen
         let self = this;
-        requestAnimationFrame(() => {
+        this.drawRequest = requestAnimationFrame(() => {
             self.draw()
         })
     }
@@ -398,17 +419,6 @@ class World {
             this.ctx.translate(-this.camera_x, 0) // back
             this.drawImgOnMap(this.endscreen)
             this.ctx.translate(this.camera_x, 0)// forward
-        }
-    }
-
-
-    drawHandyControlls() {
-        if (window.innerWidth <= 1010) {
-            /*this.handyBottleThrowBTN = new bottleThrowHandy((this.canvas.width - 120));
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.handyController)
-            this.drawImgOnMap(this.handyBottleThrowBTN)
-            this.ctx.translate(this.camera_x, 0)// forward*/
         }
     }
 

@@ -218,7 +218,7 @@ class Character extends MovableObject {
                             clearInterval(fallIntervall)
                             this.landingIntervall(counter);
                         }
-                    })
+                    },50)
                 }, 650)
             }
         }, 80)

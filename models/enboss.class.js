@@ -71,6 +71,14 @@ class Endboss extends MovableObject {
 
     animate() {
         this.theIntervall = setInterval(() => {
+            if (bossDead == 1) {
+                clearInterval(this.theIntervall)
+                console.log('clear intervall')
+            }
+            if (bossDead == null) {
+                clearInterval(this.theIntervall)
+                console.log('clear intervall')
+            }
             //attack combination of the boss chicken
             if (this.awake == true && !this.isDead() && !this.isHurt()) {
                 if (this.attackCounter == 0) {
