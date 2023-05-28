@@ -15,7 +15,7 @@ let screenTouchX;
 let screenTouchY;
 let x;
 let y;
-let gameStartet;
+let gameStartet = 0;
 
 
 function init() {
@@ -26,8 +26,9 @@ function init() {
     world = new World(canvas, keyboard);
     valueSound = slider.value;
     fullscreenListener();
-    showHandycontrolls()
+    showHandycontrolls();
     loadMusic();
+    gameStartet = 1;
 }
 
 
@@ -35,21 +36,24 @@ function showHandycontrolls() {
     if (window.innerWidth <= 1010) {
         addListenerHandyNormal();
         document.getElementById('handyControls').style.display = 'inline-block';
-        gameStartet = 1;
     }
 }
 
 
 window.addEventListener('resize', () => {
-    if (window.innerWidth < 1011) {
+    if (window.innerWidth < 1011 && gameStartet == 1) {
         showHandycontrolls();
         addListenerHandyNormal();
         document.getElementById('throwBottleBTN').style.display = 'inline-block';
         document.getElementById('handyControls').style.display = 'inline-block';
     }
-    else if (window.innerWidth >= 1011) {
+    if (window.innerWidth < 1011 && gameStartet == 1) {
+        document.getElementById('fullscreenBTN').style.display = 'none';
+    }
+    else if (window.innerWidth >= 1011 && gameStartet == 1) {
         document.getElementById('handyControls').style.display = 'none';
         document.getElementById('throwBottleBTN').style.display = 'none';
+        document.getElementById('fullscreenBTN').style.display = 'inline-block';
     }
 })
 
@@ -162,7 +166,9 @@ function changePlayBTN2() {
 function loadMusic() {
     if (musicOn == 0) {
         backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
-        backgroundAudio.play();
+        backgroundAudio.addEventListener('canplay', () => {
+            backgroundAudio.play();
+        })
         backgroundAudio.volume = (valueSound / 100)
         musicOn = 1
     }
@@ -194,7 +200,6 @@ function updateSounds() {
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds()
-    console.log('Event')
 });
 
 
