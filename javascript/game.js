@@ -16,11 +16,12 @@ let screenTouchY;
 let x;
 let y;
 let gameStartet = 0;
+let timer = 0;
+let timerCounter = 5;
+let timerBeforeStart;
 
 
 function init() {
-    document.getElementById('startPic').style.display = 'none';
-    document.getElementById('startBTN').style.display = 'none';
     canvas = document.getElementById('canvas');
     initLevel();
     world = new World(canvas, keyboard);
@@ -29,6 +30,25 @@ function init() {
     showHandycontrolls();
     loadMusic();
     gameStartet = 1;
+    document.getElementById('startPic').style.display = 'none';
+    document.getElementById('startBTN').style.display = 'none';
+}
+
+
+function timerForGameStart() {
+    document.getElementById('timerContainer').style.display = 'flex';
+    timerBeforeStart = setInterval(() => {
+        document.getElementById('timer').innerHTML = timerCounter;
+        timerCounter--;
+        document.getElementById('timer').innerHTML = timerCounter;
+
+        if (timerCounter == 0) {
+            document.getElementById('timerContainer').style.display = 'none';
+            timerCounter = 6
+            clearInterval(timerBeforeStart);
+            init()
+        }
+    }, 1000)
 }
 
 

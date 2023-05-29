@@ -76,21 +76,27 @@ class World {
     stopGame() {
         bossDead = null;
         gameStartet = 0;
+        bossDead = 0;
+        this.pauseMusic()
+        this.character.energy = 100;
+        this.bossInNear = 0
+        this.level.enemies = [];
+        this.bottleBar.percentage
+        musicOn = 0;
+        clearInterval(this.hurtIntervall)
+        clearInterval(this.bossFightIntervall)
+        document.getElementById('startPic').style.display = 'flex';
+        document.getElementById('startBTN').style.display = 'flex';
+    }
+
+    
+    pauseMusic(){
         if (endBossMusic) {
             endBossMusic.pause()
         }
         if (backgroundAudio) {
             backgroundAudio.pause()
         }
-        bossDead = 0;
-        this.character.energy = 100;
-        this.bossInNear = 0
-        this.level.enemies = [];
-        this.bottleBar.percentage
-        musicOn = 0;
-        clearInterval(this.bossFightIntervall)
-        document.getElementById('startPic').style.display = 'flex';
-        document.getElementById('startBTN').style.display = 'flex';
     }
 
 
