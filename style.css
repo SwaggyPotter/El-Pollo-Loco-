@@ -95,14 +95,6 @@ body {
     display: none;
 }
 
-#timerContainer{
-    position: absolute;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: white;
-}
 
 #handyControls {
     position: absolute;

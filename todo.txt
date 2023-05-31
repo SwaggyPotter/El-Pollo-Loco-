@@ -1,0 +1,7 @@
+Titelbild anpassen an handy größen. sonnst zu gedrückt
+Handy steuerung auch bei vollbild
+Schneller fallen
+Nur hit animation abspielen bei treffer. Ob er spring läft etc.
+Endboss agressiver machen.
+Funktionen kürzen.
+Mit js doc dokumentieren

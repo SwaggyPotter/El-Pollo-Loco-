@@ -35,23 +35,6 @@ function init() {
 }
 
 
-function timerForGameStart() {
-    document.getElementById('timerContainer').style.display = 'flex';
-    timerBeforeStart = setInterval(() => {
-        document.getElementById('timer').innerHTML = timerCounter;
-        timerCounter--;
-        document.getElementById('timer').innerHTML = timerCounter;
-
-        if (timerCounter == 0) {
-            document.getElementById('timerContainer').style.display = 'none';
-            timerCounter = 6
-            clearInterval(timerBeforeStart);
-            init()
-        }
-    }, 1000)
-}
-
-
 function showHandycontrolls() {
     if (window.innerWidth <= 1010) {
         addListenerHandyNormal();

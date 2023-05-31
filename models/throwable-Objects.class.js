@@ -30,8 +30,8 @@ class throawbleObject extends MovableObject {
         this.loadImages(this.BOTTLE_SPIN);
         this.loadImages(this.BOTTLE_BROKE);
         this.direction = direction;
-        this.x = x + 120;
-        this.y = y + 90;
+        this.x = x + 50;
+        this.y = y + 100;
         this.broke = broke;
         this.trow()
         this.animate();
