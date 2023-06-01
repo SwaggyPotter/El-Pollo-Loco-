@@ -89,7 +89,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_FALLING);
         this.loadImages(this.IMAGES_LANDING);
         this.loadImages(this.TO_LONG_IDLE);
-        this.applyGravity();
+        this.applyGravityCharacter();
         this.animate();
         this.toLongInIdleChecker();
         this.bossDeadChecker();
@@ -103,7 +103,7 @@ class Character extends MovableObject {
         this.jumpAnimationHandler();
         this.deadOrHurtChecker();
         setInterval(() => {
-            if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead()) {
+            if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
                 this.walkingSound.pause();
                 this.playAnimation(this.IMAGES_WALKING)
                 this.toLongInIdleCounter = 0;
@@ -184,7 +184,7 @@ class Character extends MovableObject {
 
     jumpAnimationHandler() {
         this.jumpIntervall = setInterval(() => {
-            if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1) {
+            if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1 && !this.isHurt()) {
                 this.animationCounter++
                 this.jumptAnimationIntervall()
                 this.toLongInIdleCounter = 0;

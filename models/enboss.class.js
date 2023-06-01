@@ -5,7 +5,7 @@ class Endboss extends MovableObject {
     currentImage = 0;
     y = 90
     theIntervall;
-    speed = 2;
+    speed = 3;
     awake = false;
     attackCounter = 0;
     attackSoundcounter = 0;
@@ -78,7 +78,7 @@ class Endboss extends MovableObject {
                 clearInterval(this.theIntervall)
             }
             //attack combination of the boss chicken
-            if (this.awake == true && !this.isDead() && !this.isHurt()) {
+            if (this.awake == true && !this.isDead()) {
                 if (this.attackCounter == 0) {
                     this.attack1();
                 }
@@ -89,13 +89,13 @@ class Endboss extends MovableObject {
                     this.attack3();
                 }
             }
+            // hurt the boss if he is awake
+            if (this.isHurt() && this.awake == true) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
             // kill the boss animation if he was awake and get killed
             else if (this.isDead() && this.awake == true) {
                 this.killTheBoss();
-            }
-            // hurt the boss if he is awake
-            else if (this.isHurt() && this.awake == true) {
-                this.playAnimation(this.IMAGES_HURT);
             }
         }, 230)
     }
@@ -131,6 +131,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             this.attackCounter = 2
             if (this.attackSoundcounter == 0) {
+                this.moveLeft();
                 let audio = new Audio('audio/boss-attack.mp3');
                 audio.play();
                 audio.volume = (valueSound / 100)
@@ -143,7 +144,7 @@ class Endboss extends MovableObject {
     attack3() {
         this.playAnimation(this.IMAGES_ATTACK);
         this.moveLeft()
-        this.speed = 20;
+        this.speed = 30;
         setTimeout(() => {
             this.attackCounter = 0
         }, 2000)
