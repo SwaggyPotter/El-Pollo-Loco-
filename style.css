@@ -217,14 +217,14 @@ body {
     #canvas {
         width: 100vw;
         height: 100vh;
-        max-height: 480px;
+        max-height: 280px;
         object-fit: fill;
     }
 
     #startPic {
         width: 100%;
         height: 100%;
-        max-height: 480px;
+        max-height: 280px;
         position: absolute;
     }
 
@@ -247,4 +247,82 @@ body {
     #tutorialContainer h5 {
         margin-bottom: -10px;
     }
+
+    #startBTN {
+        position: absolute;
+        bottom: 100px;
+        width: 40px;
+    }
+
+    #tutorialContainer {
+        display: none;
+    }
 }
+
+
+
+@media screen and (max-width: 400px) {
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('img/backgrounds/cacti-7162265.svg');
+        background-repeat: no-repeat;
+        background-size: 300%;
+        background-attachment: fixed;
+    }
+
+    #canvas {
+        width: 100vw;
+        height: 100vh;
+        max-height: 230px;
+        object-fit: fill;
+    }
+
+    #startPic {
+        width: 100%;
+        height: 100%;
+        max-height: 230px;
+        position: absolute;
+    }
+
+    #musicContainer {
+        right: 10px;
+        top: 20px;
+        position: absolute;
+        display: flex;
+    }
+
+    #tutorialContainer {
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(0, 136, 255, 0);
+        z-index: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tutorialContainer span {
+        margin: 10px;
+    }
+
+    #tutorialContainer h5 {
+        margin-bottom: -10px;
+    }
+
+    #startBTN {
+        position: absolute;
+        bottom: 80px;
+        width: 40px;
+    }
+
+    #tutorialContainer {
+        display: none;
+    }
+}
+
