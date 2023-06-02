@@ -27,11 +27,22 @@ function init() {
     world = new World(canvas, keyboard);
     valueSound = slider.value;
     fullscreenListener();
+    setFullscreenButton();
     showHandycontrolls();
     loadMusic();
     gameStartet = 1;
     document.getElementById('startPic').style.display = 'none';
     document.getElementById('startBTN').style.display = 'none';
+}
+
+
+function setFullscreenButton() {
+    if (window.innerWidth > 1010) {
+        document.getElementById('fullscreenBTN').style.display = 'flex';
+    }
+    else if (window.innerWidth < 1011) {
+        document.getElementById('fullscreenBTN').style.display = 'none';
+    }
 }
 
 

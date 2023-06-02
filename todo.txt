@@ -1,5 +1,4 @@
-Handy steuerung auch bei vollbild
-Funktionen kürzen. 
+Funktionen kürzen.
 Mit js doc dokumentieren
 
 Erledigt:
