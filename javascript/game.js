@@ -21,6 +21,7 @@ let timerCounter = 5;
 let timerBeforeStart;
 
 
+// Start the initialization of the game.
 function init() {
     canvas = document.getElementById('canvas');
     initLevel();
@@ -36,6 +37,7 @@ function init() {
 }
 
 
+// Check the screen width. If the screen is small, remove the fullscreen button.
 function setFullscreenButton() {
     if (window.innerWidth > 1010) {
         document.getElementById('fullscreenBTN').style.display = 'flex';
@@ -46,6 +48,7 @@ function setFullscreenButton() {
 }
 
 
+// Show the handheld control button.
 function showHandycontrolls() {
     if (window.innerWidth <= 1010) {
         addListenerHandyNormal();
@@ -54,6 +57,7 @@ function showHandycontrolls() {
 }
 
 
+//Add the button for window fullscreen on resize.
 window.addEventListener('resize', () => {
     if (window.innerWidth < 1011 && gameStartet == 1) {
         showHandycontrolls();
@@ -72,11 +76,19 @@ window.addEventListener('resize', () => {
 })
 
 
+// change the boolean of the keyboard listener 
 function addListenerHandyNormal() {
     let leftKey = document.getElementById('leftBtn');
     let rightKey = document.getElementById('rightBtn');
-    let UpKey = document.getElementById('upBtn')
-    let throwKey = document.getElementById('throwBottleBTN')
+    let UpKey = document.getElementById('upBtn');
+    let throwKey = document.getElementById('throwBottleBTN');
+    listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey);
+    listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey);
+}
+
+
+// set the eventlistener for changing the value of the keyboard keys after pressing and holding
+function listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey) {
     leftKey.addEventListener('touchstart', () => {
         keyboard.LEFT = true;
     })
@@ -89,6 +101,12 @@ function addListenerHandyNormal() {
     throwKey.addEventListener('touchstart', () => {
         keyboard.D = true;
     })
+
+}
+
+
+// set the eventlistener for changing the value of the keyboard keys after release
+function listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey) {
     leftKey.addEventListener('touchend', () => {
         keyboard.LEFT = false;
     })
@@ -104,37 +122,8 @@ function addListenerHandyNormal() {
 }
 
 
-function addCoordinateListener() {
-    canvas.addEventListener('touchstart', function (event) {
-        let rect = canvas.getBoundingClientRect();
-        let touch = event.touches[0];
-        x = touch.clientX - rect.left;
-        y = touch.clientY - rect.top;
-        screenTouchX = x;
-        screenTouchY = y;
-    });
-}
-
-
-window.addEventListener('touchstart', () => {
-    if (screenTouchX >= 1 && screenTouchX <= 85 && screenTouchY >= (canvas.height - 130) && screenTouchY <= (canvas.height - 10)) {
-        keyboard.LEFT = true;
-    }
-    if (screenTouchX >= 140 && screenTouchX <= 230 && screenTouchY >= (canvas.height - 130) && screenTouchY <= (canvas.height - 10)) {
-        keyboard.RIGHT = true
-    }
-    if (screenTouchX >= 65 && screenTouchX <= 118 && screenTouchY >= (canvas.height - 210) && screenTouchY <= (canvas.height - 140)) {
-        keyboard.UP = true;
-    }
-    if (screenTouchX >= window.innerWidth - 120 && screenTouchX <= window.innerWidth && screenTouchY >= (canvas.height - 240) && screenTouchY <= (canvas.height - 120)) {
-        keyboard.D = true;
-    }
-})
-
-
+// Set the key listner to his standart value after release
 window.addEventListener('touchend', () => {
-    screenTouchX = null;
-    screenTouchY = null;
     keyboard.UP = false;
     keyboard.RIGHT = false;
     keyboard.LEFT = false;
@@ -142,15 +131,15 @@ window.addEventListener('touchend', () => {
 })
 
 
+// Set the screen on full screen
 function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
     fullscreenBTN.addEventListener('click', () => {
-        toggleFullscreen(canvas)
-        addCoordinateListener();
+        toggleFullscreen(canvas);
     })
 }
 
-
+// fullscreen for diffrent browsers
 function toggleFullscreen(canvas) {
     if (!document.fullscreenElement) {
         if (canvas.requestFullscreen) {
@@ -166,17 +155,18 @@ function toggleFullscreen(canvas) {
 }
 
 
-//play button + hover effect
-function changePlayBTN() {
-    document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
-}
-
-
+//play button
 function changePlayBTN2() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
 
 
+//play button hover effect
+function changePlayBTN() {
+    document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
+}
+
+//load the normal music and the boss music if the boss appear.
 function loadMusic() {
     if (musicOn == 0) {
         backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
@@ -196,6 +186,7 @@ function loadMusic() {
 }
 
 
+// Update the volume of the musik and the sounds
 function updateSounds() {
     setInterval(() => {
         if (backgroundAudio) {
@@ -211,14 +202,15 @@ function updateSounds() {
 }
 
 
+//read the slider input for the volume
 slider.addEventListener("input", () => {
     valueSound = slider.value;
-    updateSounds()
+    updateSounds();
 });
 
 
 
-//key listener for holding and release
+//key listener for holding
 window.addEventListener("keydown", (e) => {
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = true;
@@ -241,6 +233,7 @@ window.addEventListener("keydown", (e) => {
 })
 
 
+//key listener for release
 window.addEventListener("keyup", (e) => {
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = false;

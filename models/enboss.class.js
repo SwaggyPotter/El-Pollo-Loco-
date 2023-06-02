@@ -79,15 +79,7 @@ class Endboss extends MovableObject {
             }
             //attack combination of the boss chicken
             if (this.awake == true && !this.isDead()) {
-                if (this.attackCounter == 0) {
-                    this.attack1();
-                }
-                else if (this.attackCounter == 1) {
-                    this.attack2();
-                }
-                else if (this.attackCounter == 2) {
-                    this.attack3();
-                }
+                this.attackStack();
             }
             // hurt the boss if he is awake
             if (this.isHurt() && this.awake == true) {
@@ -98,6 +90,19 @@ class Endboss extends MovableObject {
                 this.killTheBoss();
             }
         }, 230)
+    }
+
+
+    attackStack(){
+        if (this.attackCounter == 0) {
+            this.attack1();
+        }
+        else if (this.attackCounter == 1) {
+            this.attack2();
+        }
+        else if (this.attackCounter == 2) {
+            this.attack3();
+        }
     }
 
 

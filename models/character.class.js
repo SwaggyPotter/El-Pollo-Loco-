@@ -65,7 +65,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
 
-    
+
     TO_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -96,12 +96,19 @@ class Character extends MovableObject {
     }
 
 
+    // play the animations
     animate() {
         this.moveRightFunc();
         this.moveLeftFunc();
         this.jumpFunc();
         this.jumpAnimationHandler();
         this.deadOrHurtChecker();
+        this.setCharacterInIdle();
+    }
+
+
+    // play the idle animation
+    setCharacterInIdle() {
         setInterval(() => {
             if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
                 this.walkingSound.pause();
@@ -112,6 +119,7 @@ class Character extends MovableObject {
     }
 
 
+    // play the jump sound
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
@@ -123,6 +131,7 @@ class Character extends MovableObject {
     }
 
 
+    // if the boss is dead clear all moving intervals that the character is freeze
     bossDeadChecker() {
         setInterval(() => {
             if (bossDead == 1) {
@@ -190,7 +199,7 @@ class Character extends MovableObject {
                 this.toLongInIdleCounter = 0;
                 setTimeout(() => {
                     this.animationCounter = 0;
-                }, 1600)
+                }, 1200)
             }
             else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
@@ -218,8 +227,8 @@ class Character extends MovableObject {
                             clearInterval(fallIntervall)
                             this.landingIntervall(counter);
                         }
-                    },50)
-                }, 650)
+                    }, 50)
+                }, 150)
             }
         }, 80)
     }
@@ -240,7 +249,7 @@ class Character extends MovableObject {
                     clearInterval(landingIntervall)
                 }
             }, 50)
-        }, 450)
+        }, 150)
     }
 
 
