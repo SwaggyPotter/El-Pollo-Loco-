@@ -16,7 +16,7 @@ class Character extends MovableObject {
     currentImage = 0;
     toLongInIdleCounter = 0;
     jumpSoundCounter = 0;
-
+    fromeAbove = 0;
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -96,7 +96,45 @@ class Character extends MovableObject {
     }
 
 
-    // play the animations
+    /**
+    * executes the jump, play the jump sound, tell us if the character came from above.
+    */
+    jumpFunc() {
+        this.jumping = setInterval(() => {
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jump();
+                setTimeout(() => {
+                    fromeAbove = 1;
+                    setTimeout(() => {
+                        fromeAbove = 0;
+                    }, 450)
+                }, 450)
+                if (this.jumpSoundCounter == 0) {
+                    this.playJumpSound()
+                }
+            }
+        }, 1000 / 60)
+    }
+
+
+    /**
+    * Play the to long in idle animation after 5 seconds
+    */
+    toLongInIdleChecker() {
+        idleIntervall = setInterval(() => {
+            if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
+                this.toLongInIdleCounter++
+            }
+            else if (this.toLongInIdleCounter > 10) {
+                this.playAnimation(this.TO_LONG_IDLE)
+            }
+        }, 500)
+    }
+
+
+    /**
+     * Handle all the charachter animations
+     */
     animate() {
         this.moveRightFunc();
         this.moveLeftFunc();
@@ -107,7 +145,9 @@ class Character extends MovableObject {
     }
 
 
-    // play the idle animation
+    /**
+     * play the idle animation 
+     */
     setCharacterInIdle() {
         setInterval(() => {
             if (this.world.keyboard.LEFT && !this.isAboveGround() && !this.isDead() && !this.isHurt()) {
@@ -119,7 +159,9 @@ class Character extends MovableObject {
     }
 
 
-    // play the jump sound
+    /**
+     * play the jump sound 
+     */
     playJumpSound() {
         this.jumpSoundCounter++
         let audio = new Audio('audio/cartoon-jump-6462.mp3');
@@ -131,7 +173,9 @@ class Character extends MovableObject {
     }
 
 
-    // if the boss is dead clear all moving intervals that the character is freeze
+    /**
+     * if the boss is dead clear all moving intervals that the character is freeze 
+     */
     bossDeadChecker() {
         setInterval(() => {
             if (bossDead == 1) {
@@ -145,7 +189,9 @@ class Character extends MovableObject {
     }
 
 
-    // Function for the moving right animation
+    /**
+    * Function for the moving right animation
+    */
     moveRightFunc() {
         this.walkingRight = setInterval(() => {
             this.walkingSound.pause();
@@ -160,38 +206,23 @@ class Character extends MovableObject {
     }
 
 
-    // Function for the moving left animation
+    /**
+    * Function for the moving left animation
+    */
     moveLeftFunc() {
         this.walkingLeft = setInterval(() => {
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walkingSound.play()
-                
             }
         }, 1000 / 60)
     }
 
 
-    // Function for the jumping animation
-    jumpFunc() {
-        this.jumping = setInterval(() => {
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.jump();
-                setTimeout(() => {
-                    fromeAbove = 1;
-                    setTimeout(() => {
-                        fromeAbove = 0;
-                    }, 800)
-                }, 800)
-                if (this.jumpSoundCounter == 0) {
-                    this.playJumpSound()
-                }
-            }
-        }, 1000 / 60)
-    }
-
-
+    /**
+    * Handle the animation for jumping
+    */
     jumpAnimationHandler() {
         this.jumpIntervall = setInterval(() => {
             if (this.isAboveGround() && !this.isDead() && this.animationCounter < 1 && !this.isHurt()) {
@@ -200,7 +231,7 @@ class Character extends MovableObject {
                 this.toLongInIdleCounter = 0;
                 setTimeout(() => {
                     this.animationCounter = 0;
-                }, 1200)
+                }, 900)
             }
             else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
@@ -209,6 +240,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Play the animation with the pictures in the diffrent arrays
+     */
     jumptAnimationIntervall() {
         let counter = 0;
         let jumpingAnimation = setInterval(() => {
@@ -217,65 +251,67 @@ class Character extends MovableObject {
             if (counter == 5) {
                 clearInterval(jumpingAnimation)
                 counter++
+                this.loadImage('img/2_character_pepe/3_jump/J-35.png')
                 setTimeout(() => {
-                    this.loadImage('img/2_character_pepe/3_jump/J-35.png')
-                }, 100)
-                setTimeout(() => {
-                    let fallIntervall = setInterval(() => {
-                        this.fallingIntervall()
-                        counter++
-                        if (counter == 7) {
-                            clearInterval(fallIntervall)
-                            this.landingIntervall(counter);
-                        }
-                    }, 50)
-                }, 150)
+                    this.fallAndLandingIntervall(counter)
+                }, 200)
             }
-        }, 80)
+        }, 50)
+    }
+
+    /**
+     * 
+     * @param {number} counter - The counter from jumptAnimationIntervall for playing the animation
+     */
+    fallAndLandingIntervall(counter) {
+        let fallIntervall = setInterval(() => {
+            this.fallingIntervall()
+            counter++
+            if (counter == 7) {
+                clearInterval(fallIntervall);
+                this.landingIntervall(counter);
+            }
+        }, 100)
     }
 
 
+    /**
+     * Playing the two pictures of the falling array
+     */
     fallingIntervall() {
-        this.playAnimation(this.IMAGES_FALLING)
-        this.loadImage('img/2_character_pepe/3_jump/J-37.png')
+        this.playAnimation(this.IMAGES_FALLING);
+        this.loadImage('img/2_character_pepe/3_jump/J-37.png');
     }
 
 
+    /**
+     * 
+     * @param {number} counter - The counter from jumptAnimationIntervall for playing the animation
+     */
     landingIntervall(counter) {
         setTimeout(() => {
             let landingIntervall = setInterval(() => {
-                this.playAnimation(this.IMAGES_LANDING)
-                counter++
+                this.playAnimation(this.IMAGES_LANDING);
+                counter++;
                 if (counter == 9) {
-                    clearInterval(landingIntervall)
+                    clearInterval(landingIntervall);
                 }
-            }, 50)
+            }, 100)
         }, 150)
     }
 
 
+    /**
+     * Play the animation for getting hurt or dying
+     */
     deadOrHurtChecker() {
         this.deadHurtIntervall = setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD)
-                setTimeout(() => {
-                    this.loadImage('img/2_character_pepe/5_dead/D-56.png')
-                    clearInterval(this.deadHurtIntervall)
-                    clearInterval(this.jumping)
-                    clearInterval(this.walkingRight)
-                    clearInterval(this.walkingLeft)
-                }, 200)
+                this.killHim()
             }
-
             else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
-                this.hurtCounter++
-                this.toLongInIdleCounter = 0;
-                setTimeout(() => {
-                    this.hurtCounter = 0
-                }, 1000)
+                this.hurtHim();
             }
-
             else if (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.isDead()) {
                 this.playAnimation(this.IMAGES_WALKING)
                 this.toLongInIdleCounter = 0;
@@ -284,15 +320,38 @@ class Character extends MovableObject {
     }
 
 
-    //idle after 5 seconds
-    toLongInIdleChecker() {
-        idleIntervall = setInterval(() => {
-            if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
-                this.toLongInIdleCounter++
-            }
-            else if (this.toLongInIdleCounter > 10) {
-                this.playAnimation(this.TO_LONG_IDLE)
-            }
-        }, 500)
+    /**
+     * The animation for getting killed
+     */
+    killHim() {
+        this.playAnimation(this.IMAGES_DEAD)
+        setTimeout(() => {
+            this.loadImage('img/2_character_pepe/5_dead/D-56.png')
+            this.clearAllIntervalls();
+        }, 200)
+    }
+
+
+    /**
+     * The animation for getting hurt
+     */
+    hurtHim() {
+        this.playAnimation(this.IMAGES_HURT)
+        this.hurtCounter++
+        this.toLongInIdleCounter = 0;
+        setTimeout(() => {
+            this.hurtCounter = 0
+        }, 1000)
+    }
+
+
+    /**
+     * Clear all animation intervalls after dying
+     */
+    clearAllIntervalls() {
+        clearInterval(this.deadHurtIntervall)
+        clearInterval(this.jumping)
+        clearInterval(this.walkingRight)
+        clearInterval(this.walkingLeft)
     }
 }
