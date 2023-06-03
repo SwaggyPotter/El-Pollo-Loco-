@@ -254,6 +254,13 @@ body {
         width: 40px;
     }
 
+    #startBTN:hover {
+        position: absolute;
+        bottom: 100px;
+        width: 40px;
+        cursor: pointer;
+    }
+
     #tutorialContainer {
         display: none;
     }
@@ -270,7 +277,7 @@ body {
         align-items: center;
         background-image: url('img/backgrounds/cacti-7162265.svg');
         background-repeat: no-repeat;
-        background-size: 300%;
+        background-size: 400%;
         background-attachment: fixed;
     }
 
@@ -319,6 +326,13 @@ body {
         position: absolute;
         bottom: 80px;
         width: 40px;
+    }
+
+    #startBTN:hover {
+        position: absolute;
+        bottom: 100px;
+        width: 40px;
+        cursor: pointer;
     }
 
     #tutorialContainer {
