@@ -167,6 +167,7 @@ class Character extends MovableObject {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walkingSound.play()
+                
             }
         }, 1000 / 60)
     }
@@ -285,7 +286,7 @@ class Character extends MovableObject {
 
     //idle after 5 seconds
     toLongInIdleChecker() {
-        setInterval(() => {
+        idleIntervall = setInterval(() => {
             if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
                 this.toLongInIdleCounter++
             }

@@ -12,7 +12,7 @@ Titelbild anpassen an handy größen. sonnst zu gedrückt
 
 
 
-Old code for later:
+Old code for later maybe:
 function addCoordinateListener() {
     canvas.addEventListener('touchstart', function (event) {
         let rect = canvas.getBoundingClientRect();

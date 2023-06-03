@@ -28,7 +28,7 @@ class World {
     hitCounter = 0;
     hitIntervall;
     swooshBottle;
-    bossFightIntervall
+    bossFightIntervall;
 
 
     constructor(canvas, keyboard) {
@@ -62,35 +62,38 @@ class World {
 
 
     checkForCharDead() {
-        setInterval(() => {
+        let charIntervall = setInterval(() => {
             if (this.character.energy == 0 || this.character.energy < 0) {
-                bossDead = null;
                 setTimeout(() => {
                     this.stopGame();
                 }, 5000)
+                clearInterval(charIntervall)
             }
         }, 50)
     }
 
 
     stopGame() {
-        bossDead = null;
+        if (bossDead == 0) {
+            this.level.enemies[this.bossChicken].energy = 0;
+        }
         gameStartet = 0;
         bossDead = 0;
         this.pauseMusic()
         this.character.energy = 100;
-        this.bossInNear = 0
+        this.bossInNear = 0;
         this.level.enemies = [];
-        this.bottleBar.percentage
+        this.bottleBar.percentage = 0;
         musicOn = 0;
         clearInterval(this.hurtIntervall)
         clearInterval(this.bossFightIntervall)
-        document.getElementById('startPic').style.display = 'flex';
-        document.getElementById('startBTN').style.display = 'flex';
+        clearInterval(idleIntervall)
+        document.getElementById('startPic').style.visibility = 'visible';
+        document.getElementById('startBTN').style.visibility = 'visible';
     }
 
-    
-    pauseMusic(){
+
+    pauseMusic() {
         if (endBossMusic) {
             endBossMusic.pause()
         }
@@ -113,7 +116,7 @@ class World {
 
     checkForcollision() {
         //check for collison width chicken
-        this.chracterEnemyChollision();
+        this.chracterEnemyCollision();
         // fill the coinbar if you collide with a coin
         this.coinCollision();
         // fill the bottlebar if you collide with the salsabottle and delete the spawned on the map
@@ -145,7 +148,7 @@ class World {
     }
 
 
-    chracterEnemyChollision() {
+    chracterEnemyCollision() {
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
