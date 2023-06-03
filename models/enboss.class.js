@@ -93,19 +93,6 @@ class Endboss extends MovableObject {
     }
 
 
-    attackStack(){
-        if (this.attackCounter == 0) {
-            this.attack1();
-        }
-        else if (this.attackCounter == 1) {
-            this.attack2();
-        }
-        else if (this.attackCounter == 2) {
-            this.attack3();
-        }
-    }
-
-
     loadImages(img) {
         img.forEach((path) => {
             let img = new Image();
@@ -117,6 +104,19 @@ class Endboss extends MovableObject {
 
     attackCombination() {
         this.awake = true;
+    }
+
+
+    attackStack() {
+        if (this.attackCounter == 0) {
+            this.attack1();
+        }
+        else if (this.attackCounter == 1) {
+            this.attack2();
+        }
+        else if (this.attackCounter == 2) {
+            this.attack3();
+        }
     }
 
 
