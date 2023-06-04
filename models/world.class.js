@@ -1,38 +1,6 @@
-class World {
-    character = new Character();
-    level = level1;
-    canvas;
-    ctx;
-    keyboard;
-    camera_x = -100;
-    statusbar = new StatusBar;
-    coinbar = new Coinbar;
-    broke = false;
-    bottle = new throawbleObject();
-    bottleBar = new BottleBar();
-    bottleInAir = 0;
-    deadChicken = new deadCicken();
-    bossChicken = this.level.enemies.length - 1
-    bossStatusBar = new bossStatusbar();
-    emtyBossBar = new emtyBossBar();
-    bossChickenEmbleme = new bossBarChickenEmbleme();
-    endscreen = new endscreen(bossDead);
-    handyController = new handyControl();
-    handyBottleThrowBTN = new bottleThrowHandy((canvas.width - 120));
-    bossInNear = 0;
-    throwChecker;
-    damageCounter = 0;
-    hurtCounter = 0;
-    hurtSoundcounter = 0;
-    bossTrigger = 0;
-    hitCounter = 0;
-    hitIntervall;
-    swooshBottle;
-    bossFightIntervall;
-
-
+class World extends World_extension {
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        super().ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -61,38 +29,6 @@ class World {
     }
 
 
-    checkForCharDead() {
-        let charIntervall = setInterval(() => {
-            if (this.character.energy == 0 || this.character.energy < 0) {
-                setTimeout(() => {
-                    this.stopGame();
-                }, 5000)
-                clearInterval(charIntervall)
-            }
-        }, 50)
-    }
-
-
-    stopGame() {
-        if (bossDead == 0) {
-            this.level.enemies[this.bossChicken].energy = 0;
-        }
-        gameStartet = 0;
-        bossDead = 0;
-        this.pauseMusic()
-        this.character.energy = 100;
-        this.bossInNear = 0;
-        this.level.enemies = [];
-        this.bottleBar.percentage = 0;
-        musicOn = 0;
-        clearInterval(this.hurtIntervall)
-        clearInterval(this.bossFightIntervall)
-        clearInterval(idleIntervall)
-        document.getElementById('startPic').style.visibility = 'visible';
-        document.getElementById('startBTN').style.visibility = 'visible';
-    }
-
-
     pauseMusic() {
         if (endBossMusic) {
             endBossMusic.pause()
@@ -101,6 +37,7 @@ class World {
             backgroundAudio.pause()
         }
     }
+
 
 
     increaseValue() {
@@ -169,32 +106,11 @@ class World {
         }, 50);
     }
 
-
-    bottleEnemyCollisionchecker() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.bottle.isColliding(enemy)) {
-                    this.glasBreakSound()
-                    if (enemy.energy == 20 && enemy instanceof chicken) {
-                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.killEnemy(enemy, this.broke, this.bottle)
-                    }
-                    if (enemy.energy == 20 && enemy instanceof littleChicken) {
-                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.killEnemy(enemy, this.broke, this.bottle)
-                    }
-                    else if (enemy.energy > 20 && enemy instanceof Endboss) {
-                        this.hitTheBoss(enemy, this.broke, this.bottle)
-                    }
-                    else if (enemy.energy == 20 && enemy instanceof Endboss) {
-                        this.killTheBoss(this.bottle, this.broke, enemy)
-                    }
-                }
-            })
-        }, 200);
-    }
-
-
+    /**
+     * Delete the killed chicken ant play a sound for killing it
+     * @param {object} enemy 
+     * @param {*} chickenClass 
+     */
     jumpKillChicken(enemy, chickenClass) {
         this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
         this.deadChicken = new deadCicken(enemy.y, enemy.x, chickenClass);
@@ -204,6 +120,9 @@ class World {
     }
 
 
+    /**
+     * Play glass breaking sound
+     */
     glasBreakSound() {
         let audio = new Audio('audio/shortGlassBreak.mp3');
         audio.volume = (valueSound / 100)
@@ -211,6 +130,14 @@ class World {
     }
 
 
+    /**
+     * Break the bottle on the coordinates where she hit the chicken, and delete the boss chicken. Set the boss hp on 0.
+     * Stop the game
+     * 
+     * @param {object} bottle 
+     * @param {boolean} broke
+     * @param {object} enemy 
+     */
     killTheBoss(bottle, broke, enemy) {
         this.broke = true;
         this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
@@ -224,6 +151,13 @@ class World {
     }
 
 
+    /**
+     * Gave the boss demage. Spawn a broke animation on the position where the bottle hit the chicken
+     * 
+     * @param {object} enemy 
+     * @param {boolean} broke 
+     * @param {object} bottle 
+     */
     hitTheBoss(enemy, broke, bottle) {
         this.broke = true;
         this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
@@ -241,6 +175,13 @@ class World {
     }
 
 
+    /**
+     * Function for playing the broke bottle animation
+     * 
+     * @param {object} enemy 
+     * @param {boolean} broke 
+     * @param {object} bottle 
+     */
     killEnemy(enemy, bottle, broke) {
         this.broke = true;
         this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
@@ -248,26 +189,9 @@ class World {
     }
 
 
-    catchBottle(bottles) {
-        this.bottleBar.percentage += 10;
-        this.bottleBar.setPercentage(this.bottleBar.percentage);
-        this.deleteObjectByXCoordinate(this.level.salsabottles, bottles['x'])
-        let audio = new Audio('audio/coin-catch.mp3');
-        audio.volume = (valueSound / 100)
-        audio.play();
-    }
-
-
-    catchCoin(coin) {
-        this.coinbar.percentage += 20;
-        this.coinbar.setPercentage(this.coinbar.percentage);
-        this.deleteObjectByXCoordinate(this.level.coins, coin['x'])
-        let audio = new Audio('audio/coin-catch.mp3');
-        audio.volume = (valueSound / 100)
-        audio.play();
-    }
-
-
+    /**
+     * Get extra damage from the boss
+     */
     getBossDemage() {
         this.hitIntervall = setInterval(this.increaseValue(), 100)
         this.character.energy -= 10
@@ -275,6 +199,9 @@ class World {
     }
 
 
+    /**
+     * Get normal damage from chicken every second
+     */
     hurtThePlayer() {
         this.statusbar.setPercentage(this.character.energy);
         this.character.hit();
@@ -286,6 +213,9 @@ class World {
     }
 
 
+    /**
+     * If the character is in the near of the boss start attacking, the music changed, and the heal bar appear
+     */
     checkForBossFight() {
         this.bossFightIntervall = setInterval(() => {
             if (this.bossTrigger == 0) {
@@ -306,6 +236,12 @@ class World {
     }
 
 
+    /**
+     * Function for deleting objects by his cordinates in an array
+     * 
+     * @param {Array} arr - Array of the enemy objects
+     * @param {number} xCoord - x coordinate of the shoosen object
+     */
     deleteObjectByXCoordinate(arr, xCoord) {
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].x === xCoord) {
@@ -316,6 +252,9 @@ class World {
     }
 
 
+    /**
+     * Start checking for collissions and thrown objects
+     */
     run() {
         setInterval(() => {
             this.checkForcollision();
@@ -328,7 +267,9 @@ class World {
     }
 
 
-    // only trow bottles if you have some and reduct it after trow
+    /**
+     * only trow bottles if you have some and reduct it after trow
+     */
     checkTrowObjects() {
         if (this.keyboard.D) {
             if (this.bottleInAir == 0) {
@@ -349,6 +290,9 @@ class World {
     }
 
 
+    /**
+     * Draw the world
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.translate(this.camera_x, 0)
@@ -371,6 +315,9 @@ class World {
     }
 
 
+    /**
+     * Draw the objects and enemies in the world
+     */
     drawWorldObjects() {
         // draw the background
         this.theForEach(this.level.backgrounds)
@@ -387,6 +334,9 @@ class World {
     }
 
 
+    /**
+     * Draw the Statusbars 
+     */
     drawAllBars() {
         //draw the statusbar
         this.ctx.translate(-this.camera_x, 0) // back
@@ -405,6 +355,9 @@ class World {
     }
 
 
+    /**
+     * Draw the bos statusbar
+     */
     drawBossStatusbar() {
         if (this.bossInNear == 1) {
             this.ctx.translate(-this.camera_x, 0) // back
@@ -416,6 +369,9 @@ class World {
     }
 
 
+    /**
+     * Draw the endscreen
+     */
     drawEndscreen() {
         if (bossDead == 1) {
             this.endscreen = new endscreen(bossDead);
@@ -432,6 +388,11 @@ class World {
     }
 
 
+    /**
+     * Draw the given picture 
+     * 
+     * @param {object} object - the givin picture
+     */
     theForEach(object) {
         object.forEach(o => {
             this.drawImgOnMap(o)
@@ -439,6 +400,11 @@ class World {
     }
 
 
+    /**
+     * handle the picture reflection based on the moving direction
+     * 
+     * @param {object} DM - an Image
+     */
     drawImgOnMap(DM) {
         if (DM.otherDirection) {
             this.flipImage(DM)
@@ -450,6 +416,11 @@ class World {
     }
 
 
+    /**
+     * Reflect the givin picture
+     * 
+     * @param {object} DM - picture
+     */
     flipImage(DM) {
         this.ctx.save();
         this.ctx.translate(DM.width, 0);
@@ -458,6 +429,11 @@ class World {
     }
 
 
+    /**
+     * Reflect the picture back
+     * 
+     * @param {object} DM - picture
+     */
     flipImageBack(DM) {
         DM.x = DM.x * -1;
         this.ctx.restore();
