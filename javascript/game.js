@@ -21,7 +21,9 @@ let startPic = document.getElementById('startPic')
 let startBTN = document.getElementById('startBTN')
 
 
-// Start the initialization of the game.
+/**
+ * Start the initialization of the game.
+ */
 function init() {
     startPic.style.visibility = 'hidden';
     startBTN.style.visibility = 'hidden';
@@ -34,11 +36,12 @@ function init() {
     showHandycontrolls();
     loadMusic();
     gameStartet = 1;
-    
 }
 
 
-// Check the screen width. If the screen is small, remove the fullscreen button.
+/**
+ * Check the screen width. If the screen is small, remove the fullscreen button.
+ */
 function setFullscreenButton() {
     if (window.innerWidth > 1010) {
         document.getElementById('fullscreenBTN').style.display = 'flex';
@@ -49,7 +52,9 @@ function setFullscreenButton() {
 }
 
 
-// Show the handheld control button.
+/**
+ * Show the handheld control button.
+ */
 function showHandycontrolls() {
     if (window.innerWidth <= 1010) {
         addListenerHandyNormal();
@@ -58,7 +63,9 @@ function showHandycontrolls() {
 }
 
 
-// Change the boolean value of the keyboard listener. 
+/**
+ * Change the boolean value of the keyboard listener. 
+ */
 function addListenerHandyNormal() {
     let leftKey = document.getElementById('leftBtn');
     let rightKey = document.getElementById('rightBtn');
@@ -69,7 +76,13 @@ function addListenerHandyNormal() {
 }
 
 
-// Set the event listener for changing the value of the keyboard keys after pressing and holding.
+/**
+ * Set the event listener for changing the value of the keyboard keys after pressing and holding.
+ * @param {*} leftKey 
+ * @param {*} rightKey 
+ * @param {*} UpKey 
+ * @param {*} throwKey 
+ */
 function listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey) {
     leftKey.addEventListener('touchstart', () => {
         keyboard.LEFT = true;
@@ -87,7 +100,13 @@ function listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey) {
 }
 
 
-// Set the event listener for changing the value of the keyboard keys after release.
+/**
+ * Set the event listener for changing the value of the keyboard keys after release.
+ * @param {*} leftKey 
+ * @param {*} rightKey 
+ * @param {*} UpKey 
+ * @param {*} throwKey 
+ */
 function listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey) {
     leftKey.addEventListener('touchend', () => {
         keyboard.LEFT = false;
@@ -104,7 +123,9 @@ function listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey) {
 }
 
 
-// Set the screen to full screen.
+/**
+ *Set the screen to full screen.
+ */
 function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
     fullscreenBTN.addEventListener('click', () => {
@@ -113,7 +134,10 @@ function fullscreenListener() {
 }
 
 
-// Full screen for different browsers.
+/**
+ * Full screen for different browsers.
+ * @param {object} canvas
+ */
 function toggleFullscreen(canvas) {
     if (!document.fullscreenElement) {
         if (canvas.requestFullscreen) {
@@ -129,19 +153,25 @@ function toggleFullscreen(canvas) {
 }
 
 
-// Play button.
+/**
+ * Play button.
+ */
 function changePlayBTN2() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN.png';
 }
 
 
-// Play button hover effect.
+/**
+ * Play button hover effect.
+ */
 function changePlayBTN() {
     document.getElementById('startBTN').src = 'img/playBTN/playBTN_hover.png';
 }
 
 
-// Load the normal music. And the boss music if the boss appears.
+/**
+ * Load the normal music. And the boss music if the boss appears.
+ */
 function loadMusic() {
     if (musicOn == 0) {
         if (backgroundAudio) {
@@ -164,13 +194,14 @@ function loadMusic() {
 }
 
 
-// Update the volume of the music and the sounds.
+/**
+ * Update the volume of the music and the sounds.
+ */
 function updateSounds() {
     setInterval(() => {
         if (backgroundAudio) {
             valueSound = slider.value;
             backgroundAudio.volume = (valueSound / 100)
-
         }
         if (endBossMusic) {
             valueSound = slider.value;
@@ -185,7 +216,9 @@ Eventlistener
 */
 
 
-// Add the button for window fullscreen on resize.
+/**
+ * Add the button for window fullscreen on resize.
+ */
 window.addEventListener('resize', () => {
     if (window.innerWidth < 1011 && gameStartet == 1) {
         showHandycontrolls();
@@ -204,7 +237,9 @@ window.addEventListener('resize', () => {
 })
 
 
-// Set the key listener to its standard value after release.
+/**
+ * Set the key listener to its standard value after release.
+ */
 window.addEventListener('touchend', () => {
     keyboard.UP = false;
     keyboard.RIGHT = false;
@@ -213,14 +248,18 @@ window.addEventListener('touchend', () => {
 })
 
 
-// Read the slider input for the volume.
+/**
+ * Read the slider input for the volume.
+ */
 slider.addEventListener("input", () => {
     valueSound = slider.value;
     updateSounds();
 });
 
 
-// Key listener for holding.
+/**
+ * Key listener for holding.
+ */
 window.addEventListener("keydown", (e) => {
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = true;
@@ -243,7 +282,9 @@ window.addEventListener("keydown", (e) => {
 })
 
 
-// Key listener for release.
+/**
+ * Key listener for release.
+ */
 window.addEventListener("keyup", (e) => {
     if (e['keyCode'] == 39) {
         keyboard.RIGHT = false;

@@ -37,7 +37,10 @@ class throawbleObject extends MovableObject {
         this.animate();
     }
 
-   
+
+    /**
+     * Animate the bottle rotation and the splash animation if it brokes
+     */
     animate() {
         if (this.broke == undefined) {
             setInterval(() => {
@@ -51,23 +54,34 @@ class throawbleObject extends MovableObject {
         }
         else if (this.broke == true) {
             if (this.animationCounter == 0) {
-                this.animationCounter++
-                this.speedY = 0;
-                this.splashAnimation = setInterval(() => {
-                    this.playAnimation(this.BOTTLE_BROKE)
-                }, 50)
-                setTimeout(() => {
-                    this.animationCounter = 0;
-                }, 1000)
-                setTimeout(() => {
-                    clearInterval(this.splashAnimation);
-                    this.loadImage('img/emptyPNG.png');
-                }, 350)
+                this.bottleBrokeAnimation()
             }
         }
     }
 
 
+    /**
+     * Play the split animation
+     */
+    bottleBrokeAnimation() {
+        this.animationCounter++
+        this.speedY = 0;
+        this.splashAnimation = setInterval(() => {
+            this.playAnimation(this.BOTTLE_BROKE)
+        }, 50)
+        setTimeout(() => {
+            this.animationCounter = 0;
+        }, 1000)
+        setTimeout(() => {
+            clearInterval(this.splashAnimation);
+            this.loadImage('img/emptyPNG.png');
+        }, 350)
+    }
+
+
+    /**
+     * Function checkout the direction the player is looking and apply the gravity
+     */
     trow() {
         if (this.direction == false && this.broke == false) {
             this.speedY = 10;

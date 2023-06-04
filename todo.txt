@@ -1,17 +1,21 @@
 Funktionen kürzen.
 Mit js doc dokumentieren
 
-Endboss.js
-movable-objects.js
-throwable-objects.js
+
+
+
 world.js
-game.js
+
 
 Erledigt:
 Schneller fallen
 Endboss agressiver machen.
 Nur hit animation abspielen bei treffer. Ob er spring läuft etc.
 Titelbild anpassen an handy größen. sonnst zu gedrückt
+Endboss.js
+movable-objects.js
+throwable-objects.js
+game.js
 
 
 
