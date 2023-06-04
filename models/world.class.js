@@ -16,6 +16,9 @@ class World extends World_extension {
     }
 
 
+    /**
+     * Play a sound if you get hurt
+     */
     hurtSoundPlay() {
         if (this.hurtSoundcounter == 0) {
             this.hurtSoundcounter++
@@ -29,6 +32,9 @@ class World extends World_extension {
     }
 
 
+    /**
+     * Paused the music
+     */
     pauseMusic() {
         if (endBossMusic) {
             endBossMusic.pause()
@@ -37,7 +43,6 @@ class World extends World_extension {
             backgroundAudio.pause()
         }
     }
-
 
 
     increaseValue() {
@@ -51,6 +56,9 @@ class World extends World_extension {
     }
 
 
+    /**
+     * Check for collision with everything in the world
+     */
     checkForcollision() {
         //check for collison width chicken
         this.chracterEnemyCollision();
@@ -63,6 +71,9 @@ class World extends World_extension {
     }
 
 
+    /**
+     * Check for collision with dropped bottles in the world
+     */
     bottleCollision() {
         setInterval(() => {
             this.level.salsabottles.forEach((bottles) => {
@@ -74,6 +85,9 @@ class World extends World_extension {
     }
 
 
+    /**
+     * Check for collision with spawned coins in the world
+     */
     coinCollision() {
         setInterval(() => {
             this.level.coins.forEach((coin) => {
@@ -84,27 +98,6 @@ class World extends World_extension {
         }, 1500);
     }
 
-
-    chracterEnemyCollision() {
-        this.hurtIntervall = setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
-                    this.hurtThePlayer();
-                }
-                if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
-                    this.getBossDemage();
-                }
-                // kill the chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
-                    this.jumpKillChicken(enemy, 1);
-                }
-                // kill little chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
-                    this.jumpKillChicken(enemy, 2);
-                }
-            })
-        }, 50);
-    }
 
     /**
      * Delete the killed chicken ant play a sound for killing it
@@ -291,151 +284,54 @@ class World extends World_extension {
 
 
     /**
-     * Draw the world
+     * Check for collision between character and chicken
      */
-    draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.translate(this.camera_x, 0)
-        //draw objects in the world background,enemies etc.
-        this.drawWorldObjects()
-        // draw the character
-        this.drawImgOnMap(this.character)
-        //draw dead chicken
-        this.drawImgOnMap(this.deadChicken)
-        //draw all the bars
-        this.drawAllBars();
-        //draw the endscreen
-        this.drawEndscreen()
-        this.ctx.translate(-this.camera_x, 0)
-        //draw wird immer wieder aufgerufen
-        let self = this;
-        this.drawRequest = requestAnimationFrame(() => {
-            self.draw()
-        })
+    bottleEnemyCollisionchecker() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.bottle.isColliding(enemy)) {
+                    this.glasBreakSound()
+                    if (enemy.energy == 20 && enemy instanceof chicken) {
+                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+                        this.killEnemy(enemy, this.broke, this.bottle)
+                    }
+                    if (enemy.energy == 20 && enemy instanceof littleChicken) {
+                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+                        this.killEnemy(enemy, this.broke, this.bottle)
+                    }
+                    else if (enemy.energy > 20 && enemy instanceof Endboss) {
+                        this.hitTheBoss(enemy, this.broke, this.bottle)
+                    }
+                    else if (enemy.energy == 20 && enemy instanceof Endboss) {
+                        this.killTheBoss(this.bottle, this.broke, enemy)
+                    }
+                }
+            })
+        }, 200);
     }
 
 
     /**
-     * Draw the objects and enemies in the world
+     * Check for collision between character and enemy
      */
-    drawWorldObjects() {
-        // draw the background
-        this.theForEach(this.level.backgrounds)
-        // draw the chickens
-        this.theForEach(this.level.enemies)
-        // draw the clouds
-        this.theForEach(this.level.clouds)
-        // draw the coins
-        this.theForEach(this.level.coins)
-        // draw the salsa bottels
-        this.theForEach(this.level.salsabottles)
-        // draw the bottle
-        this.drawImgOnMap(this.bottle)
-    }
-
-
-    /**
-     * Draw the Statusbars 
-     */
-    drawAllBars() {
-        //draw the statusbar
-        this.ctx.translate(-this.camera_x, 0) // back
-        this.drawImgOnMap(this.statusbar)
-        this.ctx.translate(this.camera_x, 0)// forward
-        // draw the coinbar 
-        this.ctx.translate(-this.camera_x, 0) // back
-        this.drawImgOnMap(this.coinbar)
-        this.ctx.translate(this.camera_x, 0)// forward
-        //draw the bottle bar 
-        this.ctx.translate(-this.camera_x, 0) // back
-        this.drawImgOnMap(this.bottleBar)
-        this.ctx.translate(this.camera_x, 0)// forward
-        //draw the boss statusbar
-        this.drawBossStatusbar()
-    }
-
-
-    /**
-     * Draw the bos statusbar
-     */
-    drawBossStatusbar() {
-        if (this.bossInNear == 1) {
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.emtyBossBar)
-            this.drawImgOnMap(this.bossStatusBar)
-            this.drawImgOnMap(this.bossChickenEmbleme)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
-    }
-
-
-    /**
-     * Draw the endscreen
-     */
-    drawEndscreen() {
-        if (bossDead == 1) {
-            this.endscreen = new endscreen(bossDead);
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.endscreen)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
-        if (this.character.energy <= 0) {
-            this.endscreen = new endscreen(bossDead);
-            this.ctx.translate(-this.camera_x, 0) // back
-            this.drawImgOnMap(this.endscreen)
-            this.ctx.translate(this.camera_x, 0)// forward
-        }
-    }
-
-
-    /**
-     * Draw the given picture 
-     * 
-     * @param {object} object - the givin picture
-     */
-    theForEach(object) {
-        object.forEach(o => {
-            this.drawImgOnMap(o)
-        })
-    }
-
-
-    /**
-     * handle the picture reflection based on the moving direction
-     * 
-     * @param {object} DM - an Image
-     */
-    drawImgOnMap(DM) {
-        if (DM.otherDirection) {
-            this.flipImage(DM)
-        }
-        this.ctx.drawImage(DM.img, DM.x, DM.y, DM.width, DM.height)
-        if (DM.otherDirection) {
-            this.flipImageBack(DM)
-        }
-    }
-
-
-    /**
-     * Reflect the givin picture
-     * 
-     * @param {object} DM - picture
-     */
-    flipImage(DM) {
-        this.ctx.save();
-        this.ctx.translate(DM.width, 0);
-        this.ctx.scale(-1, 1);
-        DM.x = DM.x * -1;
-    }
-
-
-    /**
-     * Reflect the picture back
-     * 
-     * @param {object} DM - picture
-     */
-    flipImageBack(DM) {
-        DM.x = DM.x * -1;
-        this.ctx.restore();
+    chracterEnemyCollision() {
+        this.hurtIntervall = setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
+                    this.hurtThePlayer();
+                }
+                if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                    this.getBossDemage();
+                }
+                // kill the chicken with jumping on it
+                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
+                    this.jumpKillChicken(enemy, 1);
+                }
+                // kill little chicken with jumping on it
+                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
+                    this.jumpKillChicken(enemy, 2);
+                }
+            })
+        }, 50);
     }
 }

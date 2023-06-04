@@ -1,12 +1,3 @@
-Funktionen kürzen.
-Mit js doc dokumentieren
-
-
-
-
-world.js
-
-
 Erledigt:
 Schneller fallen
 Endboss agressiver machen.
@@ -16,10 +7,9 @@ Endboss.js
 movable-objects.js
 throwable-objects.js
 game.js
-
-
-
-
+world.js
+Funktionen kürzen.
+Mit js doc dokumentieren
 
 
 Old code for later maybe:
