@@ -97,7 +97,7 @@ class Character extends MovableObject {
 
 
     /**
-    * executes the jump, play the jump sound, tell us if the character came from above.
+    * Execute the jump, play the jump sound, and let us know if the character came from above.
     */
     jumpFunc() {
         this.jumping = setInterval(() => {
@@ -118,7 +118,7 @@ class Character extends MovableObject {
 
 
     /**
-    * Play the to long in idle animation after 5 seconds
+    * Play the 'too long' idle animation after 5 seconds.
     */
     toLongInIdleChecker() {
         idleIntervall = setInterval(() => {
@@ -133,7 +133,7 @@ class Character extends MovableObject {
 
 
     /**
-     * Handle all the charachter animations
+     * Handle all the character animations.
      */
     animate() {
         this.moveRightFunc();
@@ -146,7 +146,7 @@ class Character extends MovableObject {
 
 
     /**
-     * play the idle animation 
+     * Play the idle animation 
      */
     setCharacterInIdle() {
         setInterval(() => {
@@ -160,7 +160,7 @@ class Character extends MovableObject {
 
 
     /**
-     * play the jump sound 
+     * Play the jump sound 
      */
     playJumpSound() {
         this.jumpSoundCounter++
@@ -174,7 +174,7 @@ class Character extends MovableObject {
 
 
     /**
-     * if the boss is dead clear all moving intervals that the character is freeze 
+     * If the boss is dead, clear all active intervals that are moving the character to freeze its movement.
      */
     bossDeadChecker() {
         setInterval(() => {
@@ -190,7 +190,7 @@ class Character extends MovableObject {
 
 
     /**
-    * Function for the moving right animation
+    * Function for the moving right animation.
     */
     moveRightFunc() {
         this.walkingRight = setInterval(() => {

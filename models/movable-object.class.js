@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Check if a object is colliding
+     * Check if an object is colliding.
      */
     isColliding(DM) {
         return this.x + (this.width - 50) > DM.x &&
@@ -21,7 +21,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * gave the object damage
+     * Apply damage to the object.
      */
     hit() {
         if (this.energy <= 0) {
@@ -35,7 +35,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * check if the object was hurt the last second
+     * Check if the object was hurt in the last second.
      * @returns - 1 second
      */
     isHurt() {
@@ -46,7 +46,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * check if the energy of an object is 0
+     * Check if the energy of the object is 0.
      * @returns - energy 0 = dead
      */
     isDead() {
@@ -55,7 +55,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * move the object to the right
+     * Move the object to the right.
      */
     moveRight() {
         this.x += this.speed;
@@ -63,7 +63,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * move the object to the left
+     * Move the object to the left.
      */
     moveLeft() {
         this.x -= this.speed;
@@ -71,7 +71,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * let the endboss moving left
+     * Let the end boss move to the left.
      */
     endbossAttack() {
         setInterval(() => {
@@ -79,6 +79,7 @@ class MovableObject extends DrawableObject {
         })
     }
 
+    // hier weiter machen
 
     /**
      * pull the object to the ground

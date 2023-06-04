@@ -80,7 +80,7 @@ function addListenerHandyNormal() {
  * Set the event listener for changing the value of the keyboard keys after pressing and holding.
  * @param {*} leftKey 
  * @param {*} rightKey 
- * @param {*} UpKey 
+ * @param {*} upKey 
  * @param {*} throwKey 
  */
 function listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey) {
@@ -104,7 +104,7 @@ function listenerKeysTouchStart(leftKey, rightKey, UpKey, throwKey) {
  * Set the event listener for changing the value of the keyboard keys after release.
  * @param {*} leftKey 
  * @param {*} rightKey 
- * @param {*} UpKey 
+ * @param {*} upKey 
  * @param {*} throwKey 
  */
 function listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey) {
@@ -124,7 +124,7 @@ function listenerKeysTouchEnd(leftKey, rightKey, UpKey, throwKey) {
 
 
 /**
- *Set the screen to full screen.
+ * Set the screen to full screen.
  */
 function fullscreenListener() {
     fullscreenBTN.style.display = 'flex';
@@ -212,7 +212,7 @@ function updateSounds() {
 
 
 /*
-Eventlistener
+Event listener
 */
 
 
