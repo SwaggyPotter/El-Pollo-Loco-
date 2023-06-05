@@ -79,10 +79,9 @@ class MovableObject extends DrawableObject {
         })
     }
 
-    // hier weiter machen
 
     /**
-     * pull the object to the ground
+     * Pull the object to the ground
      */
     applyGravity() {
         setInterval(() => {
@@ -95,7 +94,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * pull the character to the ground
+     * Pull the character to the ground
      */
     applyGravityCharacter() {
         setInterval(() => {
@@ -108,9 +107,9 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * check if the object iis above the ground
-     * @returns -true for bottles
-     * @returns - y bigger than 97
+     * Check if the object is above the ground.
+     * @returns -True for bottles
+     * @returns - y bigger than 97.
      */
     isAboveGround() {
         if (this instanceof throawbleObject) {
