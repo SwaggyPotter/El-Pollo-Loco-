@@ -153,7 +153,7 @@ class World extends World_extension {
      */
     hitTheBoss(enemy, broke, bottle) {
         this.broke = true;
-        this.bottle = new throawbleObject(enemy['x'] - 120, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
+        this.bottle = new throawbleObject(enemy['x'] - 50, this.bottle['y'] - 10, this.character.otherDirection, this.broke)
         this.broke = false;
         enemy.hit();
         enemy.energy -= 10;
@@ -177,7 +177,7 @@ class World extends World_extension {
      */
     killEnemy(enemy, bottle, broke) {
         this.broke = true;
-        this.bottle = new throawbleObject(enemy['x'] + -100, enemy['y'] + -150, this.character.otherDirection, this.broke)
+        this.bottle = new throawbleObject(enemy['x'] + -50, enemy['y'] + -150, this.character.otherDirection, this.broke)
         this.broke = false;
     }
 
