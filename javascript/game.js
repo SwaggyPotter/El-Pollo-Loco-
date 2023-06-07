@@ -25,6 +25,8 @@ let startBTN = document.getElementById('startBTN')
  * Start the initialization of the game.
  */
 function init() {
+    document.getElementById('handyControls').style.visibility = 'visible';
+    document.getElementById('canvas').style.visibility = 'visible';
     startPic.style.visibility = 'hidden';
     startBTN.style.visibility = 'hidden';
     canvas = document.getElementById('canvas');
