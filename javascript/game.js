@@ -42,7 +42,9 @@ function init() {
     gameStartet = 1;
 }
 
-
+/**
+ * Show the key controll
+ */
 function showKeyControll() {
     if (window.innerWidth <= 920) {
         document.getElementById('tutorialContainer').style.display = 'none';
@@ -53,6 +55,9 @@ function showKeyControll() {
 }
 
 
+/**
+ * show the key controll on window rezise
+ */
 window.addEventListener('resize', () => {
     if (window.innerWidth <= 1010 && gameStartet == 1) {
         document.getElementById('tutorialContainer').style.display = 'none';
@@ -63,6 +68,9 @@ window.addEventListener('resize', () => {
 })
 
 
+/**
+ * Show the turn your device gif
+ */
 function turnDevice() {
     if (window.innerWidth <= 720) {
         document.getElementById('turnDeviceContainer').style.display = 'flex'
@@ -70,11 +78,17 @@ function turnDevice() {
 }
 
 
+/**
+ * Hide the turn your device gif on touch start
+ */
 deviceTurnScreen.addEventListener('touchstart', () => {
     document.getElementById('turnDeviceContainer').style.display = 'none'
 })
 
 
+/**
+ * show the turn your device gif on rezise after 1 second
+ */
 window.addEventListener('resize', () => {
     setTimeout(() => {
         if (window.innerWidth > 720) {
@@ -85,6 +99,7 @@ window.addEventListener('resize', () => {
         }
     }, 1000)
 })
+
 
 /**
  * Check the screen width. If the screen is small, remove the fullscreen button.
