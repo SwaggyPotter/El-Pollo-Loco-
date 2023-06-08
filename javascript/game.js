@@ -28,11 +28,11 @@ let deviceTurnScreen = document.getElementById('turnDeviceContainer')
 function init() {
     document.getElementById('handyControls').style.visibility = 'visible';
     document.getElementById('canvas').style.visibility = 'visible';
-    document.getElementById('tutorialContainer').style.display = 'flex';
     startPic.style.visibility = 'hidden';
     startBTN.style.visibility = 'hidden';
     canvas = document.getElementById('canvas');
     initLevel();
+    showKeyControll()
     world = new World(canvas, keyboard);
     valueSound = slider.value;
     fullscreenListener();
@@ -43,15 +43,37 @@ function init() {
 }
 
 
+function showKeyControll() {
+    if (window.innerWidth <= 920) {
+        document.getElementById('tutorialContainer').style.display = 'none';
+    }
+    else {
+        document.getElementById('tutorialContainer').style.display = 'flex';
+    }
+}
+
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth <= 1010 && gameStartet == 1) {
+        document.getElementById('tutorialContainer').style.display = 'none';
+    }
+    else if (window.innerWidth >= 1011 && gameStartet == 1) {
+        document.getElementById('tutorialContainer').style.display = 'flex';
+    }
+})
+
+
 function turnDevice() {
     if (window.innerWidth <= 720) {
         document.getElementById('turnDeviceContainer').style.display = 'flex'
     }
 }
 
+
 deviceTurnScreen.addEventListener('touchstart', () => {
     document.getElementById('turnDeviceContainer').style.display = 'none'
 })
+
 
 window.addEventListener('resize', () => {
     setTimeout(() => {
