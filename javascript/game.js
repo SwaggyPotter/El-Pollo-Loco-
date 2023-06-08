@@ -42,6 +42,18 @@ function init() {
 }
 
 
+function turnDevice() {
+    if (window.innerWidth <= 720) {
+        document.getElementById('turnDeviceContainer').style.display = 'flex'
+    }
+}
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) {
+        document.getElementById('turnDeviceContainer').style.display = 'none'
+    }
+})
+
 /**
  * Check the screen width. If the screen is small, remove the fullscreen button.
  */

@@ -40,7 +40,7 @@
         rel="stylesheet">
 </head>
 
-<body>
+<body onload="turnDevice()">
     <div id="centerContainer">
         <div id="startContainer" class="startContainer">
             <img id="startPic" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="play button">
@@ -58,6 +58,10 @@
             <div id="musicContainer">
                 <img id="volIMG" src="img/fullscreen_and_icons_tut/vol_embleme.png" alt="">
                 <input type="range" id="slider" min="0" max="100" value="5" step="1">
+            </div>
+
+            <div id="turnDeviceContainer">
+                <img id="turnDeviceIMG" src="img/turnYourPhone.gif" alt="">
             </div>
 
             <div id="tutorialContainer">
