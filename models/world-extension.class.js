@@ -68,6 +68,7 @@ class World_extension {
         document.getElementById('startBTN').style.visibility = 'visible';
         document.getElementById('canvas').style.visibility = 'hidden';
         document.getElementById('handyControls').style.visibility = 'hidden';
+        document.getElementById('tutorialContainer').style.display = 'none';
     }
 
 

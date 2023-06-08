@@ -27,6 +27,7 @@ let startBTN = document.getElementById('startBTN')
 function init() {
     document.getElementById('handyControls').style.visibility = 'visible';
     document.getElementById('canvas').style.visibility = 'visible';
+    document.getElementById('tutorialContainer').style.display = 'flex';
     startPic.style.visibility = 'hidden';
     startBTN.style.visibility = 'hidden';
     canvas = document.getElementById('canvas');
