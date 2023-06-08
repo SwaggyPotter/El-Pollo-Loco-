@@ -19,6 +19,7 @@ let gameStartet = 0;
 let idleIntervall;
 let startPic = document.getElementById('startPic')
 let startBTN = document.getElementById('startBTN')
+let deviceTurnScreen = document.getElementById('turnDeviceContainer')
 
 
 /**
@@ -48,10 +49,19 @@ function turnDevice() {
     }
 }
 
+deviceTurnScreen.addEventListener('touchstart', () => {
+    document.getElementById('turnDeviceContainer').style.display = 'none'
+})
+
 window.addEventListener('resize', () => {
-    if (window.innerWidth > 720) {
-        document.getElementById('turnDeviceContainer').style.display = 'none'
-    }
+    setTimeout(() => {
+        if (window.innerWidth > 720) {
+            document.getElementById('turnDeviceContainer').style.display = 'none'
+        }
+        else if (window.innerWidth < 720) {
+            document.getElementById('turnDeviceContainer').style.display = 'flex'
+        }
+    }, 1000)
 })
 
 /**
