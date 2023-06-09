@@ -17,6 +17,7 @@ class Character extends MovableObject {
     toLongInIdleCounter = 0;
     jumpSoundCounter = 0;
     fromeAbove = 0;
+    
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -67,6 +68,20 @@ class Character extends MovableObject {
     ]
 
 
+    NORMAL_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ]
+
+
     TO_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -90,6 +105,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_FALLING);
         this.loadImages(this.IMAGES_LANDING);
         this.loadImages(this.TO_LONG_IDLE);
+        this.loadImages(this.NORMAL_IDLE);
         this.applyGravityCharacter();
         this.animate();
         this.toLongInIdleChecker();
@@ -119,17 +135,19 @@ class Character extends MovableObject {
 
 
     /**
+     * Instant normal idle animation
     * Play the 'too long' idle animation after 5 seconds.
     */
     toLongInIdleChecker() {
         idleIntervall = setInterval(() => {
-            if (this.toLongInIdleCounter <= 10 && this.toLongInIdleCounter >= 0) {
+            if (this.toLongInIdleCounter <= 20 && this.toLongInIdleCounter >= 0 && !this.isDead() && !this.isAboveGround() && !this.isHurt() && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.toLongInIdleCounter++
+                this.playAnimation(this.NORMAL_IDLE)
             }
-            else if (this.toLongInIdleCounter > 10) {
+            else if (this.toLongInIdleCounter > 20) {
                 this.playAnimation(this.TO_LONG_IDLE)
             }
-        }, 500)
+        }, 250)
     }
 
 
@@ -155,6 +173,7 @@ class Character extends MovableObject {
                 this.walkingSound.pause();
                 this.playAnimation(this.IMAGES_WALKING)
                 this.toLongInIdleCounter = 0;
+                this.normalIdlecounter = 0;
             }
         }, 50)
     }
@@ -184,7 +203,6 @@ class Character extends MovableObject {
                 clearInterval(this.jumping)
                 clearInterval(this.walkingRight)
                 clearInterval(this.walkingLeft)
-                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
         }, 10)
     }
@@ -233,9 +251,6 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     this.animationCounter = 0;
                 }, 900)
-            }
-            else if (!this.isAboveGround() && !this.isDead() && this.hurtCounter == 0 && this.toLongInIdleCounter < 10 && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
-                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png')
             }
         }, 50)
     }
