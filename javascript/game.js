@@ -47,7 +47,7 @@ function init() {
  * Show the key controll
  */
 function showKeyControll() {
-    if (window.innerWidth <= 920) {
+    if (window.innerWidth <= 1010) {
         document.getElementById('tutorialContainer').style.display = 'none';
     }
     else {
@@ -91,14 +91,12 @@ deviceTurnScreen.addEventListener('touchstart', () => {
  * show the turn your device gif on rezise after 1 second
  */
 window.addEventListener('resize', () => {
-    setTimeout(() => {
-        if (window.innerWidth > 720) {
-            document.getElementById('turnDeviceContainer').style.display = 'none'
-        }
-        else if (window.innerWidth < 720) {
-            document.getElementById('turnDeviceContainer').style.display = 'flex'
-        }
-    }, 1000)
+    if (window.innerWidth > 720) {
+        document.getElementById('turnDeviceContainer').style.display = 'none'
+    }
+    else if (window.innerWidth < 720) {
+        document.getElementById('turnDeviceContainer').style.display = 'flex'
+    }
 })
 
 

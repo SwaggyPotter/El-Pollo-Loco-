@@ -50,20 +50,30 @@ class World_extension {
      * Stop the game and all the intervalls
      */
     stopGame() {
+        this.resetEnemys()
+        gameStartet = 0;
+        musicOn = 0;
+        clearInterval(this.hurtIntervall)
+        clearInterval(this.bossFightIntervall)
+        clearInterval(idleIntervall)
+        this.hideObjects()
+    }
+
+
+    resetEnemys() {
         if (bossDead == 0) {
             this.level.enemies[this.bossChicken].energy = 0;
         }
-        gameStartet = 0;
         bossDead = 0;
         this.pauseMusic()
         this.character.energy = 100;
         this.bossInNear = 0;
         this.level.enemies = [];
         this.bottleBar.percentage = 0;
-        musicOn = 0;
-        clearInterval(this.hurtIntervall)
-        clearInterval(this.bossFightIntervall)
-        clearInterval(idleIntervall)
+    }
+
+
+    hideObjects() {
         document.getElementById('startPic').style.visibility = 'visible';
         document.getElementById('startBTN').style.visibility = 'visible';
         document.getElementById('canvas').style.visibility = 'hidden';
