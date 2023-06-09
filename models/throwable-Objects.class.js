@@ -84,25 +84,40 @@ class throawbleObject extends MovableObject {
      */
     trow() {
         if (this.direction == false && this.broke == false) {
-            this.speedY = 10;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += 10;
-            }, 50)
+            this.throwRight()
         }
         else if (this.direction == true && this.broke == false) {
-            this.speedY = 10;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += -10;
-            }, 50)
+            this.throwLeft()
         }
         else {
-            this.speedY = 0;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += 0;
-            }, 50)
+            this.nothing()
         }
+    }
+
+
+    nothing() {
+        this.speedY = 0;
+        this.applyGravity();
+        setInterval(() => {
+            this.x += 0;
+        }, 50)
+    }
+
+
+    throwLeft() {
+        this.speedY = 10;
+        this.applyGravity();
+        setInterval(() => {
+            this.x += -10;
+        }, 50)
+    }
+
+
+    throwRight() {
+        this.speedY = 10;
+        this.applyGravity();
+        setInterval(() => {
+            this.x += 10;
+        }, 50)
     }
 }

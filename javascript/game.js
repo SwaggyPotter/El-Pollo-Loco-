@@ -241,19 +241,35 @@ function loadMusic() {
             backgroundAudio.play();
         }
         else {
-            backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
-            backgroundAudio.play();
-            backgroundAudio.volume = (valueSound / 100)
-            musicOn = 1
+            playTexMexMusic();
         }
     }
     else if (musicOn == 2) {
-        endBossMusic = new Audio('audio/enboss-music.mp3') // add new boss music
-        endBossMusic.play()
-        backgroundAudio.pause()
-        endBossMusic.volume = (valueSound / 100)
-        musicOn++;
+        playEnbossMusic();
     }
+}
+
+
+/**
+ * Play the standart music
+ */
+function playTexMexMusic() {
+    backgroundAudio = new Audio('audio/tex-mex-delight-mexican-mariachi-113044.mp3')
+    backgroundAudio.play();
+    backgroundAudio.volume = (valueSound / 100)
+    musicOn = 1
+}
+
+
+/**
+ * Play the endboss music
+ */
+function playEnbossMusic() {
+    endBossMusic = new Audio('audio/enboss-music.mp3') // add new boss music
+    endBossMusic.play()
+    backgroundAudio.pause()
+    endBossMusic.volume = (valueSound / 100)
+    musicOn++;
 }
 
 

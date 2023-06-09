@@ -217,15 +217,25 @@ class World extends World_extension {
                     this.bossTrigger++
                     this.bossInNear = 1;
                     this.level.enemies.forEach((enemy => {
-                        if (enemy instanceof Endboss) {
-                            enemy.attackCombination()
-                            musicOn = 2;
-                            loadMusic();
-                        }
+                        this.startAttackCombination(enemy)
                     }))
                 }
             }
         }, 10)
+    }
+
+
+    /**
+     * Start the attack combination if you in near of the endboss
+     * 
+     * @param {object} enemy - the boss chicken
+     */
+    startAttackCombination(enemy) {
+        if (enemy instanceof Endboss) {
+            enemy.attackCombination()
+            musicOn = 2;
+            loadMusic();
+        }
     }
 
 
@@ -267,19 +277,30 @@ class World extends World_extension {
         if (this.keyboard.D) {
             if (this.bottleInAir == 0) {
                 if (this.bottleBar.percentage > 0) {
-                    this.bottleBar.percentage -= 10;
-                    this.bottleBar.setPercentage(this.bottleBar.percentage);
-                    this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
-                    this.bottleInAir = 1;
-                    this.swooshBottle = new Audio('audio/bottle-swosh.mp3');
-                    this.swooshBottle.play();
-                    this.swooshBottle.volume = (valueSound / 100)
-                    setTimeout(() => {
-                        this.bottleInAir = 0;
-                    }, 1500)
+                    this.bottleReduct()
                 }
             }
         }
+    }
+
+
+    /**
+     * Reduct the bottles, 
+     * update the bottle bar, 
+     * play the throw sound, 
+     * set time out for throwing
+     */
+    bottleReduct() {
+        this.bottleBar.percentage -= 10;
+        this.bottleBar.setPercentage(this.bottleBar.percentage);
+        this.bottle = new throawbleObject(this.character.x, this.character.y, this.character.otherDirection, this.broke)
+        this.bottleInAir = 1;
+        this.swooshBottle = new Audio('audio/bottle-swosh.mp3');
+        this.swooshBottle.play();
+        this.swooshBottle.volume = (valueSound / 100)
+        setTimeout(() => {
+            this.bottleInAir = 0;
+        }, 1500)
     }
 
 
