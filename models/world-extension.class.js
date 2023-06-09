@@ -69,6 +69,8 @@ class World_extension {
         document.getElementById('canvas').style.visibility = 'hidden';
         document.getElementById('handyControls').style.visibility = 'hidden';
         document.getElementById('tutorialContainer').style.display = 'none';
+        document.getElementById('fullscreenBTN').style.display = 'none';
+        document.getElementById('musicContainer').style.display = 'none';
     }
 
 

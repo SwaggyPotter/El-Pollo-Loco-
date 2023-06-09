@@ -291,23 +291,28 @@ class World extends World_extension {
             this.level.enemies.forEach((enemy) => {
                 if (this.bottle.isColliding(enemy)) {
                     this.glasBreakSound()
-                    if (enemy.energy == 20 && enemy instanceof chicken) {
-                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.killEnemy(enemy, this.broke, this.bottle)
-                    }
-                    if (enemy.energy == 20 && enemy instanceof littleChicken) {
-                        this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
-                        this.killEnemy(enemy, this.broke, this.bottle)
-                    }
-                    else if (enemy.energy > 20 && enemy instanceof Endboss) {
-                        this.hitTheBoss(enemy, this.broke, this.bottle)
-                    }
-                    else if (enemy.energy == 20 && enemy instanceof Endboss) {
-                        this.killTheBoss(this.bottle, this.broke, enemy)
-                    }
+                    this.bottleCollisionOptions(enemy);
                 }
             })
         }, 200);
+    }
+
+
+    bottleCollisionOptions(enemy) {
+        if (enemy.energy == 20 && enemy instanceof chicken) {
+            this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+            this.killEnemy(enemy, this.broke, this.bottle)
+        }
+        if (enemy.energy == 20 && enemy instanceof littleChicken) {
+            this.deleteObjectByXCoordinate(this.level.enemies, enemy['x'])
+            this.killEnemy(enemy, this.broke, this.bottle)
+        }
+        else if (enemy.energy > 20 && enemy instanceof Endboss) {
+            this.hitTheBoss(enemy, this.broke, this.bottle)
+        }
+        else if (enemy.energy == 20 && enemy instanceof Endboss) {
+            this.killTheBoss(this.bottle, this.broke, enemy)
+        }
     }
 
 
@@ -317,21 +322,26 @@ class World extends World_extension {
     chracterEnemyCollision() {
         this.hurtIntervall = setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
-                    this.hurtThePlayer();
-                }
-                if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
-                    this.getBossDemage();
-                }
-                // kill the chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
-                    this.jumpKillChicken(enemy, 1);
-                }
-                // kill little chicken with jumping on it
-                if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
-                    this.jumpKillChicken(enemy, 2);
-                }
+                this.chracterEnemyCollisionOptions(enemy)
             })
         }, 50);
+    }
+
+
+    chracterEnemyCollisionOptions(enemy) {
+        if (this.character.isColliding(enemy) && this.character.y > 58 && this.hurtCounter == 0) {
+            this.hurtThePlayer();
+        }
+        if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
+            this.getBossDemage();
+        }
+        // kill the chicken with jumping on it
+        if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof chicken && fromeAbove == 1) {
+            this.jumpKillChicken(enemy, 1);
+        }
+        // kill little chicken with jumping on it
+        if (this.character.isColliding(enemy) && this.character.y <= 58 && enemy instanceof littleChicken && fromeAbove == 1) {
+            this.jumpKillChicken(enemy, 2);
+        }
     }
 }

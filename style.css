@@ -76,7 +76,7 @@ body {
     right: 10%;
     top: 10%;
     position: absolute;
-    display: flex;
+    display: none;
 }
 
 #volIMG {
@@ -307,7 +307,7 @@ body {
         right: 10%;
         top: 15%;
         position: absolute;
-        display: flex;
+        display: none;
     }
 
     #tutorialContainer {
